@@ -1,0 +1,72 @@
+{
+  "name": "my-snippets",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "javascript",
+          "typescript"
+        ],
+        "path": "javascript.json"
+      },
+      {
+        "language": "typescript",
+        "path": "typescript.json"
+      },
+      {
+        "language": [
+          "typescript",
+          "html"
+        ],
+        "path": "./angular/angular-html.json"
+      },
+      {
+        "language": [
+          "typescript"
+        ],
+        "path": "./angular/angular-ts.json"
+      },
+      {
+        "language": [
+          "typescript",
+          "html"
+        ],
+        "path": "./angular/angular-17-template-syntax.json"
+      },
+      {
+        "language": [
+          "docker"
+        ],
+        "path": "./angular/docker.json"
+      },
+      {
+        "language": [
+          "plaintex",
+          "tex"
+        ],
+        "path": "latex.json"
+      },
+      {
+        "language": [
+          "python"
+        ],
+        "path": "./python/main.json"
+      },
+      {
+        "language": [
+          "python"
+        ],
+        "path": "./python/pyqt.json"
+      },
+      {
+        "language": [
+          "lua"
+        ],
+        "path": "./lua/lua.json"
+      }
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 -- Customize Treesitter
 
@@ -10,6 +10,42 @@ return {
     opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
       "lua",
       "vim",
+      "typescript",
+      "tsx",
+      "javascript",
+      "java",
+      "php",
+      "xml",
+      "html",
+      "css",
+      "scss",
+      "json",
+      "yaml",
+      "c",
+      "c_sharp",
+      "angular",
+      "cpp",
+      "gitcommit",
+      "gitignore",
+      "bibtex",
+      "latex",
+      "cmake",
+      "diff",
+      "dockerfile",
+      "ini",
+      "graphql",
+      "json5",
+      "jsonc",
+      "sql",
+      "jq",
+      "jsdoc",
+      "http",
+      "matlab",
+      "markdown",
+      "markdown_inline",
+      "python",
+      "regex",
+      "disassembly",
       -- add more arguments for adding more treesitter parsers
     })
   end,
