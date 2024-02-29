@@ -65,16 +65,20 @@ return {
       },
       inactive = {
         a = { fg = colors.black, gui = "bold" },
-        b = branchDiffDiagnostic,
+        b = { fg = colors.black, gui = "bold" },
         y = { fg = colors.white, gui = "bold" },
         c = { fg = colors.white, gui = "bold" },
+        z = { fg = colors.white, gui = "bold" },
       },
     }
     require("lualine").setup {
       options = {
         icons_enabled = true,
         theme = custom_theme,
-        component_separators = { left = "", right = "" },
+        component_separators = {
+          -- left = "",
+          -- right = "",
+        },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
           statusline = {},
@@ -91,16 +95,16 @@ return {
       },
       sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch", "diff", "diagnostics" },
-        lualine_c = { "filename" },
+        lualine_b = { "branch" },
+        lualine_c = { "filename", "diff", "diagnostics" },
         lualine_x = { "encoding", "fileformat", "filetype" },
         lualine_y = { "progress" },
         lualine_z = { "location" },
       },
       inactive_sections = {
         lualine_a = {},
-        lualine_b = { "branch", "diff", "diagnostics" },
-        lualine_c = { "filename" },
+        lualine_b = { "branch" },
+        lualine_c = { "filename", "diff", "diagnostics" },
         lualine_x = { "location" },
         lualine_y = {},
         lualine_z = {},
