@@ -3,6 +3,7 @@
 
 ---@type LazySpec
 return {
+
   {
     "michaelcarno/mctheme",
     opts = { "mctheme" },
@@ -58,7 +59,8 @@ return {
       -- opts.mapping["<C-x>"] = cmp.mapping.select_next_item()
       opts.sources = cmp.config.sources {
         { name = "nvim_lsp", priority = 1000 },
-        { name = "git", priority = 900 },
+        -- { name = "cmp_zotcite", priority = 901 },
+        -- { name = "git", priority = 900 },
         { name = "luasnip", priority = 750 },
         { name = "cmdline", priority = 650 },
         { name = "buffer", priority = 500 },
@@ -79,7 +81,7 @@ return {
       --   },
       -- }
     end,
-  },
+},
   {
     "RRethy/vim-illuminate",
     enabled = true,
@@ -184,4 +186,8 @@ return {
   --     )
   --   end,
   -- },
+  {
+    "stevearc/resession.nvim",
+    enabled = true,
+  },
 }

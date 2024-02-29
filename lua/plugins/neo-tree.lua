@@ -1,138 +1,227 @@
-return {
-  "nvim-neo-tree/neo-tree.nvim",
-  enabled =false}
---
 -- return {
 --   "nvim-neo-tree/neo-tree.nvim",
---   enable =false,
---   dependencies = { "MunifTanjim/nui.nvim" },
---   cmd = "Neotree",
---   init = function() vim.g.neo_tree_remove_legacy_commands = true end,
---   opts = function()
---     -- TODO: move after neo-tree improves (https://github.com/nvim-neo-tree/neo-tree.nvim/issues/707)
---     local global_commands = {
---       system_open = function(state) require("astronvim.utils").system_open(state.tree:get_node():get_id()) end,
---       parent_or_close = function(state)
---         local node = state.tree:get_node()
---         if (node.type == "directory" or node:has_children()) and node:is_expanded() then
---           state.commands.toggle_node(state)
---         else
---           require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
---         end
---       end,
---       child_or_open = function(state)
---         local node = state.tree:get_node()
---         if node.type == "directory" or node:has_children() then
---           if not node:is_expanded() then -- if unexpanded, expand
---             state.commands.toggle_node(state)
---           else                           -- if expanded and has children, seleect the next child
---             require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
---           end
---         else -- if not a directory just open it
---           state.commands.open(state)
---         end
---       end,
---       copy_selector = function(state)
---         local node = state.tree:get_node()
---         local filepath = node:get_id()
---         local filename = node.name
---         local modify = vim.fn.fnamemodify
---
---         local results = {
---           e = { val = modify(filename, ":e"), msg = "Extension only" },
---           f = { val = filename, msg = "Filename" },
---           F = { val = modify(filename, ":r"), msg = "Filename w/o extension" },
---           h = { val = modify(filepath, ":~"), msg = "Path relative to Home" },
---           p = { val = modify(filepath, ":."), msg = "Path relative to CWD" },
---           P = { val = filepath, msg = "Absolute path" },
---         }
---
---         local messages = {
---           { "\nChoose to copy to clipboard:\n", "Normal" },
---         }
---         for i, result in pairs(results) do
---           if result.val and result.val ~= "" then
---             vim.list_extend(messages, {
---               { ("%s."):format(i),           "Identifier" },
---               { (" %s: "):format(result.msg) },
---               { result.val,                  "String" },
---               { "\n" },
---             })
---           end
---         end
---         vim.api.nvim_echo(messages, false, {})
---         local result = results[vim.fn.getcharstr()]
---         if result and result.val and result.val ~= "" then
---           vim.notify("Copied: " .. result.val)
---           vim.fn.setreg("+", result.val)
---         end
---       end,
---     }
---     local get_icon = require("astronvim.utils").get_icon
---     return {
---       auto_clean_after_session_restore = true,
---       close_if_last_window = true,
---       source_selector = {
---         winbar = false,
---         content_layout = "center",
---         tab_labels = {
---           filesystem = get_icon "FolderClosed" .. " File",
---           buffers = get_icon "DefaultFile" .. " Bufs",
---           git_status = get_icon "Git" .. " Git",
---           diagnostics = get_icon "Diagnostic" .. " Diagnostic",
---         },
---       },
---       default_component_configs = {
---         indent = { padding = 0, indent_size = 1 },
---         icon = {
---           folder_closed = get_icon "FolderClosed",
---           folder_open = get_icon "FolderOpen",
---           folder_empty = get_icon "FolderEmpty",
---           default = get_icon "DefaultFile",
---         },
---         modified = { symbol = get_icon "FileModified" },
---         git_status = {
---           symbols = {
---             added = get_icon "GitAdd",
---             deleted = get_icon "GitDelete",
---             modified = get_icon "GitChange",
---             renamed = get_icon "GitRenamed",
---             untracked = get_icon "GitUntracked",
---             ignored = get_icon "GitIgnored",
---             unstaged = get_icon "GitUnstaged",
---             staged = get_icon "GitStaged",
---             conflict = get_icon "GitConflict",
---           },
---         },
---       },
---       window = {
---         width = 30,
---         mappings = {
---           ["<space>"] = false, -- disable space until we figure out which-key disabling
---           ["[b"] = "prev_source",
---           ["]b"] = "next_source",
---           o = "open",
---           O = "system_open",
---           h = "parent_or_close",
---           l = "child_or_open",
---           Y = "copy_selector",
---         },
---       },
---       filesystem = {
---         follow_current_file = true,
---         hijack_netrw_behavior = "open_current",
---         use_libuv_file_watcher = true,
---         commands = global_commands,
---       },
---       buffers = { commands = global_commands },
---       git_status = { commands = global_commands },
---       diagnostics = { commands = global_commands },
---       event_handlers = {
---         {
---           event = "neo_tree_buffer_enter",
---           handler = function(_) vim.opt_local.signcolumn = "auto" end,
---         },
---       },
---     }
---   end,
--- }
+--   enabled =false}
+return {
+  "nvim-neo-tree/neo-tree.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "MunifTanjim/nui.nvim",
+    {
+      "AstroNvim/astrocore",
+      opts = function(_, opts)
+        local maps = opts.mappings
+        maps.n["<Leader>e"] = { "<Cmd>Neotree toggle<CR>", desc = "Toggle Explorer" }
+        maps.n["<Leader>o"] = {
+          function()
+            if vim.bo.filetype == "neo-tree" then
+              vim.cmd.wincmd "p"
+            else
+              vim.cmd.Neotree "focus"
+            end
+          end,
+          desc = "Toggle Explorer Focus",
+        }
+        opts.autocmds.neotree_start = {
+          {
+            event = "BufEnter",
+            desc = "Open Neo-Tree on startup with directory",
+            callback = function()
+              if package.loaded["neo-tree"] then
+                return true
+              else
+                local stats = (vim.uv or vim.loop).fs_stat(vim.api.nvim_buf_get_name(0)) -- TODO: REMOVE vim.loop WHEN DROPPING SUPPORT FOR Neovim v0.9
+                if stats and stats.type == "directory" then
+                  require("lazy").load { plugins = { "neo-tree.nvim" } }
+                  return true
+                end
+              end
+            end,
+          },
+        }
+        opts.autocmds.neotree_refresh = {
+          {
+            event = "TermClose",
+            pattern = "*lazygit*",
+            desc = "Refresh Neo-Tree sources when closing lazygit",
+            callback = function()
+              local manager_avail, manager = pcall(require, "neo-tree.sources.manager")
+              if manager_avail then
+                for _, source in ipairs { "filesystem", "git_status", "document_symbols" } do
+                  local module = "neo-tree.sources." .. source
+                  if package.loaded[module] then manager.refresh(require(module).name) end
+                end
+              end
+            end,
+          },
+        }
+      end,
+    },
+  },
+  cmd = "Neotree",
+  opts = function()
+    local astro = require "astrocore"
+    local get_icon = require("astroui").get_icon
+    local opts = {
+      auto_clean_after_session_restore = true,
+      close_if_last_window = true,
+      sources = { "filesystem", "buffers", "git_status" },
+      source_selector = {
+        winbar = true,
+        content_layout = "center",
+        sources = {
+          { source = "filesystem", display_name = get_icon("FolderClosed", 1, true) .. "File" },
+          { source = "buffers", display_name = get_icon("DefaultFile", 1, true) .. "Bufs" },
+          { source = "git_status", display_name = get_icon("Git", 1, true) .. "Git" },
+          { source = "diagnostics", display_name = get_icon("Diagnostic", 1, true) .. "Diagnostic" },
+        },
+      },
+      default_component_configs = {
+        indent = {
+          padding = 0,
+          expander_collapsed = get_icon "FoldClosed",
+          expander_expanded = get_icon "FoldOpened",
+        },
+        icon = {
+          folder_closed = get_icon "FolderClosed",
+          folder_open = get_icon "FolderOpen",
+          folder_empty = get_icon "FolderEmpty",
+          folder_empty_open = get_icon "FolderEmpty",
+          default = get_icon "DefaultFile",
+        },
+        modified = { symbol = get_icon "FileModified" },
+        git_status = {
+          symbols = {
+            added = get_icon "GitAdd",
+            deleted = get_icon "GitDelete",
+            modified = get_icon "GitChange",
+            renamed = get_icon "GitRenamed",
+            untracked = get_icon "GitUntracked",
+            ignored = get_icon "GitIgnored",
+            unstaged = get_icon "GitUnstaged",
+            staged = get_icon "GitStaged",
+            conflict = get_icon "GitConflict",
+          },
+        },
+      },
+      commands = {
+        system_open = function(state)
+          -- TODO: remove deprecated method check after dropping support for neovim v0.9
+          (vim.ui.open or astro.system_open)(state.tree:get_node():get_id())
+        end,
+        parent_or_close = function(state)
+          local node = state.tree:get_node()
+          if node:has_children() and node:is_expanded() then
+            state.commands.toggle_node(state)
+          else
+            require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+          end
+        end,
+        child_or_open = function(state)
+          local node = state.tree:get_node()
+          if node:has_children() then
+            if not node:is_expanded() then -- if unexpanded, expand
+              state.commands.toggle_node(state)
+            else -- if expanded and has children, seleect the next child
+              if node.type == "file" then
+                state.commands.open(state)
+              else
+                require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+              end
+            end
+          else -- if has no children
+            state.commands.open(state)
+          end
+        end,
+        copy_selector = function(state)
+          local node = state.tree:get_node()
+          local filepath = node:get_id()
+          local filename = node.name
+          local modify = vim.fn.fnamemodify
+
+          local vals = {
+            ["BASENAME"] = modify(filename, ":r"),
+            ["EXTENSION"] = modify(filename, ":e"),
+            ["FILENAME"] = filename,
+            ["PATH (CWD)"] = modify(filepath, ":."),
+            ["PATH (HOME)"] = modify(filepath, ":~"),
+            ["PATH"] = filepath,
+            ["URI"] = vim.uri_from_fname(filepath),
+          }
+
+          local options = vim.tbl_filter(function(val) return vals[val] ~= "" end, vim.tbl_keys(vals))
+          if vim.tbl_isempty(options) then
+            astro.notify("No values to copy", vim.log.levels.WARN)
+            return
+          end
+          table.sort(options)
+          vim.ui.select(options, {
+            prompt = "Choose to copy to clipboard:",
+            format_item = function(item) return ("%s: %s"):format(item, vals[item]) end,
+          }, function(choice)
+            local result = vals[choice]
+            if result then
+              astro.notify(("Copied: `%s`"):format(result))
+              vim.fn.setreg("+", result)
+            end
+          end)
+        end,
+      },
+      window = {
+        width = 30,
+        mappings = {
+          ["<S-CR>"] = "system_open",
+          ["<Space>"] = false, -- disable space until we figure out which-key disabling
+          ["[b"] = "prev_source",
+          ["]b"] = "next_source",
+          O = "system_open",
+          Y = "copy_selector",
+          h = "parent_or_close",
+          l = "child_or_open",
+        },
+        fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
+          ["<C-j>"] = "move_cursor_down",
+          ["<C-k>"] = "move_cursor_up",
+        },
+      },
+      filesystem = {
+        follow_current_file = { enabled = true },
+        hijack_netrw_behavior = "open_current",
+        use_libuv_file_watcher = vim.fn.has "win32" ~= 1,
+      },
+      event_handlers = {
+        {
+          event = "neo_tree_buffer_enter",
+          handler = function(_) vim.opt_local.signcolumn = "auto" end,
+        },
+      },
+    }
+
+    if astro.is_available "telescope.nvim" then
+      opts.commands.find_in_dir = function(state)
+        local node = state.tree:get_node()
+        local path = node.type == "file" and node:get_parent_id() or node:get_id()
+        require("telescope.builtin").find_files { cwd = path }
+      end
+      opts.window.mappings.F = "find_in_dir"
+    end
+
+    if astro.is_available "toggleterm.nvim" then
+      local toggleterm_in_direction = function(state, direction)
+        local node = state.tree:get_node()
+        local path = node.type == "file" and node:get_parent_id() or node:get_id()
+        require("toggleterm.terminal").Terminal:new({ dir = path, direction = direction }):toggle()
+      end
+      local prefix = "T"
+      ---@diagnostic disable-next-line: assign-type-mismatch
+      opts.window.mappings[prefix] =
+        { "show_help", nowait = false, config = { title = "New Terminal", prefix_key = prefix } }
+      for suffix, direction in pairs { f = "float", h = "horizontal", v = "vertical" } do
+        local command = "toggleterm_" .. direction
+        opts.commands[command] = function(state) toggleterm_in_direction(state, direction) end
+        opts.window.mappings[prefix .. suffix] = command
+      end
+    end
+
+    return opts
+  end,
+}

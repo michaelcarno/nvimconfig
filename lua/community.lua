@@ -21,12 +21,15 @@ return {
   { import = "astrocommunity.editing-support.refactoring-nvim" },
   { import = "astrocommunity.editing-support.telescope-undo-nvim" },
   { import = "astrocommunity.editing-support.text-case-nvim" },
-  { import = "astrocommunity.search.nvim-hlslens" },
+  -- { import = "astrocommunity.search.nvim-hlslens" },
+  { import = "astrocommunity.syntax.vim-cool" },
   { import = "astrocommunity.editing-support.comment-box-nvim" },
   { import = "astrocommunity.utility.telescope-live-grep-args-nvim" },
   { import = "astrocommunity.utility.nvim-toggler" },
   -- { import = "astrocommunity.lsp.garbage-day-nvim" },
   { import = "astrocommunity.pack.go" },
+  { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
+  -- { import = "astrocommunity.debugging.telescope-dap-nvim" },
 
   -- import/override with your plugins folder
 }

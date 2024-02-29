@@ -151,6 +151,7 @@ vim.filetype.add {
 }
 
 if next(vim.fn.argv()) == nil then
+  -- require("session_manager").load_session()
   require("resession").load()
 end
 -- if next(vim.fn.argv()) == nil then
@@ -160,3 +161,12 @@ end
 --     end,
 --   })
 -- end
+--
+local os = require "os"
+
+-- local path_to_desktop = os.getenv("USERPROFILE") .. ""
+local path = "D:/pinki"
+
+local vim_enter_group = vim.api.nvim_create_augroup("vim_enter_group", { clear = true })
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, { pattern = "*", command = "cd " .. path, group = vim_enter_group })
