@@ -162,11 +162,17 @@ end
 --   })
 -- end
 --
-local os = require "os"
+-- local os = require "os"
 
 -- local path_to_desktop = os.getenv("USERPROFILE") .. ""
-local path = "D:/pinki"
+-- local path = "D:/pinki"
 
-local vim_enter_group = vim.api.nvim_create_augroup("vim_enter_group", { clear = true })
+-- local vim_enter_group = vim.api.nvim_create_augroup("vim_enter_group", { clear = true })
 
-vim.api.nvim_create_autocmd({ "VimEnter" }, { pattern = "*", command = "cd " .. path, group = vim_enter_group })
+-- vim.api.nvim_create_autocmd({ "VimEnter" }, { pattern = "*", command = "cd " .. path, group = vim_enter_group })
+
+-- PackageInfoOutdatedVersion
+-- PackageInfoUpToDateVersion
+
+-- vim.cmd [[highlight link PackageInfoOutdatedVersion LspDiagnosticsFloatingError ]]
+-- vim.cmd [[highlight link PackageInfoUpToDateVersion LspDiagnosticsFloatingInfo ]]

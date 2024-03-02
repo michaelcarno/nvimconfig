@@ -1,6 +1,7 @@
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
+  -- lazy = false,
   dependencies = { "nvim-tree/nvim-web-devicons", "arkav/lualine-lsp-progress" },
   config = function()
     local colors = {
@@ -73,7 +74,7 @@ return {
       },
     }
 
-    config = {
+    local config = {
       options = {
         icons_enabled = true,
         theme = custom_theme,
@@ -191,11 +192,11 @@ return {
     local function ins_left(component) table.insert(config.sections.lualine_c, component) end
 
     -- Inserts a component in lualine_x ot right section
-    local function ins_right(component) table.insert(config.sections.lualine_x, component) end
+    local function ins_right(component) table.insert(config.sections.lualine_x, 1, component) end
 
-    local function ins_rightWinbar(component) table.insert(config.winbar.lualine_x, component) end
+    local function ins_rightWinbar(component) table.insert(config.winbar.lualine_x, 0, component) end
 
-    ins_rightWinbar {
+    ins_right {
       "lsp_progress",
       -- display_components = { "lsp_client_name", { "title", "percentage", "message" } },
       -- With spinner
@@ -227,19 +228,19 @@ return {
       },
       display_components = {
         "lsp_client_name",
-        "spinner",
+        -- "spinner",
         {
           "percentage",
-          "title",
-          "message",
+          -- "title",
+          -- "message",
         },
       },
       -- lsp_client_name_enddelay = (-1 = show always)
       timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 1000 },
       -- { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
       -- { "▁", "▃", "▄", "▅", "▆", "▇", "█" },
-      spinner_symbols =       -- { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
-{ "⢎⡰", "⢎⡡", "⢎⡑", "⢎⠱", "⠎⡱", "⢊⡱", "⢌⡱", "⢆⡱" },
+      -- { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
+      spinner_symbols = { "⢎⡰", "⢎⡡", "⢎⡑", "⢎⠱", "⠎⡱", "⢊⡱", "⢌⡱", "⢆⡱" },
     }
 
     require("lualine").setup(config)
