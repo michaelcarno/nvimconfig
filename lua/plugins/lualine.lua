@@ -1,7 +1,7 @@
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  dependencies = { "nvim-tree/nvim-web-devicons", "arkav/lualine-lsp-progress" },
   config = function()
     local colors = {
       black = "#282828",
@@ -27,6 +27,7 @@ return {
     }
     local branchDiffDiagnostic = { fg = colors.white_fff, bg = colors.purple, gui = "bold" }
     local custom_theme = require "lualine.themes.ayu_dark"
+    -- local gps = require "nvim-navic"
     custom_theme = {
       normal = {
         a = { bg = colors.normalBf, fg = colors.white, gui = "bold" },
@@ -71,7 +72,8 @@ return {
         z = { fg = colors.white, gui = "bold" },
       },
     }
-    require("lualine").setup {
+
+    config = {
       options = {
         icons_enabled = true,
         theme = custom_theme,
@@ -96,24 +98,151 @@ return {
       sections = {
         lualine_a = { "mode" },
         lualine_b = { "branch" },
-        lualine_c = { "filename", "diff", "diagnostics" },
-        lualine_x = { "encoding", "fileformat", "filetype" },
+        lualine_c = {
+          {
+            "filename",
+            path = 0,
+            file_status = true,
+
+            symbols = {
+              modified = " ●", -- Text to show when the buffer is modified
+              alternate_file = "#", -- Text to show to identify the alternate file
+              directory = "", -- Text to show when the buffer is a directory
+            },
+          },
+          "diff",
+          "diagnostics",
+          "searchcount",
+        },
+        lualine_x = {
+          "encoding",
+          {
+            "fileformat",
+
+            -- unix = '', -- e712
+            -- dos = '',  -- e70f
+            -- mac = '',  -- e711
+            symbols = {
+              unix = "unix", -- e712
+              dos = "dos", -- e70f
+              mac = "mac", -- e711
+            },
+          },
+          { "filetype", colored = true, icon_only = true },
+        },
         lualine_y = { "progress" },
         lualine_z = { "location" },
       },
       inactive_sections = {
         lualine_a = {},
         lualine_b = { "branch" },
-        lualine_c = { "filename", "diff", "diagnostics" },
+        lualine_c = { { "filename", path = 0, file_status = true }, "diff", "diagnostics" },
         lualine_x = { "location" },
         lualine_y = {},
         lualine_z = {},
       },
       tabline = {},
-      winbar = {},
-      inactive_winbar = {},
-      extensions = {},
+      winbar = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {
+          {
+            "filename",
+            file_status = true, -- displays file status (readonly status, modified status)
+            path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
+          },
+        },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
+      },
+      inactive_winbar = {
+
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {
+          {
+            "filename",
+            file_status = true, -- displays file status (readonly status, modified status)
+            path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
+          },
+        },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
+      },
+      extensions = {
+        "quickfix",
+        "oil",
+        "nvim-dap-ui",
+        "mason",
+        "fzf",
+        "aerial",
+        "symbols-outline",
+        "toggleterm",
+        "trouble",
+        -- "neo-tree",
+      },
     }
+
+    -- Вставляем в секцию С информацию о lsp
+    --
+    -- Inserts a component in lualine_c at left section
+    local function ins_left(component) table.insert(config.sections.lualine_c, component) end
+
+    -- Inserts a component in lualine_x ot right section
+    local function ins_right(component) table.insert(config.sections.lualine_x, component) end
+
+    local function ins_rightWinbar(component) table.insert(config.winbar.lualine_x, component) end
+
+    ins_rightWinbar {
+      "lsp_progress",
+      -- display_components = { "lsp_client_name", { "title", "percentage", "message" } },
+      -- With spinner
+      -- display_components = { 'lsp_client_name', 'spinner', { 'title', 'percentage', 'message' }},
+      colors = {
+        percentage = colors.cyan,
+        title = colors.cyan,
+        message = colors.cyan,
+        spinner = colors.white,
+        lsp_client_name = colors.magenta,
+        use = true,
+      },
+      separators = {
+        component = " ",
+        progress = " | ",
+        percentage = { pre = "", post = "%% " },
+        title = { pre = "", post = ": " },
+        lsp_client_name = {
+          pre = "",
+          post = "",
+        },
+        spinner = { pre = "", post = "" },
+        message = {
+          pre = "(",
+          post = ")",
+          commenced = "In Progress",
+          completed = "Completed",
+        },
+      },
+      display_components = {
+        "lsp_client_name",
+        "spinner",
+        {
+          "percentage",
+          "title",
+          "message",
+        },
+      },
+      -- lsp_client_name_enddelay = (-1 = show always)
+      timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 1000 },
+      -- { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
+      -- { "▁", "▃", "▄", "▅", "▆", "▇", "█" },
+      spinner_symbols =       -- { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
+{ "⢎⡰", "⢎⡡", "⢎⡑", "⢎⠱", "⠎⡱", "⢊⡱", "⢌⡱", "⢆⡱" },
+    }
+
+    require("lualine").setup(config)
   end,
   keys = {
     -- { "", function() end, desc ="" },

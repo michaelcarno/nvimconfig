@@ -15,7 +15,6 @@ return {
       cmp = true, -- enable completion at start
       highlighturl = true, -- highlight URLs at start
       notifications = true, -- enable notifications at start
-      -- inlay_hints_enabled = false,
     },
     -- vim options can be configured here
     options = {
@@ -35,8 +34,8 @@ return {
         foldlevelstart = 99, -- start with all code unfolded
         foldcolumn = "0", -- vim.fn.has "nvim-0.9" == 1 and "1" or nil, -- show foldcolumn in nvim 0.9
         fillchars = { eob = "~" }, -- disable `~` on nonexistent lines
-        cmdheight = 0, -- hide command line unless needed
-        pumheight = 10,
+        cmdheight = 1, -- hide command line unless needed
+        pumheight = 10, -- maximum items in popup menu
       },
       -- g = {
       --   highlighturl_enabled = false, -- highlight URLs by default
@@ -81,7 +80,7 @@ return {
         ["go"] = { "$", desc = "Last symbol of line" },
         -- ["<M-w>"]      = { "g%", desc = "Go to close parent" },
         -- quick save
-        -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+        ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
         ["F2"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
         -- version b4 fix
         -- ["<leader>lG"] = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Search symbol globaly" },
