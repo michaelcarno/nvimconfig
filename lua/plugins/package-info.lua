@@ -33,14 +33,14 @@ return {
       -- package_manager = "npm",
     }
 
-    -- require("telescope").setup {
-    --   extensions = {
-    --     package_info = {
-    --       -- Optional theme (the extension doesn't set a default theme)
-    --       -- theme = "ivy",
-    --     },
-    --   },
-    -- }
+    require("telescope").setup {
+      extensions = {
+        package_info = {
+          -- Optional theme (the extension doesn't set a default theme)
+          theme = "dropdown",
+        },
+      },
+    }
 
     require("telescope").load_extension "package_info"
     -- local lualine = require "lualine"

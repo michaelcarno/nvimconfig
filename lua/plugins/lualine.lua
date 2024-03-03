@@ -222,8 +222,8 @@ return {
         message = {
           pre = "(",
           post = ")",
-          commenced = "In Progress",
-          completed = "Completed",
+          commenced = "",
+          completed = "Done",
         },
       },
       display_components = {
