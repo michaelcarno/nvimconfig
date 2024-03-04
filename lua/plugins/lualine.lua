@@ -25,16 +25,18 @@ return {
       replaceBg = "#B60101",
       commandBg = "#990099",
       modified = "#FFff00",
-      nottoched = "#33aa88",
+      -- nottoched = "#33aa88",
+      nottoched = "#98c379",
+      -- nottoched = "#b8cc52",
       inactiveBg = "",
     }
-    local branchDiffDiagnostic = { fg = colors.white_fff, bg = colors.purple, gui = "bold" }
-    local custom_theme = require "lualine.themes.ayu_dark"
+    local branch = { fg = colors.white_fff, bg = colors.purple, gui = "bold" }
+    -- local custom_theme = require "lualine.themes.ayu_dark"
     -- local gps = require "nvim-navic"
-    custom_theme = {
+    local custom_theme = {
       normal = {
         a = { bg = colors.normalBf, fg = colors.white, gui = "bold" },
-        b = branchDiffDiagnostic,
+        b = branch,
         c = function(section)
           return {
             fg = vim.bo.modified and colors.modified or colors.nottoched,
@@ -47,7 +49,7 @@ return {
       },
       insert = {
         a = { bg = colors.insertBg, fg = colors.white, gui = "bold" },
-        b = branchDiffDiagnostic,
+        b = branch,
         c = function(section)
           return {
             fg = vim.bo.modified and colors.modified or colors.nottoched,
@@ -59,7 +61,7 @@ return {
       },
       visual = {
         a = { bg = colors.visualBg, fg = colors.black, gui = "bold" },
-        b = branchDiffDiagnostic,
+        b = branch,
         c = function(section)
           return {
             fg = vim.bo.modified and colors.modified or colors.nottoched,
@@ -70,7 +72,7 @@ return {
       },
       replace = {
         a = { bg = colors.replaceBg, fg = colors.white, gui = "bold" },
-        b = branchDiffDiagnostic,
+        b = branch,
         c = function(section)
           return {
             fg = vim.bo.modified and colors.modified or colors.nottoched,
@@ -81,7 +83,7 @@ return {
       },
       command = {
         a = { bg = colors.commandBg, fg = colors.white, gui = "bold" },
-        b = branchDiffDiagnostic,
+        b = branch,
         c = function(section)
           return {
             fg = vim.bo.modified and colors.modified or colors.nottoched,
@@ -92,7 +94,7 @@ return {
       },
       inactive = {
         a = { fg = colors.black, gui = "bold" },
-        b = branchDiffDiagnostic,
+        b = branch,
         y = { fg = colors.white, gui = "bold" },
         c = function(section)
           return {
@@ -129,6 +131,8 @@ return {
         lualine_a = { "mode" },
         lualine_b = { "branch" },
         lualine_c = {
+
+          { "filetype", colored = true, icon_only = true },
           {
             "filename",
             path = 0,
@@ -138,6 +142,8 @@ return {
               modified = " ●", -- Text to show when the buffer is modified
               alternate_file = "#", -- Text to show to identify the alternate file
               directory = "", -- Text to show when the buffer is a directory
+              -- newfile = "[newfile]",
+              readonly = "[Read Only]",
             },
           },
           "diff",
@@ -158,7 +164,6 @@ return {
               mac = "mac", -- e711
             },
           },
-          { "filetype", colored = true, icon_only = true },
         },
         lualine_y = { "progress" },
         lualine_z = { "location" },
@@ -166,7 +171,22 @@ return {
       inactive_sections = {
         lualine_a = {},
         lualine_b = { "branch" },
-        lualine_c = { { "filename", path = 0, file_status = true }, "diff", "diagnostics" },
+        lualine_c = {
+          { "filetype", colored = true, icon_only = true, padding = -1 },
+          {
+            "filename",
+            path = 0,
+            file_status = true,
+
+            symbols = {
+              modified = " ●", -- Text to show when the buffer is modified
+              alternate_file = "#", -- Text to show to identify the alternate file
+              directory = "", -- Text to show when the buffer is a directory
+            },
+          },
+          "diff",
+          "diagnostics",
+        },
         lualine_x = { "location" },
         lualine_y = {},
         lualine_z = {},
@@ -179,7 +199,17 @@ return {
           {
             "filename",
             file_status = true, -- displays file status (readonly status, modified status)
-            path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
+            path = 2, -- 0 = just filename, 1 = relative path, 2 = absolute path
+            -- path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
+            shorting_target = 100, -- Shortens path to leave 40 spaces in the window
+
+            symbols = {
+              modified = " ●", -- Text to show when the buffer is modified
+              alternate_file = "#", -- Text to show to identify the alternate file
+              directory = "", -- Text to show when the buffer is a directory
+              -- newfile = "[newfile]",
+              readonly = "[Read Only]",
+            },
           },
         },
         lualine_x = {},
