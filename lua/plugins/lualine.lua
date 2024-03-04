@@ -12,7 +12,7 @@ return {
       green = "#b8bb26",
       yellow = "#ffff00",
       blue = "#234779",
-      -- yellow = "#fe8019",
+      orange = "#fe8019",
       gray = "#a89984",
       -- purple = "#c678dd",
       purple = "#590099",
@@ -21,9 +21,11 @@ return {
       inactivegray = "#7c6f64",
       normalBf = "#234779",
       insertBg = "#B60101",
-      visualBg = "#FcFF00",
+      visualBg = "#FFFF00",
       replaceBg = "#B60101",
       commandBg = "#990099",
+      modified = "#FFff00",
+      nottoched = "#33aa88",
       inactiveBg = "",
     }
     local branchDiffDiagnostic = { fg = colors.white_fff, bg = colors.purple, gui = "bold" }
@@ -33,43 +35,70 @@ return {
       normal = {
         a = { bg = colors.normalBf, fg = colors.white, gui = "bold" },
         b = branchDiffDiagnostic,
-        c = { fg = colors.white, gui = "bold" },
+        c = function(section)
+          return {
+            fg = vim.bo.modified and colors.modified or colors.nottoched,
+          }
+        end,
+
+        -- c = { fg = colors.white, gui = "bold" },
         y = { fg = colors.white, gui = "bold" },
         z = { bg = colors.normalBf, fg = colors.white_fff, gui = "bold" },
       },
       insert = {
         a = { bg = colors.insertBg, fg = colors.white, gui = "bold" },
         b = branchDiffDiagnostic,
-        c = { fg = colors.white, gui = "bold" },
+        c = function(section)
+          return {
+            fg = vim.bo.modified and colors.modified or colors.nottoched,
+          }
+        end,
+
         y = { fg = colors.white, gui = "bold" },
         z = { bg = colors.insertBg, fg = colors.white, gui = "bold" },
       },
       visual = {
         a = { bg = colors.visualBg, fg = colors.black, gui = "bold" },
         b = branchDiffDiagnostic,
-        c = { fg = colors.white, gui = "bold" },
+        c = function(section)
+          return {
+            fg = vim.bo.modified and colors.modified or colors.nottoched,
+          }
+        end,
         y = { fg = colors.white, gui = "bold" },
         z = { bg = colors.visualBg, fg = colors.black, gui = "bold" },
       },
       replace = {
         a = { bg = colors.replaceBg, fg = colors.white, gui = "bold" },
         b = branchDiffDiagnostic,
-        c = { fg = colors.white, gui = "bold" },
+        c = function(section)
+          return {
+            fg = vim.bo.modified and colors.modified or colors.nottoched,
+          }
+        end,
         y = { fg = colors.white, gui = "bold" },
         z = { bg = colors.replaceBg, fg = colors.white, gui = "bold" },
       },
       command = {
         a = { bg = colors.commandBg, fg = colors.white, gui = "bold" },
         b = branchDiffDiagnostic,
-        c = { fg = colors.white, gui = "bold" },
+        c = function(section)
+          return {
+            fg = vim.bo.modified and colors.modified or colors.nottoched,
+          }
+        end,
         y = { fg = colors.white, gui = "bold" },
         z = { bg = colors.commandBg, fg = colors.white, gui = "bold" },
       },
       inactive = {
         a = { fg = colors.black, gui = "bold" },
-        b = { fg = colors.black, gui = "bold" },
+        b = branchDiffDiagnostic,
         y = { fg = colors.white, gui = "bold" },
-        c = { fg = colors.white, gui = "bold" },
+        c = function(section)
+          return {
+            fg = vim.bo.modified and colors.modified or colors.nottoched,
+          }
+        end,
         z = { fg = colors.white, gui = "bold" },
       },
     }

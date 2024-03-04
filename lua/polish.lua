@@ -154,6 +154,7 @@ if next(vim.fn.argv()) == nil then
   -- require("session_manager").load_session()
   require("resession").load()
 end
+
 -- if next(vim.fn.argv()) == nil then
 --   vim.api.nvim_create_autocmd("UIEnter", {
 --     callback = function()
@@ -176,3 +177,29 @@ end
 
 -- vim.cmd [[highlight link PackageInfoOutdatedVersion LspDiagnosticsFloatingError ]]
 -- vim.cmd [[highlight link PackageInfoUpToDateVersion LspDiagnosticsFloatingInfo ]]
+vim.o.title = true
+
+-- vim.cmd("set titlestring=" .. "nvim_" .. require("resession").get_current())
+
+-- vim.api.nvim_create_autocmd({ "BufEnter", "BufNew", "BufRead", "BufAdd" }, {
+--   callback = function()
+--     -- vim.o.titlestring = "nvim " .. require("resession").get_current()
+--     vim.fn.timer_start(1000, function()
+--       print(require("resession").get_current())
+--       -- vim.o.title = true
+--       -- vim.o.titlestring = "nvim " .. require("resession").get_current()
+--       -- local title = "set titlestring=" .. "nvim_" .. require("resession").get_current()
+--       -- vim.cmd(title)
+--       -- vim.cmd("set titlestring=" .. "nvim_" .. require("resession").get_current())
+--     end)
+--   end,
+-- })
+--
+-- require("resession").add_hook("post_load", function()
+--   -- vim.o.title = true
+--   vim.fn.timer_start(1000, function() vim.o.titlestring = "nvim_" .. require("resession").get_current() end)
+-- end)
+-- require("resession").add_hook("post_save", function()
+--   vim.o.title = true
+--   vim.o.titlestring = "nvim_" .. require("resession").get_current()
+-- end)

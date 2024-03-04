@@ -81,7 +81,7 @@ return {
       --   },
       -- }
     end,
-},
+  },
   {
     "RRethy/vim-illuminate",
     enabled = true,
@@ -188,6 +188,7 @@ return {
   -- },
   {
     "stevearc/resession.nvim",
+    -- lazy = false,
     enabled = true,
   },
 }
