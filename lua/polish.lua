@@ -138,18 +138,29 @@ vim.g.dotnet_get_dll_path = function()
 end
 -- !DOTNET
 -- Set up custom filetypes
-vim.filetype.add {
-  extension = {
-    foo = "fooscript",
-  },
-  filename = {
-    ["Foofile"] = "fooscript",
-  },
-  pattern = {
-    ["~/%.config/foo/.*"] = "fooscript",
-  },
-}
-
+-- vim.filetype.add {
+--   extension = {
+--     foo = "fooscript",
+--   },
+--   filename = {
+--     ["Foofile"] = "fooscript",
+--   },
+--   pattern = {
+--     ["~/%.config/foo/.*"] = "fooscript",
+--   },
+-- }
+--
+-- vim.filetype.add {
+--   extension = {
+--     html = "angular",
+--   },
+--   filename = {
+--     ["*.component.html"] = "angular",
+--   },
+--   -- pattern = {
+--   --   ["~/%.config/foo/.*"] = "fooscript",
+--   -- },
+-- }
 if next(vim.fn.argv()) == nil then
   -- require("session_manager").load_session()
   require("resession").load()

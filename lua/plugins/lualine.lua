@@ -224,7 +224,17 @@ return {
           {
             "filename",
             file_status = true, -- displays file status (readonly status, modified status)
-            path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
+            path = 2, -- 0 = just filename, 1 = relative path, 2 = absolute path
+            -- path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
+            shorting_target = 100, -- Shortens path to leave 40 spaces in the window
+
+            symbols = {
+              modified = " ●", -- Text to show when the buffer is modified
+              alternate_file = "#", -- Text to show to identify the alternate file
+              directory = "", -- Text to show when the buffer is a directory
+              -- newfile = "[newfile]",
+              readonly = "[Read Only]",
+            },
           },
         },
         lualine_x = {},
