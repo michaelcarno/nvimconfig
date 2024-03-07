@@ -29,7 +29,9 @@ return {
   -- { import = "astrocommunity.utility.noice-nvim" },
   -- { import = "astrocommunity.lsp.garbage-day-nvim" },
   { import = "astrocommunity.pack.go" },
+  { import = "astrocommunity.lsp.delimited-nvim" },
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
+  -- { import = "astrocommunity.note-taking.obsidian-nvim" },
   -- { import = "astrocommunity.debugging.telescope-dap-nvim" },
 
   -- import/override with your plugins folder
