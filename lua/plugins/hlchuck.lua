@@ -26,6 +26,13 @@ return {
         error_sign = true,
       },
 
+      context = {
+        enable = false,
+        chars = { "n" },
+        use_treesitter = false,
+        -- support_filetypes = ft.support_filetypes,
+        -- exclude_filetypes = ft.exclude_filetypes,
+      },
       indent = {
         enable = false,
         use_treesitter = false,
@@ -45,6 +52,7 @@ return {
 
       blank = {
         enable = false,
+        use_treesitter = false,
         chars = {
           "․",
         },

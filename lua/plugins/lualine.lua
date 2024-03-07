@@ -201,7 +201,7 @@ return {
             file_status = true, -- displays file status (readonly status, modified status)
             path = 2, -- 0 = just filename, 1 = relative path, 2 = absolute path
             -- path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
-            shorting_target = 100, -- Shortens path to leave 40 spaces in the window
+            shorting_target = 0, -- Shortens path to leave 40 spaces in the window
 
             symbols = {
               modified = " ●", -- Text to show when the buffer is modified
@@ -226,7 +226,7 @@ return {
             file_status = true, -- displays file status (readonly status, modified status)
             path = 2, -- 0 = just filename, 1 = relative path, 2 = absolute path
             -- path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
-            shorting_target = 100, -- Shortens path to leave 40 spaces in the window
+            shorting_target = 0, -- Shortens path to leave 40 spaces in the window
 
             symbols = {
               modified = " ●", -- Text to show when the buffer is modified
