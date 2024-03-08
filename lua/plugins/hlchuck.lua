@@ -28,7 +28,7 @@ return {
 
       context = {
         enable = false,
-        chars = { "n" },
+        chars = { "│" },
         use_treesitter = false,
         -- support_filetypes = ft.support_filetypes,
         -- exclude_filetypes = ft.exclude_filetypes,
@@ -54,7 +54,7 @@ return {
         enable = false,
         use_treesitter = false,
         chars = {
-          "․",
+          "·",
         },
         style = {
           vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID "Whitespace"), "fg", "gui"),
