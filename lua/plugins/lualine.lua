@@ -21,7 +21,7 @@ return {
       inactivegray = "#7c6f64",
       normalBf = "#234779",
       insertBg = "#B60101",
-      visualBg = "#FFFF00",
+      visualBg = "#cccc00",
       replaceBg = "#B60101",
       commandBg = "#990099",
       modified = "#FFff00",
