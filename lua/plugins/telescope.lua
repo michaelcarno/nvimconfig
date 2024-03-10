@@ -37,27 +37,29 @@ return {
         --   tags = { fname_width = 100,path_display = {"absolute"} },
       },
       defaults = {
+
+        -- dynamic_preview_title: "asdf",
         -- prompt_prefix = string.format("%s ", get_icon "Search"),
         selection_caret = string.format("%s ", get_icon "Selected"),
         -- path_display = { truncate = 150},
         sorting_strategy = "ascending",
         layout_strategy = "vertical",
-        -- layout_strategy = "vertical",
+        -- layout_strategy = "horizontal",
         winblend = 0,
         layout_config = {
           horizontal = {
             prompt_position = "bottom",
-            preview_width = 0.40,
-            mirror = true,
+            preview_width = 0.30,
+            mirror = false,
           },
           vertical = {
             mirror = false,
             prompt_position = "bottom",
-            preview_height = 0.65,
+            preview_height = 0.75,
             -- preview_width = 0.80,
           },
           width = 0.65,
-          height = 0.95,
+          height = 0.98,
           -- preview_cutoff = 50,
         },
         file_ignore_patterns = {

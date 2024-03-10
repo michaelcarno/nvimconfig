@@ -43,6 +43,7 @@ return {
           }
         end,
 
+        -- x = { fg = colors. },
         -- c = { fg = colors.white, gui = "bold" },
         y = { fg = colors.white, gui = "bold" },
         z = { bg = colors.normalBf, fg = colors.white_fff, gui = "bold" },
@@ -154,14 +155,13 @@ return {
           "encoding",
           {
             "fileformat",
-
             -- unix = '', -- e712
             -- dos = '',  -- e70f
             -- mac = '',  -- e711
             symbols = {
-              unix = "unix", -- e712
-              dos = "dos", -- e70f
-              mac = "mac", -- e711
+              unix = "[unix]", -- e712
+              dos = "[dos]", -- e70f
+              mac = "[mac]", -- e711
             },
           },
         },
