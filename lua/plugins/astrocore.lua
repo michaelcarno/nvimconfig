@@ -128,7 +128,8 @@ return {
           desc = "Telescoper find files",
         },
         ["fo"] = { "<cmd>Oil<cr>", desc = "Oil" },
-        ["fg"] = { "<cmd>Telescope live_grep_args<CR>", desc = "Telescoper find with grep" },
+        -- ["fg"] = { "<cmd>Telescope live_grep_args<CR>", desc = "Telescoper find with grep" },
+        ["fg"] = { "<cmd>Telescope live_grep<CR>", desc = "Telescoper find word" },
         ["fF"] = {
           function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
           desc = "Find all files",

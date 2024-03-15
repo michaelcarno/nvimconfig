@@ -214,3 +214,5 @@ vim.o.title = true
 --   vim.o.title = true
 --   vim.o.titlestring = "nvim_" .. require("resession").get_current()
 -- end)
+--
+-- require "plugins/modules/prettyTelescopePicker"
