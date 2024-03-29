@@ -27,7 +27,7 @@ require("notify").setup {
   minimum_width = 50,
   render = "default",
   stages = "static",
-  timeout = 5000,
+  timeout = 1000,
   top_down = true,
   max_width = nil,
   max_height = nil,
