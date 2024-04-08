@@ -7,11 +7,15 @@
 ---@type LazySpec
 return {
   -- TODO: Remove branch v4 on release
-  { "AstroNvim/astrocommunity", branch = "v4" },
+  {
+    "AstroNvim/astrocommunity",
+    -- branch = "main",
+  },
   -- { import = "astrocommunity.pack.lua" },
 
   -- { import = "astrocommunity.git.neogit" },
   { import = "astrocommunity.motion.mini-ai" },
+  { import = "astrocommunity.completion.codeium-vim" },
   { import = "astrocommunity.motion.mini-move" },
   { import = "astrocommunity.motion.flash-nvim" },
   { import = "astrocommunity.register.nvim-neoclip-lua" },

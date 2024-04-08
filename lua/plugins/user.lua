@@ -61,25 +61,27 @@ return {
         { name = "nvim_lsp", priority = 1000 },
         -- { name = "cmp_zotcite", priority = 901 },
         -- { name = "git", priority = 900 },
+
+        { name = "codeium", priority = 1050 },
         { name = "luasnip", priority = 750 },
         { name = "cmdline", priority = 650 },
         { name = "buffer", priority = 500 },
         { name = "path", priority = 250 },
       }
-      -- local lspkind_status_ok, lspkind = pcall(require, "lspkind")
-      -- opts.formatting = {
-      --   format = lspkind.cmp_format {
-      --     mode = "text",
-      --     menu = {
-      --       -- codeinum = "[Codeinum]",
-      --       buffer = "[Buffer]",
-      --       nvim_lsp = "[LSP]",
-      --       luasnip = "[LuaSnip]",
-      --       nvim_lua = "[Lua]",
-      --       latex_symbols = "[Latex]",
-      --     },
-      --   },
-      -- }
+      local lspkind_status_ok, lspkind = pcall(require, "lspkind")
+      opts.formatting = {
+        format = lspkind.cmp_format {
+          mode = "text",
+          menu = {
+            codeinum = "[Codeinum]",
+            buffer = "[Buffer]",
+            nvim_lsp = "[LSP]",
+            luasnip = "[LuaSnip]",
+            nvim_lua = "[Lua]",
+            latex_symbols = "[Latex]",
+          },
+        },
+      }
     end,
   },
   {
