@@ -41,6 +41,12 @@ return {
     },
     -- enable servers that you already have installed without mason
     servers = {
+      -- "pyright"
+    },
+    -- customize language server configuration options passed to `lspconfig`
+    ---@diagnostic disable: missing-fields
+    config = {
+      clangd = { capabilities = { offsetEncoding = "utf-8" } },
       cssmodules_ls = {
         filetypes = { "angular", "html" },
       },
@@ -70,12 +76,6 @@ return {
         -- filetypes = {"angular"}
         filetypes = { "angular", "typescript", "html", "typescriptreact", "typescript.tsx" },
       },
-      -- "pyright"
-    },
-    -- customize language server configuration options passed to `lspconfig`
-    ---@diagnostic disable: missing-fields
-    config = {
-      clangd = { capabilities = { offsetEncoding = "utf-8" } },
     },
     -- customize how language servers are attached
     handlers = {
