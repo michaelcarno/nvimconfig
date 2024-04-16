@@ -32,7 +32,7 @@ return {
   { import = "astrocommunity.utility.nvim-toggler" },
   -- { import = "astrocommunity.utility.noice-nvim" },
   -- { import = "astrocommunity.lsp.garbage-day-nvim" },
-  { import = "astrocommunity.pack.go" },
+  -- { import = "astrocommunity.pack.go" },
   -- { import = "astrocommunity.lsp.delimited-nvim" },
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
   -- { import = "astrocommunity.note-taking.obsidian-nvim" },
