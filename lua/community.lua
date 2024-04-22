@@ -15,6 +15,7 @@ return {
 
   -- { import = "astrocommunity.git.neogit" },
   { import = "astrocommunity.motion.mini-ai" },
+  -- { import = "astrocommunity.file-explorer.oil-nvim" },
   { import = "astrocommunity.completion.codeium-vim" },
   { import = "astrocommunity.motion.mini-move" },
   { import = "astrocommunity.motion.flash-nvim" },

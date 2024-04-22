@@ -4,6 +4,44 @@
 -- things like custom filetypes. This just pure lua so anything that doesn't
 -- fit in the normal config locations above can go here
 
+vim.g.firenvim_config = {
+  globalSettings = { alt = "all" },
+  localSettings = {
+    [".*"] = {
+      cmdline = "neovim",
+      content = "text",
+      priority = 1,
+      selector = "",
+      takeover = "never",
+    },
+  },
+}
+
+if vim.g.started_by_firenvim == true then
+  -- vim.api.nvim_create_autocmd('UIEnter', {
+  --   pattern = "*",
+  --   cmd = "set guifont=JetBrainsMono NFP:h15"
+  -- })
+  vim.g.icons_enabled = false
+  vim.api.nvim_create_autocmd("UIEnter", {
+    callback = function()
+      vim.fn.timer_start(100, function()
+        vim.opt.lines = 15
+        vim.cmd "set guifont=JetBrainsMono:h15"
+      end)
+    end,
+  })
+  vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "github.com_*.txt",
+    cmd = "set filetype=markdown",
+  })
+  -- vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+  --   pattern = "*.txt",
+  --   cmd = "set filetype=html"
+  -- })
+  -- return
+end
+
 require("nvim-treesitter.install").compilers = { "clang" }
 vim.api.nvim_exec("language en_US", true)
 vim.fn.timer_start(100, function()
@@ -60,10 +98,10 @@ telescope.setup {
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 parser_config.teraonline_definitions = {
   install_info = {
-    url = "D://pinki//backstep//treesitter-teradefinition", -- local path or git repo
+    url = "https://github.com/michaelcarno/nvim-treesitter-teraproxy-definition.git", -- local path or git repo
     files = { "src/parser.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
     -- optional entries:
-    branch = "main", -- default branch in case of git repo if different from master
+    branch = "master", -- default branch in case of git repo if different from master
     generate_requires_npm = false, -- if stand-alone parser without npm dependencies
     requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
   },

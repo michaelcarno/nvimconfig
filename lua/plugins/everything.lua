@@ -3,6 +3,11 @@ return {
     event = "VeryLazy",
     config = function()
         require("telescope").load_extension "everything"
+      --   require("telescope").extensions.everything.mappings = {
+      -- i = {
+      --   ["<C-r>"] = function() require("telescope-everything").ToggleRegex() end,
+      -- },
+    -- }
     end,
     keys = {
         {

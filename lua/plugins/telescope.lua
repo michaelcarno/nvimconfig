@@ -62,6 +62,8 @@ return {
         end,
       }
     end
+
+
     return {
       pickers = {
         -- everything = { path_display = filenameFirst },
@@ -113,16 +115,17 @@ return {
           height = 0.98,
           -- preview_cutoff = 50,
         },
-        file_ignore_patterns = {
-          ".git\\",
-          "__pycache__\\",
-          "node_modules\\",
-          "%.zip",
-          ".class",
-          "%.mp4",
-          "%.dll",
-          "%.pdf",
-        },
+        -- find files get ingnore from .gitignore
+        -- file_ignore_patterns = {
+        --   ".git\\",
+        --   "__pycache__\\",
+        --   "node_modules\\",
+        --   "%.zip",
+        --   ".class",
+        --   "%.mp4",
+        --   "%.dll",
+        --   "%.pdf",
+        -- },
         mappings = {
           i = {
             ["<C-n>"] = actions.cycle_history_next,
