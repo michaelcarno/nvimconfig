@@ -1,6 +1,7 @@
 return {
   "NeogitOrg/neogit",
   event = "User AstroGitFile",
+  branch= "nightly",
   dependencies = {
         "nvim-lua/plenary.nvim",         -- required
         "sindrets/diffview.nvim",        -- optional - Diff integration
