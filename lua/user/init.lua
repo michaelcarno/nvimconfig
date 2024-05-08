@@ -91,6 +91,107 @@ return {
           },
         },
       },
+      omnisharp = {
+        settings = {
+          RoslynExtensionsOptions = {
+            InlayHintsOptions = {
+              EnableForParameters = true,
+              ForLiteralParameters = true,
+              ForIndexerParameters = true,
+              ForObjectCreationParameters = true,
+              ForOtherParameters = true,
+              SuppressForParametersThatDifferOnlyBySuffix = false,
+              SuppressForParametersThatMatchMethodIntent = false,
+              SuppressForParametersThatMatchArgumentName = false,
+              EnableForTypes = true,
+              ForImplicitVariableTypes = true,
+              ForLambdaParameterTypes = true,
+              ForImplicitObjectCreatio = true,
+            },
+          },
+        },
+      },
+      pylyzer = {
+        settings = {
+          python = {
+            inlayHints = true,
+          },
+        },
+      },
+      rust_analyzer = {
+        settings = {
+          ["rust-analyzer"] = {
+            inlayHints = {
+              bindingModeHints = {
+                enable = false,
+              },
+              chainingHints = {
+                enable = true,
+              },
+              closingBraceHints = {
+                enable = true,
+                minLines = 25,
+              },
+              closureReturnTypeHints = {
+                enable = "never",
+              },
+              lifetimeElisionHints = {
+                enable = "never",
+                useParameterNames = false,
+              },
+              maxLength = 25,
+              parameterHints = {
+                enable = true,
+              },
+              reborrowHints = {
+                enable = "never",
+              },
+              renderColons = true,
+              typeHints = {
+                enable = true,
+                hideClosureInitialization = false,
+                hideNamedConstructor = false,
+              },
+            },
+          },
+        },
+      },
+      deno = {
+        settings = {
+          deno = {
+            inlayHints = {
+              parameterNames = { enabled = "all", suppressWhenArgumentMatchesName = true },
+              parameterTypes = { enabled = true },
+              variableTypes = { enabled = true, suppressWhenTypeMatchesName = true },
+              propertyDeclarationTypes = { enabled = true },
+              functionLikeReturnTypes = { enable = true },
+              enumMemberValues = { enabled = true },
+            },
+          },
+        },
+      },
+      clangd = {
+        settings = {
+          clangd = {
+            InlayHints = {
+              Designators = true,
+              Enabled = true,
+              ParameterNames = true,
+              DeducedTypes = true,
+            },
+            fallbackFlags = { "-std=c++20" },
+          },
+        },
+      },
+      lua_ls = {
+        settings = {
+          Lua = {
+            hint = {
+              enable = true, -- necessary
+            },
+          },
+        },
+      },
       cssmodules_ls = {
         filetypes = { "angular", "html" },
       },
@@ -221,14 +322,14 @@ return {
       vim.cmd "set imsearch=0"
       vim.cmd "set laststatus=2"
     end)
-    vim.api.nvim_create_autocmd("BufEnter", {
-      callback = function()
-        vim.fn.timer_start(100, function()
-          vim.cmd "set title"
-          vim.cmd "set titlestring=%F"
-        end)
-      end,
-    })
+    -- vim.api.nvim_create_autocmd("BufEnter", {
+    --   callback = function()
+    --     vim.fn.timer_start(100, function()
+    --       vim.cmd "set title"
+    --       vim.cmd "set titlestring=\"NVIM %F\""
+    --     end)
+    --   end,
+    -- })
     local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
     parser_config.teraonline_definitions = {
@@ -427,7 +528,7 @@ return {
 
     vim.g.dotnet_get_dll_path = function()
       local request = function()
-        if vim.g["dotnet_last_dll_path"] ~= nim then
+        if vim.g["dotnet_last_dll_path"] ~= nil then
           return vim.fn.input("Path to dll ", vim.g["dotnet_last_dll_path"])
         end
 

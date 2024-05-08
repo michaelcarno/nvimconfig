@@ -1,7 +1,7 @@
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
-    { "nvim-telescope/telescope-fzf-native.nvim", enabled = vim.fn.executable "make" == 1, build = "make" },
+    { "nvim-telescope/telescope-fzf-native.nvim", enabled = vim.fn.executable "make" == 1, build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build" },
   },
   cmd = "Telescope",
   opts = function(_, opts)
@@ -63,7 +63,6 @@ return {
       }
     end
 
-
     return {
       pickers = {
         -- everything = { path_display = filenameFirst },
@@ -75,18 +74,18 @@ return {
         --   current_buffer_tags = { fname_width = 100,path_display = {"absolute"} },
         jumplist = { show_line = false, path_display = filenameFirst },
         --   loclist = { fname_width = 100,path_display = {"absolute"} },
-        --   lsp_definitions = { fname_width = 100,path_display = {"absolute"} },
-        --   lsp_document_symbols = { fname_width = 100,path_display = {"absolute"} },
-        --   lsp_dynamic_workspace_symbols = { fname_width = 100,path_display = {"absolute"} },
+        lsp_definitions = { show_line = false, path_display = filenameFirst },
+        lsp_document_symbols = { show_line = false, path_display = filenameFirst },
+        -- lsp_dynamic_workspace_symbols = { fname_width = 100,path_display = {"absolute"} },
         lsp_dynamic_workspace_symbols = { path_display = filenameFirst },
-        --   lsp_implementations = { fname_width = 100,path_display = {"absolute"} },
-        --   lsp_incoming_calls = { fname_width = 100,path_display = {"absolute"} },
-        --   lsp_outgoing_calls = { fname_width = 100,path_display = {"absolute"} },
-        -- lsp_references = {fname_width = 100,path_display = {"absolute"}},
+        lsp_implementations = { show_line = false, path_display = filenameFirst },
+        lsp_incoming_calls = { show_line = false, path_display = filenameFirst },
+        lsp_outgoing_calls = { show_line = false, path_display = filenameFirst },
+        -- lsp_references = {fname_width = 100, path_display = {"absolute"}},
         lsp_references = { show_line = false, path_display = filenameFirst },
         --   lsp_type_definitions = { fname_width = 100,path_display = {"absolute"} },
         --   lsp_workspace_symbols = { fname_width = 100,path_display = {"absolute"} },
-        --   quickfix = { fname_width = 100,path_display = {"absolute"} },
+        quickfix = { show_line = false, path_display = filenameFirst },
         --   tags = { fname_width = 100,path_display = {"absolute"} },
       },
       defaults = {
@@ -96,6 +95,8 @@ return {
         -- selection_caret = string.format("%s ", get_icon "Selected"),
         -- path_display = { truncate = 150},
         sorting_strategy = "ascending",
+        -- scroll_strategy= 'limit',
+        -- selection_strategy= 'row',
         layout_strategy = "vertical",
         -- layout_strategy = "horizontal",
         winblend = 0,
