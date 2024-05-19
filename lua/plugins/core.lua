@@ -8,11 +8,12 @@ return {
     "Shatur/neovim-session-manager",
     event = "BufWritePost",
     cmd = "SessionManager",
-    enabled = vim.g.resession_enabled ~= true,
+    -- enabled = vim.g.resession_enabled ~= true,
   },
   {
     "stevearc/resession.nvim",
-    enabled = vim.g.resession_enabled == true,
+    -- enabled = vim.g.resession_enabled == true,
+    enabled = false,
     lazy = true,
     opts = {
       buf_filter = function(bufnr) return require("astronvim.utils.buffer").is_restorable(bufnr) end,

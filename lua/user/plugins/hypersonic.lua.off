@@ -1,0 +1,10 @@
+return {
+"tomiis4/hypersonic.nvim",
+event = "VeryLazy",
+config = function()
+require('hypersonic').setup()
+end,
+keys = {
+ -- { "", function() end, desc ="" },
+}
+}

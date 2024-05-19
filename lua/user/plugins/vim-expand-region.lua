@@ -1,6 +1,6 @@
 return {
   "terryma/vim-expand-region",
   event = "VeryLazy",
-  enabled = false,
+  enabled = true,
   config = function() end,
 }
