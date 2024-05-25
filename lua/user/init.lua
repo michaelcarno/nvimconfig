@@ -280,6 +280,20 @@ return {
     -- end
   },
   polish = function()
+    -- USE POWER SHELL INSTEAD CMD
+local powershell_options = {
+  shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
+  shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+  shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+  shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+  shellquote = "",
+  shellxquote = "",
+}
+
+for option, value in pairs(powershell_options) do
+  vim.opt[option] = value
+end
+
     -- REFACTOR or DELETE after  it will be fixed in 0.10 https://github.com/nvim-telescope/telescope.nvim/issues/2027
     -- vim.api.nvim_create_autocmd("WinLeave", {
     --   callback = function()
@@ -404,7 +418,7 @@ return {
       minimum_width = 50,
       render = "default",
       stages = "static",
-      timeout = 5000,
+      timeout = 2000,
       top_down = true,
       max_width = nil,
       max_height = nil,

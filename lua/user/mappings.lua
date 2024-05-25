@@ -69,10 +69,10 @@ return {
       desc = "Find buffers",
     },
     ["<M-w>"]       = { "%", desc = "Go to close parent" },
-    ["gD"]       = { "<cmd>Glance definitions<cr>", desc = "go to definition" },
-    ["gR"]       = { "<cmd>Glance references<cr>", desc = "go to references" },
-    ["gY"]       = { "<cmd>Glance type_definitions<cr>", desc = "go to type definitions" },
-    ["gM"]       = { "<cmd>Glance implementations<cr>", desc = "go to implementations" },
+    ["<leader>gD"]       = { "<cmd>Glance definitions<cr>", desc = "go to definition" },
+    ["<leader>gR"]       = { "<cmd>Glance references<cr>", desc = "go to references" },
+    ["<leader>gY"]       = { "<cmd>Glance type_definitions<cr>", desc = "go to type definitions" },
+    ["<leader>gM"]       = { "<cmd>Glance implementations<cr>", desc = "go to implementations" },
     ["<C-q>"] = false
   },
   v = {
