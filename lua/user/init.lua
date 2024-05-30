@@ -420,8 +420,8 @@ end
       stages = "static",
       timeout = 2000,
       top_down = true,
-      max_width = nil,
-      max_height = nil,
+      max_width = 50,
+      max_height = 5,
       on_open = nil,
       on_close = nil,
     }
