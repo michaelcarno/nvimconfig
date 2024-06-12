@@ -281,18 +281,40 @@ return {
   },
   polish = function()
     -- USE POWER SHELL INSTEAD CMD
-local powershell_options = {
-  shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
-  shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
-  shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
-  shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
-  shellquote = "",
-  shellxquote = "",
-}
+    local powershell_options = {
+      shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
+      shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+      shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+      shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+      shellquote = "",
+      shellxquote = "",
+    }
 
-for option, value in pairs(powershell_options) do
-  vim.opt[option] = value
-end
+    for option, value in pairs(powershell_options) do
+      vim.opt[option] = value
+    end
+
+    vim.cmd [[let g:codeium_bin = "c:/nvim/soft/language_server_windows_x64.exe"]]
+
+    -- vim.cmd "g:codeium_bin = "c:/nvim/soft/language_server_windows_x64"
+    -- disable diagnostic in insert mode
+    -- Display diagnostics as virtual text only if not in insert mode
+    -- vim.api.nvim_create_autocmd("InsertEnter", {
+    --   pattern = "*",
+    --   callback = function()
+    --     vim.diagnostic.config({
+    --       virtual_text = false,
+    --     })
+    --   end
+    -- })
+    -- vim.api.nvim_create_autocmd("InsertLeave", {
+    --   pattern = "*",
+    --   callback = function()
+    --     vim.diagnostic.config({
+    --       virtual_text = true,
+    --     })
+    --   end
+    -- })
 
     -- REFACTOR or DELETE after  it will be fixed in 0.10 https://github.com/nvim-telescope/telescope.nvim/issues/2027
     -- vim.api.nvim_create_autocmd("WinLeave", {

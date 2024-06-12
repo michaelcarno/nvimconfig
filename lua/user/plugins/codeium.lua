@@ -17,9 +17,12 @@ return {
     -- Remove the `use` here if you're using folke/lazy.nvim.
 
     "Exafunction/codeium.vim",
-    event = "User AstroFile",
-    enabled = false,
+    event = "VeryLazy",
+    enabled = true,
     config = function()
+      -- require("codeium.vim").setup({
+      --   language_server ="D:/chrome_downloads/language_server_windows_x64.exe",
+      -- })
       -- Change '<C-g>' here to any keycode you like.
       vim.keymap.set("i", "<c-g>", function() return vim.fn["codeium#Accept"]() end, { expr = true, silent = true })
       vim.keymap.set(
