@@ -14,5 +14,22 @@
       "}",
       "}"
     ]
-  }
+  },
+    "nvim lazy module inside": {
+        "prefix": "nvim-lazy-module-inside",
+        "description": "Nvim lazy initial",
+        "body": [
+            "{",
+          "\"$1\",",
+          "event = \"VeryLazy\",",
+          "config = function()",
+          "$2",
+          "end,",
+          "keys = {",
+          " -- { \"\", function() end, desc =\"\" },",
+          "}",
+          "},"
+          ]
+        }
+
 }

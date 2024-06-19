@@ -3,7 +3,7 @@ return {
     "L3MON4D3/LuaSnip",
     build = vim.fn.has "win32" == 0
         and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp"
-        or nil,
+      or nil,
     dependencies = { "rafamadriz/friendly-snippets" },
     opts = {
       history = true,
@@ -19,6 +19,7 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lua",
     },
     event = "InsertEnter",
     opts = function()
@@ -40,10 +41,10 @@ return {
       return {
         enabled = function()
           local dap_prompt = utils.is_available "cmp-dap" -- add interoperability with cmp-dap
-              and vim.tbl_contains(
-                { "dap-repl", "dapui_watches", "dapui_hover" },
-                vim.api.nvim_get_option_value("filetype", { buf = 0 })
-              )
+            and vim.tbl_contains(
+              { "dap-repl", "dapui_watches", "dapui_hover" },
+              vim.api.nvim_get_option_value("filetype", { buf = 0 })
+            )
           if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" and not dap_prompt then return false end
           return vim.g.cmp_enabled
         end,
@@ -54,17 +55,17 @@ return {
             "kind",
             "menu",
           },
-          format = lspkind.cmp_format({
+          format = lspkind.cmp_format {
             mode = "text",
-            menu = ({
+            menu = {
               codeinum = "[Codeinum]",
               buffer = "[Buffer]",
               nvim_lsp = "[LSP]",
               luasnip = "[LuaSnip]",
               nvim_lua = "[Lua]",
               latex_symbols = "[Latex]",
-            })
-          }),
+            },
+          },
           -- format = lspkind_status_ok and lspkind.cmp_format(utils.plugin_opts "lspkind.nvim") or nil,
         },
         snippet = {
@@ -125,11 +126,12 @@ return {
           end, { "i", "s" }),
         },
         sources = cmp.config.sources {
-          { name = "codeium",  priority = 1200 },
+          { name = "codeium", priority = 1200 },
           { name = "nvim_lsp", priority = 1000 },
-          { name = "luasnip",  priority = 750 },
-          { name = "buffer",   priority = 500 },
-          { name = "path",     priority = 250 },
+          { name = "nvim_lua", priority = 1000 },
+          { name = "luasnip", priority = 750 },
+          { name = "buffer", priority = 500 },
+          { name = "path", priority = 250 },
         },
       }
     end,

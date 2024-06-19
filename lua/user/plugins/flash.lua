@@ -1,7 +1,19 @@
 return {
   "folke/flash.nvim",
   event = "VeryLazy",
-  opts = {},
+  config = function()
+    require("flash").setup {
+      label = {
+        style = "inline",
+      },
+      rainbow = {
+        enabled = true,
+        -- number between 1 and 9
+        shade = 5,
+      },
+      --
+    }
+  end,
   keys = {
     {
       "s",
