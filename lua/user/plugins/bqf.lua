@@ -13,7 +13,7 @@ return {
         border = "rounded",
         show_title = true,
         show_scroll_bar = true,
-        delay_syntax = 50,
+        delay_syntax = 150,
         winblend = 0,
         win_height = 25,
         win_vheight = 15,
