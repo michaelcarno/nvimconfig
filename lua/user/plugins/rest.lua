@@ -7,7 +7,8 @@ return {
     -- branch = "go-away-python",
     opts = { rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" } },
     priority = 1000,
-    config = function() require("luarocks").setup {} end,
+    config = true,
+    -- config = function() require("luarocks").setup {} end,
   },
   {
     enabled = true,
