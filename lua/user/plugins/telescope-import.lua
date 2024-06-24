@@ -1,6 +1,7 @@
 return {
   "piersolenski/telescope-import.nvim",
   event = "VeryLazy",
+  pin = true,
   config = function()
     require("telescope").load_extension("import")
   end,

@@ -2,14 +2,16 @@ local prefix = "<leader>R"
 local utils = require "astrocore"
 
 return {
-  -- {
-  --   "vhyrro/luarocks.nvim",
-  --   branch = "go-away-python",
-  --   opts = { rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" } },
-  --   config = function() require("luarocks").setup {} end,
-  -- },
+  {
+    "vhyrro/luarocks.nvim",
+    -- branch = "go-away-python",
+    opts = { rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" } },
+    priority = 1000,
+    config = function() require("luarocks").setup {} end,
+  },
   {
     enabled = true,
+    pin = true,
     commit = "91badd46c60df6bd9800c809056af2d80d33da4c",
     "rest-nvim/rest.nvim",
     ft = { "http" },
