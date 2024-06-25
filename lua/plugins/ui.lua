@@ -84,6 +84,7 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "User AstroFile",
+    enabled = false,
     main = "ibl",
     opts = {
       indent = { char = "▏" },

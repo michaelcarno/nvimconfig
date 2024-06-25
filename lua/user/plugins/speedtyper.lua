@@ -1,6 +1,7 @@
 return {
 "kwakzalver/duckytype.nvim",
-event = "VeryLazy",
+-- event = "VeryLazy",
+cmd = "DucktypeInit",
 config = function()
    require('duckytype').setup{
   -- expected = "python_keywords",

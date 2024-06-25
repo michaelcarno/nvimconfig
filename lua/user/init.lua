@@ -348,11 +348,12 @@ return {
     if next(vim.fn.argv()) == nil then
       vim.api.nvim_create_autocmd("UIEnter", {
         callback = function()
-          vim.fn.timer_start(100, function() vim.cmd "SessionManager load_session" end)
+          vim.cmd "SessionManager load_session"
+          -- vim.fn.timer_start(0, function() vim.cmd "SessionManager load_session" end)
         end,
       })
     end
-    vim.fn.timer_start(100, function()
+    vim.fn.timer_start(0, function()
       vim.cmd "set keymap=russian-jcukenwin"
       vim.cmd "set iminsert=0"
       vim.cmd "set imsearch=0"
@@ -453,24 +454,24 @@ return {
     local telescope = require "telescope"
     local lga_actions = require "telescope-live-grep-args.actions"
 
-    telescope.setup {
-      extensions = {
-        live_grep_args = {
-          auto_quoting = true, -- enable/disable auto-quoting
-          -- define mappings, e.g.
-          mappings = { -- extend mappings
-            i = {
-              ["<C-k>"] = lga_actions.quote_prompt(),
-              ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
-            },
-          },
-          -- ... also accepts theme settings, for example:
-          -- theme = "dropdown", -- use dropdown theme
-          -- theme = { }, -- use own theme spec
-          -- layout_config = { mirror=true }, -- mirror preview pane
-        },
-      },
-    }
+    -- telescope.setup {
+    --   extensions = {
+    --     live_grep_args = {
+    --       auto_quoting = true, -- enable/disable auto-quoting
+    --       -- define mappings, e.g.
+    --       mappings = { -- extend mappings
+    --         i = {
+    --           ["<C-k>"] = lga_actions.quote_prompt(),
+    --           ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
+    --         },
+    --       },
+    --       -- ... also accepts theme settings, for example:
+    --       -- theme = "dropdown", -- use dropdown theme
+    --       -- theme = { }, -- use own theme spec
+    --       -- layout_config = { mirror=true }, -- mirror preview pane
+    --     },
+    --   },
+    -- }
 
     vim.g.firenvim_config = {
       globalSettings = { alt = "all" },
@@ -517,7 +518,7 @@ return {
     --   end,
     -- });
 
-    require("nvim-treesitter.install").compilers = { "clang" }
+    -- require("nvim-treesitter.install").compilers = { "clang" }
     -- require 'nvim-treesitter.install'.compilers = { "clang" }
     -- require('lspconfig').tsserver.setup({})
     -- require('lspconfig').tsserver.setup {
