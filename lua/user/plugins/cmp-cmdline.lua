@@ -1,7 +1,7 @@
 return {
   "hrsh7th/cmp-cmdline",
   event = "BufRead",
-  config = function()
+  opts = function()
     local cmp = require("cmp")
     cmp.setup.cmdline('/', {
       mapping = cmp.mapping.preset.cmdline(),
@@ -22,7 +22,13 @@ return {
         }
       })
     })
-  end
+  end,
+  config = function(_, opts)
+    local cmp = require "cmp"
+    vim.tbl_map(function(val) cmp.setup.cmdline(val.type, val) end, opts)
+  end,
+
+
 
 
 

@@ -17,14 +17,14 @@ return {
     -- Remove the `use` here if you're using folke/lazy.nvim.
 
     "Exafunction/codeium.vim",
-    event = "VeryLazy",
+    event = "BufEnter",
     enabled = true,
     config = function()
       -- require("codeium.vim").setup({
       --   language_server ="D:/chrome_downloads/language_server_windows_x64.exe",
       -- })
       -- Change '<C-g>' here to any keycode you like.
-      vim.keymap.set("i", "<c-g>", function() return vim.fn["codeium#Accept"]() end, { expr = true, silent = true })
+      vim.keymap.set("i", "<C-a>", function() return vim.fn["codeium#Accept"]() end, { expr = true, silent = true })
       vim.keymap.set(
         "i",
         "<c-f>",
@@ -37,8 +37,8 @@ return {
         function() return vim.fn["codeium#CycleCompletions"](-1) end,
         { expr = true, silent = true }
       )
-      vim.keymap.set("i", "<c-x>", function() return vim.fn["codeium#Clear"]() end, { expr = true, silent = true })
-      vim.keymap.set("n", "<c-x>", function() return vim.fn["codeium#Clear"]() end, { expr = true, silent = true })
+      vim.keymap.set("i", "<c-\\>", function() return vim.fn["codeium#Clear"]() end, { expr = true, silent = true })
+      vim.keymap.set("n", "<c-\\>", function() return vim.fn["codeium#Clear"]() end, { expr = true, silent = true })
       vim.keymap.set("n", "<Leader>u;", function()
         if vim.g.codeium_enabled == true then
           vim.cmd "CodeiumDisable"

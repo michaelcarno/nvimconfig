@@ -222,49 +222,49 @@ if is_available "alpha-nvim" then
       end
     end,
   })
-  autocmd("VimEnter", {
-    desc = "Start Alpha when vim is opened with no arguments",
-    group = augroup("alpha_autostart", { clear = true }),
-    callback = function()
-      local should_skip
-      local lines = vim.api.nvim_buf_get_lines(0, 0, 2, false)
-      if
-        vim.fn.argc() > 0 -- don't start when opening a file
-        or #lines > 1 -- don't open if current buffer has more than 1 line
-        or (#lines == 1 and lines[1]:len() > 0) -- don't open the current buffer if it has anything on the first line
-        or #vim.tbl_filter(function(bufnr) return vim.bo[bufnr].buflisted end, vim.api.nvim_list_bufs()) > 1 -- don't open if any listed buffers
-        or not vim.o.modifiable -- don't open if not modifiable
-      then
-        should_skip = true
-      else
-        for _, arg in pairs(vim.v.argv) do
-          if arg == "-b" or arg == "-c" or vim.startswith(arg, "+") or arg == "-S" then
-            should_skip = true
-            break
-          end
-        end
-      end
-      if should_skip then return end
-      require("alpha").start(true)
-      vim.schedule(function() vim.cmd.doautocmd "FileType" end)
-    end,
-  })
+  -- autocmd("VimEnter", {
+  --   desc = "Start Alpha when vim is opened with no arguments",
+  --   group = augroup("alpha_autostart", { clear = true }),
+  --   callback = function()
+  --     local should_skip
+  --     local lines = vim.api.nvim_buf_get_lines(0, 0, 2, false)
+  --     if
+  --       vim.fn.argc() > 0 -- don't start when opening a file
+  --       or #lines > 1 -- don't open if current buffer has more than 1 line
+  --       or (#lines == 1 and lines[1]:len() > 0) -- don't open the current buffer if it has anything on the first line
+  --       or #vim.tbl_filter(function(bufnr) return vim.bo[bufnr].buflisted end, vim.api.nvim_list_bufs()) > 1 -- don't open if any listed buffers
+  --       or not vim.o.modifiable -- don't open if not modifiable
+  --     then
+  --       should_skip = true
+  --     else
+  --       for _, arg in pairs(vim.v.argv) do
+  --         if arg == "-b" or arg == "-c" or vim.startswith(arg, "+") or arg == "-S" then
+  --           should_skip = true
+  --           break
+  --         end
+  --       end
+  --     end
+  --     if should_skip then return end
+  --     require("alpha").start(true)
+  --     vim.schedule(function() vim.cmd.doautocmd "FileType" end)
+  --   end,
+  -- })
 end
 
 -- HACK: indent blankline doesn't properly refresh when scrolling the window
 -- remove when fixed upstream: https://github.com/lukas-reineke/indent-blankline.nvim/issues/489
-if is_available "indent-blankline.nvim" then
-  autocmd("WinScrolled", {
-    desc = "Refresh indent blankline on window scroll",
-    group = augroup("indent_blankline_refresh_scroll", { clear = true }),
-    callback = function()
-      -- TODO: remove neovim version check when dropping support for Neovim 0.8
-      if vim.fn.has "nvim-0.9" ~= 1 or (vim.v.event.all and vim.v.event.all.leftcol ~= 0) then
-        pcall(vim.cmd.IndentBlanklineRefresh)
-      end
-    end,
-  })
-end
+-- if is_available "indent-blankline.nvim" then
+--   autocmd("WinScrolled", {
+--     desc = "Refresh indent blankline on window scroll",
+--     group = augroup("indent_blankline_refresh_scroll", { clear = true }),
+--     callback = function()
+--       -- TODO: remove neovim version check when dropping support for Neovim 0.8
+--       if vim.fn.has "nvim-0.9" ~= 1 or (vim.v.event.all and vim.v.event.all.leftcol ~= 0) then
+--         pcall(vim.cmd.IndentBlanklineRefresh)
+--       end
+--     end,
+--   })
+-- end
 
 if is_available "resession.nvim" then
   autocmd("VimLeavePre", {
@@ -359,17 +359,17 @@ autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   end,
 })
 
-cmd(
-  "AstroChangelog",
-  function() require("astronvim.utils.updater").changelog() end,
-  { desc = "Check AstroNvim Changelog" }
-)
-cmd(
-  "AstroUpdatePackages",
-  function() require("astronvim.utils.updater").update_packages() end,
-  { desc = "Update Plugins and Mason" }
-)
-cmd("AstroRollback", function() require("astronvim.utils.updater").rollback() end, { desc = "Rollback AstroNvim" })
-cmd("AstroUpdate", function() require("astronvim.utils.updater").update() end, { desc = "Update AstroNvim" })
-cmd("AstroVersion", function() require("astronvim.utils.updater").version() end, { desc = "Check AstroNvim Version" })
-cmd("AstroReload", function() require("astronvim.utils").reload() end, { desc = "Reload AstroNvim (Experimental)" })
+-- cmd(
+--   "AstroChangelog",
+--   function() require("astronvim.utils.updater").changelog() end,
+--   { desc = "Check AstroNvim Changelog" }
+-- )
+-- cmd(
+--   "AstroUpdatePackages",
+--   function() require("astronvim.utils.updater").update_packages() end,
+--   { desc = "Update Plugins and Mason" }
+-- )
+-- cmd("AstroRollback", function() require("astronvim.utils.updater").rollback() end, { desc = "Rollback AstroNvim" })
+-- cmd("AstroUpdate", function() require("astronvim.utils.updater").update() end, { desc = "Update AstroNvim" })
+-- cmd("AstroVersion", function() require("astronvim.utils.updater").version() end, { desc = "Check AstroNvim Version" })
+-- cmd("AstroReload", function() require("astronvim.utils").reload() end, { desc = "Reload AstroNvim (Experimental)" })

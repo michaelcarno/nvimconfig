@@ -114,7 +114,7 @@ function astronvim.user_opts(module, default, extend)
   return default
 end
 
---- Updater settings overridden with any user provided configuration
+-- - Updater settings overridden with any user provided configuration
 astronvim.updater = {
   options = astronvim.user_opts("updater", { remote = "origin", channel = "stable" }),
   snapshot = { module = "lazy_snapshot", path = vim.fn.stdpath "config" .. "/lua/lazy_snapshot.lua" },

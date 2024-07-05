@@ -21,6 +21,7 @@ return {
   {
     "nvim-neotest/neotest",
     event = "VeryLazy",
+    -- cmd="NeotestInit",
 dependencies = {"nvim-neotest/nvim-nio"},
     config = function()
       require("neotest").setup({
