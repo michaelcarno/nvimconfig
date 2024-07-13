@@ -1,6 +1,7 @@
 return {
   "uga-rosa/ccc.nvim",
-  event = "VeryLazy",
+  -- event = "VeryLazy",
+  cmd = "CccPick",
   config = function()
     local ColorInput = require "ccc.input"
     local convert = require "ccc.utils.convert"
