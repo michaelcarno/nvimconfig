@@ -1,6 +1,8 @@
 return {
   "bennypowers/nvim-regexplainer",
-  event = "BufEnter",
+  -- event = "BufEnter",
+  cmd = "RegexplainerToggle",
+  -- enabled=false,
   config = function()
 -- defaults
 require'regexplainer'.setup {
