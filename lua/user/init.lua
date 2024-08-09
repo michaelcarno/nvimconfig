@@ -348,6 +348,7 @@ return {
     if next(vim.fn.argv()) == nil then
       vim.api.nvim_create_autocmd("UIEnter", {
         callback = function()
+          vim.cmd [[cd ~]]
           vim.cmd "SessionManager load_session"
           -- vim.fn.timer_start(0, function() vim.cmd "SessionManager load_session" end)
         end,
@@ -518,7 +519,7 @@ return {
     --   end,
     -- });
 
-    -- require("nvim-treesitter.install").compilers = { "clang" }
+    require("nvim-treesitter.install").compilers = { "clang" }
     -- require 'nvim-treesitter.install'.compilers = { "clang" }
     -- require('lspconfig').tsserver.setup({})
     -- require('lspconfig').tsserver.setup {

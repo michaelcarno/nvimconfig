@@ -132,6 +132,7 @@ return {
     --
     dap.configurations.javascript = {
       {
+        name = "Attach to chrome in debug",
         type = "chrome",
         request = "attach",
         program = "${file}",
@@ -145,6 +146,7 @@ return {
     }
     dap.configurations.typescript = {
       {
+        name = "Attach to chrome in debug",
         type = "chrome",
         request = "attach",
         program = "${file}",
