@@ -34,7 +34,7 @@ return {
         concealcursor = "nvic",
       },
       -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
-      delete_to_trash = true,
+      delete_to_trash = false,
       -- Skip the confirmation popup for simple operations
       skip_confirm_for_simple_edits = true,
       -- Change this to customize the command used when deleting to trash
