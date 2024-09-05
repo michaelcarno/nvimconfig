@@ -20,6 +20,8 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-latex-symbols",
+      "rcarriga/cmp-dap",
     },
     event = "InsertEnter",
     opts = function()
@@ -60,10 +62,12 @@ return {
             menu = {
               codeinum = "[Codeinum]",
               buffer = "[Buffer]",
+              git = "[GIT]",
               nvim_lsp = "[LSP]",
               luasnip = "[LuaSnip]",
               nvim_lua = "[Lua]",
               latex_symbols = "[Latex]",
+              dap = "[DAP]",
             },
           },
           -- format = lspkind_status_ok and lspkind.cmp_format(utils.plugin_opts "lspkind.nvim") or nil,
@@ -127,8 +131,11 @@ return {
         },
         sources = cmp.config.sources {
           { name = "codeium", priority = 1200 },
+          { name = "git", priority = 1200 },
+          { name = "dap", priority = 1200 },
           { name = "nvim_lsp", priority = 1000 },
           { name = "nvim_lua", priority = 1000 },
+          { name = "latex_symbols", priority = 900 },
           { name = "luasnip", priority = 750 },
           { name = "buffer", priority = 500 },
           { name = "path", priority = 250 },
