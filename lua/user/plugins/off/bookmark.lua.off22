@@ -1,8 +1,8 @@
-
-return {
-'tomasky/bookmarks.nvim',
-event = "VeryLazy",
-config = function()
+use {
+  'tomasky/bookmarks.nvim',
+  -- after = "telescope.nvim",
+  event = "VimEnter",
+  config = function()
 require('bookmarks').setup {
   -- sign_priority = 8,  --set bookmark sign priority to cover other sign
   save_file = vim.fn.expand "$HOME/.bookmarks", -- bookmarks save file path
@@ -24,8 +24,5 @@ require('bookmarks').setup {
     map("n","mx",bm.bookmark_clear_all) -- removes all bookmarks
   end
 }
-end,
-keys = {
- -- { "", function() end, desc ="" },
-}
+  end
 }
