@@ -1,6 +1,8 @@
 return {
   "mizlan/delimited.nvim",
   event = "VeryLazy",
+  commit= "8f9abd1092e8b960c81aabd56c67c8850bde8a9f",
+  pin = true,
   config = function()
     require("delimited").setup({})
   end,

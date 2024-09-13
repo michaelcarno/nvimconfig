@@ -56,15 +56,15 @@ return {
 
     ["<C-S-Left>"] = { function() require("smart-splits").resize_left() end, desc = "Resize split left" },
     ["<C-S-Right>"] = { function() require("smart-splits").resize_right() end, desc = "Resize split right" },
-    ["f;"] = { "<cmd>Telescope command_history<CR>", desc = "Telescoper command history" },
+    ["<leader>f;"] = { "<cmd>Telescope command_history<CR>", desc = "Telescoper command history" },
     ["fq"] = { "<cmd>Telescope search_history<CR>", desc = "Telescoper search history" },
     ["fj"] = { "<cmd>Telescope jumplist<CR>", desc = "Telescoper jumplist" },
     ["ff"] = {
       function() require("telescope.builtin").find_files { hidden = true, no_ignore = false } end,
       desc = "Telescoper find files",
     },
-    ["fo"] = { "<cmd>Oil<cr>", desc = "Oil" },
-    ["fa"] = { "<cmd>Oil<cr>", desc = "copen" },
+    -- ["fo"] = { "<cmd>Oil<cr>", desc = "Oil" },
+    -- ["fa"] = { "<cmd>Oil<cr>", desc = "copen" },
     ["fg"] = { "<cmd>Telescope live_grep_args<CR>", desc = "Telescoper find with grep" },
     ["fF"] = {
       function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,

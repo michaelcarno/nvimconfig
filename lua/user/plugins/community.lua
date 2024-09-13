@@ -26,7 +26,7 @@ return {
   { import = "astrocommunity.editing-support.text-case-nvim" },
   { import = "astrocommunity.search.nvim-hlslens" },
   { import = "astrocommunity.editing-support.comment-box-nvim" },
-  { import = "astrocommunity.utility.telescope-live-grep-args-nvim" },
+  -- { import = "astrocommunity.utility.telescope-live-grep-args-nvim" },
   { import = "astrocommunity.utility.nvim-toggler" },
  -- { import = "astrocommunity.lsp.garbage-day-nvim" },
 

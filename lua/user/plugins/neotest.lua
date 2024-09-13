@@ -3,6 +3,8 @@ return {
   {
     "nvim-neotest/neotest-jest",
     event = "VeryLazy",
+    pin=true,
+    commit="42871c179aec318be55d949fb667e71233200e04",
     config = function()
     end
   },

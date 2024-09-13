@@ -1,6 +1,8 @@
 return {
   "Vonr/align.nvim",
   event = "VeryLazy",
+  enabled=false,
+  branh = "v2",
   config = function()
     local NS = { noremap = true, silent = true }
     vim.keymap.set('x', 'aa', function() require 'align'.align_to_char(1, true) end, NS)             -- Aligns to 1 character, looking left

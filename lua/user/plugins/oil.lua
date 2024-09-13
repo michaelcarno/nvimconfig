@@ -59,6 +59,8 @@ return {
         ["<C-t>"] = "actions.select_tab",
         ["<C-p>"] = "actions.preview",
         ["<C-c>"] = "actions.close",
+        ["q"] = "actions.close",
+        -- ["<C-c>"] = "actions.close",
         ["<C-l>"] = "actions.refresh",
         ["-"] = "actions.parent",
         ["_"] = "actions.open_cwd",
@@ -144,7 +146,7 @@ return {
     })
   end,
   keys = {
-    { "<leader>o", function() require "oil".open() end, desc = "open oil" },
+    -- { "<leader>o", function() require "oil".open() end, desc = "open oil" },
     { "fs", function() require "oil".open() end, desc = "open oil" }
   }
 }

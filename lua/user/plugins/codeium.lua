@@ -18,7 +18,7 @@ return {
 
     "Exafunction/codeium.vim",
     event = "BufEnter",
-    enabled = true,
+    enabled = false,
     config = function()
       -- require("codeium.vim").setup({
       --   language_server ="D:/chrome_downloads/language_server_windows_x64.exe",

@@ -1,5 +1,6 @@
 return {
   "dnlhc/glance.nvim",
+  enabled = false,
   event = "VeryLazy",
   config = function()
 local glance = require('glance')

@@ -3,6 +3,17 @@ return {
   event = "VeryLazy",
   enabled = true,
   config = function()
+
+
+    -- angular template parse as standart html
+    vim.cmd [[
+          augroup matchup_matchparen_enable_ft
+            autocmd!
+                autocmd FileType angular let b:match_words = matchup#util#standard_html()
+
+          augroup END
+    ]]
+
     vim.g.matchup_matchparen_IdleLimitTime = 1000000
     vim.g.matchup_matchparen_offscreen = { method = "none" }
     vim.g.matchup_matchparen_matchup_surround_enabled = 1
@@ -12,9 +23,10 @@ return {
     vim.g.matchup_delim_noskips = 2 -- don't recognize anything in comments
     vim.g.matchup_surround_enabled = 1
     vim.g.matchup_matchparen_hi_surround_always = 1
-    -- vim.g.matchup_matchparen_deferred_fade_time = 450
     vim.g.matchup_matchparen_deferred = 1
     vim.g.matchup_override_vimtex = 1
+
+    -- vim.g.matchup_matchparen_deferred_fade_time = 450
     -- vim.g.matchup_matchparen_offscreen = {
     --   method = "status",
     --   scrolloff = 1,

@@ -130,8 +130,8 @@ return {
           end, { "i", "s" }),
         },
         sources = cmp.config.sources {
-          { name = "codeium", priority = 1200 },
-          { name = "git", priority = 1200 },
+          -- { name = "codeium", priority = 1200 },
+       { name = "git", priority = 1200 },
           { name = "dap", priority = 1200 },
           { name = "nvim_lsp", priority = 1000 },
           { name = "nvim_lua", priority = 1000 },

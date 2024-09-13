@@ -79,7 +79,6 @@ return {
           },
           typescript = {
             inlayHints = {
-
               parameterNames = { enabled = "literals" },
               parameterTypes = { enabled = true },
               variableTypes = { enabled = true },
@@ -280,19 +279,19 @@ return {
   },
   polish = function()
     -- USE POWER SHELL INSTEAD CMD
-    local powershell_options = {
-      shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
-      shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
-      shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
-      shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
-      shellquote = "",
-      shellxquote = "",
-    }
-
-    for option, value in pairs(powershell_options) do
-      vim.opt[option] = value
-    end
-
+    -- local powershell_options = {
+    --   shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
+    --   shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+    --   shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+    --   shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+    --   shellquote = "",
+    --   shellxquote = "",
+    -- }
+    --
+    -- for option, value in pairs(powershell_options) do
+    --   vim.opt[option] = value
+    -- end
+    --
     vim.cmd [[let g:codeium_bin = "c:/nvim/soft/language_server_windows_x64.exe"]]
 
     -- vim.cmd "g:codeium_bin = "c:/nvim/soft/language_server_windows_x64"
@@ -390,14 +389,6 @@ return {
     -- C:\Users\michaelcarno\AppData\Local\nvim-data\lazy\nvim-treesitter-angular\ftdetect
     --
 
-    -- angular template parse as standart html
-    vim.cmd [[
-          augroup matchup_matchparen_enable_ft
-            autocmd!
-                autocmd FileType angular let b:match_words = matchup#util#standard_html()
-
-          augroup END
-    ]]
     parser_config.angular_beta = {
       install_info = {
         url = "D:\\angular17tree\\tree-sitter-angular", -- local path or git repo
