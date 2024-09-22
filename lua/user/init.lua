@@ -68,6 +68,7 @@ return {
       vtsls = {
         settings = {
           javascript = {
+            suggest = {completeFunctionCalls = {enabled = true}},
             inlayHints = {
               parameterNames = { enabled = "literals" },
               parameterTypes = { enabled = true },
@@ -78,6 +79,7 @@ return {
             },
           },
           typescript = {
+            suggest = {completeFunctionCalls = {enabled = true}},
             inlayHints = {
               parameterNames = { enabled = "literals" },
               parameterTypes = { enabled = true },
