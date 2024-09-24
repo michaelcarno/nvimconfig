@@ -60,7 +60,7 @@ return {
           format = lspkind.cmp_format {
             mode = "text",
             menu = {
-              codeinum = "[Codeinum]",
+              -- codeinum = "[Codeinum]",
               buffer = "[Buffer]",
               git = "[GIT]",
               nvim_lsp = "[LSP]",

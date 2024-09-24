@@ -1,7 +1,7 @@
 return {
   "vimwiki/vimwiki",
-  -- cmd="Wiki",
-  event = "VeryLazy",
+  cmd="Wiki",
+  -- event = "VeryLazy",
   config = function()
 
   end

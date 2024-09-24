@@ -2,7 +2,8 @@ local prefix = "<leader>tt"
 return {
   {
     "nvim-neotest/neotest-jest",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    lazy=true,
     pin=true,
     commit="42871c179aec318be55d949fb667e71233200e04",
     config = function()
@@ -10,21 +11,24 @@ return {
   },
   {
     "nvim-neotest/neotest-plenary",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    lazy=true,
     config = function()
     end
   },
   {
     "nvim-neotest/neotest-python",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    lazy=true,
     config = function()
     end
   },
   {
     "nvim-neotest/neotest",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    lazy=true,
     -- cmd="NeotestInit",
-dependencies = {"nvim-neotest/nvim-nio"},
+    dependencies = {"nvim-neotest/nvim-nio"},
     config = function()
       require("neotest").setup({
         adapters = {

@@ -1,9 +1,10 @@
 return {
   "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
-  -- lazy = false,
+  -- event = "VeryLazy",
+  lazy = false,
   dependencies = { "nvim-tree/nvim-web-devicons", "arkav/lualine-lsp-progress" },
   config = function()
+
     local colors = {
       black = "#282828",
       white_fff = "#dddddd",
@@ -172,7 +173,7 @@ return {
         lualine_a = {},
         lualine_b = { "branch" },
         lualine_c = {
-          { "filetype", colored = true, icon_only = true, padding = -1 },
+          { "filetype", colored = true, icon_only = true, padding = 1 },
           {
             "filename",
             path = 0,
@@ -199,7 +200,7 @@ return {
           {
             "filename",
             file_status = true, -- displays file status (readonly status, modified status)
-            path = 2, -- 0 = just filename, 1 = relative path, 2 = absolute path
+            path = 3, -- 0 = just filename, 1 = relative path, 2 = absolute path
             -- path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
             shorting_target = 0, -- Shortens path to leave 40 spaces in the window
 
@@ -224,7 +225,7 @@ return {
           {
             "filename",
             file_status = true, -- displays file status (readonly status, modified status)
-            path = 2, -- 0 = just filename, 1 = relative path, 2 = absolute path
+            path = 3, -- 0 = just filename, 1 = relative path, 2 = absolute path
             -- path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
             shorting_target = 0, -- Shortens path to leave 40 spaces in the window
 

@@ -1,6 +1,7 @@
 return {
   {
     "rbong/vim-flog",
+    -- tag="v3.0.0",
     lazy = true,
     cmd = { "Flog", "Flogsplit", "Floggit" },
     dependencies = {
