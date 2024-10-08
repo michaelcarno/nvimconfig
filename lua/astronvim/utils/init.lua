@@ -142,7 +142,9 @@ end
 ---@param event string The event name to be appended to Astro
 ---@param delay? boolean Whether or not to delay the event asynchronously (Default: true)
 function M.event(event, delay)
-  local emit_event = function() vim.api.nvim_exec_autocmds("User", { pattern = "Astro" .. event, modeline = false }) end
+  local emit_event = function()
+    vim.api.nvim_exec_autocmds("User", { pattern = "Astro" .. event, modeline = false })
+  end
   if delay == false then
     emit_event()
   else
@@ -152,33 +154,33 @@ end
 
 --- Open a URL under the cursor with the current operating system
 ---@param path string The path of the file to open with the system opener
-function M.system_open(path)
-  -- TODO: REMOVE WHEN DROPPING NEOVIM <0.10
-  if vim.ui.open then return vim.ui.open(path) end
-  local cmd
-  if vim.fn.has "mac" == 1 then
-    cmd = { "open" }
-  elseif vim.fn.has "win32" == 1 then
-    if vim.fn.executable "rundll32" then
-      cmd = { "rundll32", "url.dll,FileProtocolHandler" }
-    else
-      cmd = { "cmd.exe", "/K", "explorer" }
-    end
-  elseif vim.fn.has "unix" == 1 then
-    if vim.fn.executable "explorer.exe" == 1 then -- available in WSL
-      cmd = { "explorer.exe" }
-    elseif vim.fn.executable "xdg-open" == 1 then
-      cmd = { "xdg-open" }
-    end
-  end
-  if not cmd then M.notify("Available system opening tool not found!", vim.log.levels.ERROR) end
-  if not path then
-    path = vim.fn.expand "<cfile>"
-  elseif not path:match "%w+:" then
-    path = vim.fn.expand(path)
-  end
-  vim.fn.jobstart(vim.list_extend(cmd, { path }), { detach = true })
-end
+-- function M.system_open(path)
+--   -- TODO: REMOVE WHEN DROPPING NEOVIM <0.10
+--   if vim.ui.open then return vim.ui.open(path) end
+--   local cmd
+--   if vim.fn.has "mac" == 1 then
+--     cmd = { "open" }
+--   elseif vim.fn.has "win32" == 1 then
+--     if vim.fn.executable "rundll32" then
+--       cmd = { "rundll32", "url.dll,FileProtocolHandler" }
+--     else
+--       cmd = { "cmd.exe", "/K", "explorer" }
+--     end
+--   elseif vim.fn.has "unix" == 1 then
+--     if vim.fn.executable "explorer.exe" == 1 then -- available in WSL
+--       cmd = { "explorer.exe" }
+--     elseif vim.fn.executable "xdg-open" == 1 then
+--       cmd = { "xdg-open" }
+--     end
+--   end
+--   if not cmd then M.notify("Available system opening tool not found!", vim.log.levels.ERROR) end
+--   if not path then
+--     path = vim.fn.expand "<cfile>"
+--   elseif not path:match "%w+:" then
+--     path = vim.fn.expand(path)
+--   end
+--   vim.fn.jobstart(vim.list_extend(cmd, { path }), { detach = true })
+-- end
 
 --- Toggle a user terminal if it exists, if not then create a new one and save it
 ---@param opts string|table A terminal command string or a table of options for Terminal:new() (Check toggleterm.nvim documentation for table format)

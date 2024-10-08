@@ -1,4 +1,38 @@
 {
+  "@ifElse": {
+    "prefix": "@ifElse",
+    "body": [
+      "@if (${1:expresssion}) { ",
+      "${2:if}",
+      "}@else {",
+      "${3:else}",
+      "}"
+    ],
+    "description": "Angular [class] binding"
+  },
+  "@forObject": {
+    "prefix": "@forObject",
+    "body": [
+      "@for (${1:item} of ${2:array} | keyvalue; track item.key) { ",
+      "${3:loop}",
+      "}"
+    ],
+    "description": "Angular [class] binding"
+  },
+  "input": {
+    "prefix": "a-input",
+    "body": [
+      "<input matInput placeholder=\"\" type=\"text\" />"
+    ],
+    "description": "Angular [class] binding"
+  },
+  "button": {
+    "prefix": "a-button",
+    "body": [
+      "<button mat-button color=\"primary\">${1:Title}</button>"
+    ],
+    "description": "Angular [class] binding"
+  },
   "class": {
     "prefix": "a-class",
     "body": [

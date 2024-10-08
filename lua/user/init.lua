@@ -295,6 +295,8 @@ return {
     -- end
     --
     vim.cmd [[let g:codeium_bin = "c:/nvim/soft/language_server_windows_x64.exe"]]
+-- vim.cmd [[nnoremap <C-K> <C-y>]]
+-- vim.cmd [[nnoremap <C-J> <C-e>]]
 
     -- vim.cmd "g:codeium_bin = "c:/nvim/soft/language_server_windows_x64"
     -- disable diagnostic in insert mode

@@ -106,7 +106,7 @@ return {
         z = { fg = colors.white, gui = "bold" },
       },
     }
-
+    local breadcrump_sep = " ⟩ "
     local config = {
       options = {
         icons_enabled = true,
@@ -124,9 +124,9 @@ return {
         always_divide_middle = true,
         globalstatus = false,
         refresh = {
-          statusline = 1000,
-          tabline = 1000,
-          winbar = 1000,
+          statusline = 0000,
+          tabline = 0000,
+          winbar = 0000,
         },
       },
       sections = {
@@ -150,7 +150,7 @@ return {
           },
           "diff",
           "diagnostics",
-          "searchcount",
+          "searchcount"
         },
         lualine_x = {
           "encoding",
@@ -199,11 +199,11 @@ return {
         lualine_c = {
           {
             "filename",
-            file_status = true, -- displays file status (readonly status, modified status)
+            -- file_status = true, -- displays file status (readonly status, modified status)
             path = 3, -- 0 = just filename, 1 = relative path, 2 = absolute path
             -- path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
             shorting_target = 0, -- Shortens path to leave 40 spaces in the window
-
+            separator = vim.trim(breadcrump_sep),
             symbols = {
               modified = " ●", -- Text to show when the buffer is modified
               alternate_file = "#", -- Text to show to identify the alternate file
@@ -211,7 +211,14 @@ return {
               -- newfile = "[newfile]",
               readonly = "[Read Only]",
             },
+            fmt = function(str)
+              local path_separator = package.config:sub(1, 1)
+              return str:gsub(path_separator, breadcrump_sep)
+            end,
           },
+          -- {
+          --   "aerial", sep= breadcrump_sep
+          -- }
         },
         lualine_x = {},
         lualine_y = {},
@@ -225,10 +232,15 @@ return {
           {
             "filename",
             file_status = true, -- displays file status (readonly status, modified status)
+            separator = vim.trim(breadcrump_sep),
             path = 3, -- 0 = just filename, 1 = relative path, 2 = absolute path
             -- path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
             shorting_target = 0, -- Shortens path to leave 40 spaces in the window
 
+            fmt = function(str)
+              local path_separator = package.config:sub(1, 1)
+              return str:gsub(path_separator, breadcrump_sep)
+            end,
             symbols = {
               modified = " ●", -- Text to show when the buffer is modified
               alternate_file = "#", -- Text to show to identify the alternate file

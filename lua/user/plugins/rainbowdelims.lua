@@ -1,7 +1,7 @@
 return {
   "HiPhish/rainbow-delimiters.nvim",
   event = "BufRead",
-  enabled=false,
+  enabled=true,
   config = function(_, opts)
     -- require "rainbow-delimiters.setup" (opts)
     local rainbow_delimiters = require 'rainbow-delimiters'
@@ -15,6 +15,7 @@ return {
       query = {
         [''] = 'rainbow-delimiters',
         lua = 'rainbow-blocks',
+        angular = 'rainbow-delimiters'
       },
       highlight = {
         'RainbowDelimiterWhite',
