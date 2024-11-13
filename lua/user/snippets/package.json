@@ -7,6 +7,13 @@
     "snippets": [
       {
         "language": [
+          "css",
+          "scss"
+        ],
+        "path": "css.json"
+      },
+      {
+        "language": [
           "javascript",
           "typescript"
         ],
@@ -19,19 +26,22 @@
       {
         "language": [
           "typescript",
+          "angular",
           "html"
         ],
         "path": "./angular/angular-html.json"
       },
       {
         "language": [
-          "typescript"
+          "typescript",
+          "angular"
         ],
         "path": "./angular/angular-ts.json"
       },
       {
         "language": [
           "typescript",
+          "angular",
           "html"
         ],
         "path": "./angular/angular-17-template-syntax.json"

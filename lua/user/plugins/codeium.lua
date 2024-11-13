@@ -5,14 +5,10 @@ return {
     event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "hrsh7th/nvim-cmp",
+      -- "hrsh7th/nvim-cmp",
     },
-    config = function()
-
-      require("codeium").setup {}
-    end,
-
- },
+    config = function() require("codeium").setup {} end,
+  },
   {
     -- Remove the `use` here if you're using folke/lazy.nvim.
 

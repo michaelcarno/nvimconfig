@@ -15,6 +15,7 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
+    enabled = false,
     dependencies = {
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-buffer",

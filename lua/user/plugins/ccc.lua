@@ -90,7 +90,7 @@ return {
     }
   end,
   keys = {
-    { "<leader>a", "<cmd>CccPick<cr>", desc = "CCCPick" },
+    { "<leader>p", "<cmd>CccPick<cr>", desc = "CCCPick" },
     -- { "", function() end, desc ="" },
   },
 }

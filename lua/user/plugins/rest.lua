@@ -3,11 +3,12 @@ local utils = require "astrocore"
 
 return {
   {
-    "vhyrro/luarocks.nvim",
+    "nvim-neorocks/rocks.nvim",
     -- branch = "go-away-python",
     opts = { rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" } },
     priority = 1000,
     config = true,
+    enabled=false,
     -- config = function() require("luarocks").setup {} end,
   },
   {

@@ -4,9 +4,9 @@ return {
   lazy = false,
   dependencies = { "nvim-tree/nvim-web-devicons", "arkav/lualine-lsp-progress" },
   config = function()
-
     local colors = {
-      black = "#282828",
+      black = "#000000",
+      transparent = "",
       white_fff = "#dddddd",
       white = "#bbbbbb",
       red = "#fb4934",
@@ -32,6 +32,7 @@ return {
       inactiveBg = "",
     }
     local branch = { fg = colors.white_fff, bg = colors.purple, gui = "bold" }
+
     -- local custom_theme = require "lualine.themes.ayu_dark"
     -- local gps = require "nvim-navic"
     local custom_theme = {
@@ -41,12 +42,13 @@ return {
         c = function(section)
           return {
             fg = vim.bo.modified and colors.modified or colors.nottoched,
+            bg = colors.transparent,
           }
         end,
 
         -- x = { fg = colors. },
         -- c = { fg = colors.white, gui = "bold" },
-        y = { fg = colors.white, gui = "bold" },
+        y = { fg = colors.white, bg = colors.normalBf, gui = "bold" },
         z = { bg = colors.normalBf, fg = colors.white_fff, gui = "bold" },
       },
       insert = {
@@ -55,10 +57,11 @@ return {
         c = function(section)
           return {
             fg = vim.bo.modified and colors.modified or colors.nottoched,
+            bg = colors.transparent,
           }
         end,
 
-        y = { fg = colors.white, gui = "bold" },
+        y = { fg = colors.white, bg = colors.insertBg, gui = "bold" },
         z = { bg = colors.insertBg, fg = colors.white, gui = "bold" },
       },
       visual = {
@@ -67,9 +70,10 @@ return {
         c = function(section)
           return {
             fg = vim.bo.modified and colors.modified or colors.nottoched,
+            bg = colors.transparent,
           }
         end,
-        y = { fg = colors.white, gui = "bold" },
+        y = { bg = colors.visualBg, fg = colors.black, gui = "bold" },
         z = { bg = colors.visualBg, fg = colors.black, gui = "bold" },
       },
       replace = {
@@ -78,9 +82,10 @@ return {
         c = function(section)
           return {
             fg = vim.bo.modified and colors.modified or colors.nottoched,
+            bg = colors.transparent,
           }
         end,
-        y = { fg = colors.white, gui = "bold" },
+        y = { fg = colors.black, gui = "bold" },
         z = { bg = colors.replaceBg, fg = colors.white, gui = "bold" },
       },
       command = {
@@ -89,23 +94,26 @@ return {
         c = function(section)
           return {
             fg = vim.bo.modified and colors.modified or colors.nottoched,
+            bg = colors.transparent,
           }
         end,
-        y = { fg = colors.white, gui = "bold" },
+        y = { bg = colors.commandBg, fg = colors.white, gui = "bold" },
         z = { bg = colors.commandBg, fg = colors.white, gui = "bold" },
       },
       inactive = {
         a = { fg = colors.black, gui = "bold" },
         b = branch,
-        y = { fg = colors.white, gui = "bold" },
+        y = { fg = colors.black, gui = "bold" },
         c = function(section)
           return {
             fg = vim.bo.modified and colors.modified or colors.nottoched,
+            bg = colors.transparent,
           }
         end,
         z = { fg = colors.white, gui = "bold" },
       },
     }
+    -- ⟩
     local breadcrump_sep = " ⟩ "
     local config = {
       options = {
@@ -122,11 +130,12 @@ return {
         },
         ignore_focus = {},
         always_divide_middle = true,
-        globalstatus = false,
+        globalstatus = true,
+        -- remove if matchup update
         refresh = {
-          statusline = 0000,
-          tabline = 0000,
-          winbar = 0000,
+          statusline = 100,
+          tabline = 100,
+          winbar = 100,
         },
       },
       sections = {
@@ -150,16 +159,17 @@ return {
           },
           "diff",
           "diagnostics",
-          "searchcount"
+          "searchcount",
         },
         lualine_x = {
           "encoding",
           {
             "fileformat",
-            -- unix = '', -- e712
-            -- dos = '',  -- e70f
-            -- mac = '',  -- e711
             symbols = {
+              -- unix = "", -- e712
+              -- dos = "", -- e70f
+              -- mac = "", -- e711
+              -- -- symbols = {
               unix = "[unix]", -- e712
               dos = "[dos]", -- e70f
               mac = "[mac]", -- e711
@@ -200,7 +210,7 @@ return {
           {
             "filename",
             -- file_status = true, -- displays file status (readonly status, modified status)
-            path = 3, -- 0 = just filename, 1 = relative path, 2 = absolute path
+            path = 0, -- 0 = just filename, 1 = relative path, 2 = absolute path
             -- path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
             shorting_target = 0, -- Shortens path to leave 40 spaces in the window
             separator = vim.trim(breadcrump_sep),
@@ -233,7 +243,7 @@ return {
             "filename",
             file_status = true, -- displays file status (readonly status, modified status)
             separator = vim.trim(breadcrump_sep),
-            path = 3, -- 0 = just filename, 1 = relative path, 2 = absolute path
+            path = 0, -- 0 = just filename, 1 = relative path, 2 = absolute path
             -- path = 4, -- 0 = just filename, 1 = relative path, 2 = absolute path
             shorting_target = 0, -- Shortens path to leave 40 spaces in the window
 
@@ -246,7 +256,7 @@ return {
               alternate_file = "#", -- Text to show to identify the alternate file
               directory = "", -- Text to show when the buffer is a directory
               -- newfile = "[newfile]",
-              readonly = "[Read Only]",
+              readonly = "[RO]",
             },
           },
         },

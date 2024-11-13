@@ -66,12 +66,13 @@ return {
     -- ["fo"] = { "<cmd>Oil<cr>", desc = "Oil" },
     -- ["fa"] = { "<cmd>Oil<cr>", desc = "copen" },
     ["fg"] = { "<cmd>Telescope live_grep_args<CR>", desc = "Telescoper find with grep" },
+    ["fw"] = { "<cmd>Telescope live_grep_args<CR>", desc = "Telescoper find with grep" },
     ["fF"] = {
       function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
       desc = "Find all files",
     },
     ["fb"] = {
-      function() require("telescope.builtin").buffers { hidden = true, no_ignore = true } end,
+      function() require("telescope.builtin").buffers { hidden = true, no_ignore = true, previewer=false } end,
       desc = "Find buffers",
     },
     ["<M-w>"] = { "%", desc = "Go to close parent" },
@@ -80,6 +81,10 @@ return {
     ["<leader>gY"] = { "<cmd>Glance type_definitions<cr>", desc = "go to type definitions" },
     ["<leader>gM"] = { "<cmd>Glance implementations<cr>", desc = "go to implementations" },
     ["<C-q>"] = false,
+    ["<c-s>"] = { "<cmd>wa!<cr>", desc = "Save with format mode" },
+    -- ["<c-s>"] = { "<cmd>FormatWrite<cr>", desc = "Save with format mode" },
+    -- ["<C-c>"] = "<Esc><Esc>",
+    ["W"]= {"b", desc="back one word"},
   },
   v = {
     ["<M-w>"] = { "%", desc = "Go to close parent" },
@@ -90,12 +95,13 @@ return {
     ["<C-s>"] = { "<C-\\><C-n>", desc = "Normal mode" },
   },
   i = {
+    -- ["<C-c>"] = "<Esc><Esc>",
     -- ["<Tab>"] = cmp.mapping.confirm {
     --   behavior = cmp.ConfirmBehavior.Insert,
     --   select = true,
     -- },
 
-    ["<C-s>"] = { "<c-c><c-s>" },
+    -- ["<C-s>"] = { "<cmd>wa" },
     ["<C-l>"] = { function() require("luasnip").jump(1) end },
     ["<C-j>"] = { function() require("luasnip").jump(-1) end },
 

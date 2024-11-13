@@ -1,4 +1,20 @@
 {
+  "animation": {
+    "prefix": "a-animation-onoff",
+    "description": "Angular animation snippet",
+    "body": [
+
+      "animations: [ ",
+      "\t trigger('${1:animtion_name}', [ ",
+      "\t state('on', style({ backgroundColor: '#' })), ",
+      "\t state('off', style({ backgroundColor: '#' })), ",
+      "\t state('invalid', style({ backgroundColor: '#' })), ",
+      "",
+      "\ttransition('on <=> off', [animate('0.3s ease-in')]), ",
+      "\t]), ",
+      "\t], "
+    ]
+  },
   "Angular Component": {
     "prefix": "a-component",
     "description": "Angular component",
@@ -45,6 +61,7 @@
       "",
       "@Component({",
       "\tselector: '${1:selector-name}',",
+      "\tstyles: [``],",
       "\ttemplate: ``,",
       "\tstandalone: true,",
       "\timports: [],",

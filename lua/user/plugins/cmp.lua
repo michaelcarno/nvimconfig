@@ -13,15 +13,27 @@ return {
     config = require "plugins.configs.luasnip",
   },
   {
-    "hrsh7th/nvim-cmp",
+    enabled = true,
+    name = "nvim-cmp", -- Otherwise highlighting gets messed up
+    -- "hrsh7th/nvim-cmp",
+    "iguanacucumber/magazine.nvim",
     dependencies = {
       "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lua",
+      "iguanacucumber/mag-buffer",
+      -- "hrsh7th/cmp-buffer",
+      -- "hrsh7th/cmp-nvim-lsp",
+      "iguanacucumber/mag-nvim-lsp",
+      -- "hrsh7th/cmp-nvim-lsp",
+      "iguanacucumber/mag-nvim-lua",
+      -- "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-latex-symbols",
       "rcarriga/cmp-dap",
+      "chrisgrieser/cmp_yanky",
+      -- {
+      --   "iguanacucumber/magazine.nvim",
+      --   name = "nvim-cmp", -- Otherwise highlighting gets messed up
+      -- },
     },
     event = "InsertEnter",
     opts = function()
@@ -64,6 +76,7 @@ return {
               buffer = "[Buffer]",
               git = "[GIT]",
               nvim_lsp = "[LSP]",
+              cmp_yanky = "[Yanky]",
               luasnip = "[LuaSnip]",
               nvim_lua = "[Lua]",
               latex_symbols = "[Latex]",
@@ -100,6 +113,8 @@ return {
           ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
           ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
           ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+          ["<C-s>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+          -- ["<C-'>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
           ["<C-y>"] = cmp.config.disable,
           ["<C-e>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
           ["<CR>"] = cmp.mapping.confirm { select = false },
@@ -131,10 +146,20 @@ return {
         },
         sources = cmp.config.sources {
           -- { name = "codeium", priority = 1200 },
-       { name = "git", priority = 1200 },
+          { name = "git", priority = 1200 },
           { name = "dap", priority = 1200 },
-          { name = "luasnip", priority = 1050 },
-          { name = "nvim_lsp", priority = 1000 },
+          {
+            name = "cmp_yanky",
+            priority = 1100,
+            option = {
+              -- only suggest items which match the current filetype
+              onlyCurrentFiletype = true,
+              -- only suggest items with a minimum length
+              minLength = 3,
+            },
+          },
+          { name = "nvim_lsp", priority = 1001 },
+          { name = "luasnip", priority = 1000 },
           { name = "nvim_lua", priority = 1000 },
           { name = "latex_symbols", priority = 900 },
           { name = "buffer", priority = 500 },

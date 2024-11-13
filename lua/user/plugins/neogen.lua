@@ -1,4 +1,4 @@
-local prefix = "<Leader>a"
+local prefix = "<Leader>A"
 return {
   "danymat/neogen",
   cmd = "Neogen",

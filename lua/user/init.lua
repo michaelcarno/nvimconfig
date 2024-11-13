@@ -68,7 +68,7 @@ return {
       vtsls = {
         settings = {
           javascript = {
-            suggest = {completeFunctionCalls = {enabled = true}},
+            suggest = { completeFunctionCalls = { enabled = true } },
             inlayHints = {
               parameterNames = { enabled = "literals" },
               parameterTypes = { enabled = true },
@@ -79,7 +79,7 @@ return {
             },
           },
           typescript = {
-            suggest = {completeFunctionCalls = {enabled = true}},
+            suggest = { completeFunctionCalls = { enabled = true } },
             inlayHints = {
               parameterNames = { enabled = "literals" },
               parameterTypes = { enabled = true },
@@ -214,12 +214,31 @@ return {
         },
       },
       tailwindcss = {
-        -- filetypes = {"angular"}
-        filetypes = { "angular" },
+        filetypes = { "angular", "html" },
       },
       angularls = {
-        -- filetypes = {"angular"}
         filetypes = { "angular", "typescript", "html", "typescriptreact", "typescript.tsx" },
+      },
+
+      emmet_ls = {
+        filetypes = {
+          "astro",
+          "angular",
+          -- "typescript",
+          "css",
+          "eruby",
+          "html",
+          "htmldjango",
+          "javascriptreact",
+          "less",
+          "pug",
+          "sass",
+          "scss",
+          "svelte",
+          "typescriptreact",
+          "vue",
+          "htmlangular",
+        },
       },
     },
   },
@@ -294,9 +313,13 @@ return {
     --   vim.opt[option] = value
     -- end
     --
+
     vim.cmd [[let g:codeium_bin = "c:/nvim/soft/language_server_windows_x64.exe"]]
--- vim.cmd [[nnoremap <C-K> <C-y>]]
--- vim.cmd [[nnoremap <C-J> <C-e>]]
+    --     vim.cmd [[
+    -- syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
+    -- ]]
+    -- vim.cmd [[nnoremap <C-K> <C-y>]]
+    -- vim.cmd [[nnoremap <C-J> <C-e>]]
 
     -- vim.cmd "g:codeium_bin = "c:/nvim/soft/language_server_windows_x64"
     -- disable diagnostic in insert mode
@@ -360,7 +383,8 @@ return {
       vim.cmd "set keymap=russian-jcukenwin"
       vim.cmd "set iminsert=0"
       vim.cmd "set imsearch=0"
-      vim.cmd "set laststatus=2"
+      -- vim.cmd "set iskeyword-=_"
+      vim.cmd "set laststatus=3"
     end)
     -- vim.api.nvim_create_autocmd("BufEnter", {
     --   callback = function()

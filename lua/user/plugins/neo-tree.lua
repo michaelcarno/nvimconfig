@@ -4,7 +4,7 @@
 
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  enable =false,
+  enabled =false,
   dependencies = { "MunifTanjim/nui.nvim" },
   cmd = "Neotree",
   init = function() vim.g.neo_tree_remove_legacy_commands = true end,

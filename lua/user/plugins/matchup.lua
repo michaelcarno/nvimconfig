@@ -1,17 +1,17 @@
-return {
+return { {
   "andymass/vim-matchup",
   event = "VeryLazy",
-  enabled = true,
+  enabled = false,
   config = function()
 
 
     -- angular template parse as standart html
     vim.cmd [[
           augroup matchup_matchparen_enable_ft
-            autocmd!
-                autocmd FileType angular let b:match_words = matchup#util#standard_html()
-            augroup END
-    ]]
+          autocmd!
+          autocmd FileType angular let b:match_words = matchup#util#standard_html()
+          augroup END
+          ]]
 
     vim.g.matchup_matchparen_IdleLimitTime = 1000000
     -- vim.g.matchup_matchparen_offscreen = { method = "popup" }
@@ -35,4 +35,21 @@ return {
       syntax_hl = 1,
     }
   end,
+} ,
+{
+"monkoose/matchparen.nvim",
+event = "VeryLazy",
+enabled = true,
+config = function()
+require('matchparen').setup({
+    on_startup = true, -- Should it be enabled by default
+    hl_group = 'MatchParen', -- highlight group of the matched brackets
+    augroup_name = 'matchparen',  -- almost no reason to touch this unless there is already augroup with such name
+    debounce_time = 200, -- debounce time in milliseconds for rehighlighting of brackets.
+})
+end,
+keys = {
+ -- { "", function() end, desc ="" },
+}
+},
 }
