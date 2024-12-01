@@ -20,13 +20,15 @@ return {
     dependencies = {
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-path",
-      "iguanacucumber/mag-buffer",
+
       -- "hrsh7th/cmp-buffer",
       -- "hrsh7th/cmp-nvim-lsp",
-      "iguanacucumber/mag-nvim-lsp",
-      -- "hrsh7th/cmp-nvim-lsp",
-      "iguanacucumber/mag-nvim-lua",
       -- "hrsh7th/cmp-nvim-lua",
+      --
+      "iguanacucumber/mag-buffer",
+      "iguanacucumber/mag-nvim-lsp",
+      "iguanacucumber/mag-nvim-lua",
+
       "hrsh7th/cmp-latex-symbols",
       "rcarriga/cmp-dap",
       "chrisgrieser/cmp_yanky",

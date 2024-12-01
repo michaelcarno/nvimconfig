@@ -2,8 +2,9 @@ return {
   "LintaoAmons/bookmarks.nvim",
   -- recommand, pin the plugin at specific version for stability
   -- backup your db.json file when you want to upgrade the plugin
-  -- tag = "v1.4.1", 
-  event="VeryLazy",
+  tag = "v1.4.2",
+  enabled = false,
+  event = "VeryLazy",
   dependencies = {
     { "nvim-telescope/telescope.nvim" },
     { "stevearc/dressing.nvim" }, -- optional: to have the same UI shown in the GIF
@@ -11,7 +12,7 @@ return {
   config = function()
     local opts = {
       -- where you want to put your bookmarks db file (a simple readable json file, which you can edit manually as well)
-      json_db_path = vim.fs.normalize(vim.fn.stdpath("config") .. "/bookmarks.db.json"),
+      json_db_path = vim.fs.normalize(vim.fn.stdpath "config" .. "/bookmarks.db.json"),
       -- This is how the sign looks.
       signs = {
         mark = { icon = "󰃁", color = "red", line_bg = "#572626" },
@@ -31,7 +32,11 @@ return {
       -- treeview options
       treeview = {
         bookmark_format = function(bookmark)
-          if bookmark.name ~= "" then return bookmark.name else return "[No Name]" end
+          if bookmark.name ~= "" then
+            return bookmark.name
+          else
+            return "[No Name]"
+          end
         end,
         keymap = {
           quit = { "q", "<ESC>" },
@@ -54,18 +59,13 @@ return {
           callback = function(bookmark, projects)
             local project_path
             for _, p in ipairs(projects) do
-              if p.name == bookmark.location.project_name then
-                project_path = p.path
-              end
+              if p.name == bookmark.location.project_name then project_path = p.path end
             end
-            if project_path then
-              vim.cmd("cd " .. project_path)
-            end
+            if project_path then vim.cmd("cd " .. project_path) end
           end,
         },
       },
     }
     require("bookmarks").setup(opts)
-
   end,
 }

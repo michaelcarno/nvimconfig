@@ -1,7 +1,11 @@
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
-    { "nvim-telescope/telescope-fzf-native.nvim", enabled = vim.fn.executable "make" == 1, build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build" },
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      enabled = vim.fn.executable "make" == 1,
+      build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+    },
   },
   cmd = "Telescope",
   opts = function(_, opts)
@@ -69,7 +73,7 @@ return {
         live_grep_args = { show_line = false, path_display = filenameFirst },
         -- live_grep = require("telescopePickers").prettyGrepPicker { picker = "live_grep" },
         -- find_files = require("telescopePickers").prettyFilesPicker { picker = "find_files" },
-        find_files = { path_display = filenameFirst, previewer=false },
+        find_files = { path_display = filenameFirst, previewer = false },
         live_grep = { path_display = filenameFirst },
         --   current_buffer_tags = { fname_width = 100,path_display = {"absolute"} },
         jumplist = { show_line = false, path_display = filenameFirst },
@@ -109,7 +113,7 @@ return {
           vertical = {
             mirror = false,
             prompt_position = "bottom",
-            preview_height = 0.75,
+            preview_height = 0.70,
             -- preview_width = 0.80,
           },
           width = 0.65,

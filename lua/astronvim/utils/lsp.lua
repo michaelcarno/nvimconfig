@@ -60,6 +60,17 @@ M.setup_diagnostics = function(signs)
     extend_tbl(default_diagnostics, { virtual_text = false, signs = false }),
     -- virtual text off, signs on
     extend_tbl(default_diagnostics, { virtual_text = false }),
+    -- only errors
+    extend_tbl(default_diagnostics, {
+      virtual_text = {
+        prefix = "●",
+        source = "if_many",
+        severity = vim.diagnostic.severity.ERROR,
+        -- virt_text_hide = true,
+        -- hl_mode = "replace",
+      },
+      signs = true,
+    }),
     -- all diagnostics on
     default_diagnostics,
   }
@@ -165,7 +176,7 @@ M.on_attach = function(client, bufnr)
   end
 
   if client.supports_method "textDocument/codeLens" then
-    if vim.g.codelens_enabled then vim.lsp.codelens.refresh({ bufnr = bufnr }) end
+    if vim.g.codelens_enabled then vim.lsp.codelens.refresh { bufnr = bufnr } end
     lsp_mappings.n["<leader>ll"] = {
       function() vim.lsp.codelens.refresh { bufnr = bufnr } end,
       desc = "LSP CodeLens refresh",
@@ -275,14 +286,12 @@ M.on_attach = function(client, bufnr)
   end
 
   if client.supports_method "textDocument/inlayHint" then
-    if vim.b.inlay_hints_enabled == nil then
-      vim.b.inlay_hints_enabled = vim.g.inlay_hints_enabled
-    end
-      if vim.b.inlay_hints_enabled then vim.lsp.inlay_hint.enable(true,{bufnr = bufnr}) end
-      lsp_mappings.n["<leader>uH"] = {
-        function() require("astronvim.utils.ui").toggle_buffer_inlay_hints(bufnr) end,
-        desc = "Toggle LSP inlay hints (buffer)",
-      }
+    if vim.b.inlay_hints_enabled == nil then vim.b.inlay_hints_enabled = vim.g.inlay_hints_enabled end
+    if vim.b.inlay_hints_enabled then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end
+    lsp_mappings.n["<leader>uh"] = {
+      function() require("astronvim.utils.ui").toggle_buffer_inlay_hints(bufnr) end,
+      desc = "Toggle LSP inlay hints (buffer)",
+    }
   end
 
   if client.supports_method "textDocument/references" then

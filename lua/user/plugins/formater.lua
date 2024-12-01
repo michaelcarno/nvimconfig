@@ -78,6 +78,15 @@ return {
             }
           end,
         },
+        rust = {
+          function()
+            return {
+              exe = "rustfmt",
+              args = { "--edition 2021" },
+              stdin = true,
+            }
+          end,
+        },
 
         angular = {
           -- prettierd

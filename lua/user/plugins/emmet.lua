@@ -1,7 +1,6 @@
 return {
   "mattn/emmet-vim",
   event = "VeryLazy",
-  config = function()
-
-  end
+  -- lazy = false,
+  config = function() end,
 }

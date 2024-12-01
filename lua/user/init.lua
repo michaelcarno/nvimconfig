@@ -313,7 +313,21 @@ return {
     --   vim.opt[option] = value
     -- end
     --
+    vim.diagnostic.config {
+      virtual_text = {
+        prefix = "●",
+        source = "if_many",
+        severity = vim.diagnostic.severity.ERROR,
+        -- virt_text_hide = true,
+        -- hl_mode = "replace",
+      },
+    }
 
+    vim.cmd [[
+    let g:user_emmet_install_global = 0
+    autocmd FileType html,css,angular,typescript EmmetInstall
+    let g:user_emmet_leader_key='<M-,>'
+    ]]
     vim.cmd [[let g:codeium_bin = "c:/nvim/soft/language_server_windows_x64.exe"]]
     --     vim.cmd [[
     -- syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
@@ -370,7 +384,7 @@ return {
     -- vim.opt.listchars:append "space:⋅"
     -- vim.opt.listchars:append "eol:↴"
 
-    if next(vim.fn.argv()) == nil then
+    if next(vim.fn.argv()) == nil and not vim.g.started_by_firenvim then
       vim.api.nvim_create_autocmd("UIEnter", {
         callback = function()
           vim.cmd [[cd ~]]
@@ -506,9 +520,9 @@ return {
     }
 
     if vim.g.started_by_firenvim == true then
-      -- vim.api.nvim_create_autocmd('UIEnter', {
+      -- vim.api.nvim_create_autocmd("UIEnter", {
       --   pattern = "*",
-      --   cmd = "set guifont=JetBrainsMono NFP:h15"
+      --   cmd = "set guifont=JetBrainsMonoNF:h15",
       -- })
       vim.g.icons_enabled = false
       vim.api.nvim_create_autocmd("UIEnter", {

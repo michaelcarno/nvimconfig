@@ -1,9 +1,5 @@
 local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(
-    vim.api.nvim_replace_termcodes(key, true, true, true),
-    mode,
-    true
-  )
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 -- Mapping data with "desc" stored directly by vim.keymap.set().
 local utils = require "astronvim.utils"
@@ -72,7 +68,7 @@ return {
       desc = "Find all files",
     },
     ["fb"] = {
-      function() require("telescope.builtin").buffers { hidden = true, no_ignore = true, previewer=false } end,
+      function() require("telescope.builtin").buffers { hidden = true, no_ignore = true, previewer = false } end,
       desc = "Find buffers",
     },
     ["<M-w>"] = { "%", desc = "Go to close parent" },
@@ -84,7 +80,7 @@ return {
     ["<c-s>"] = { "<cmd>wa!<cr>", desc = "Save with format mode" },
     -- ["<c-s>"] = { "<cmd>FormatWrite<cr>", desc = "Save with format mode" },
     -- ["<C-c>"] = "<Esc><Esc>",
-    ["W"]= {"b", desc="back one word"},
+    ["W"] = { "b", desc = "back one word" },
   },
   v = {
     ["<M-w>"] = { "%", desc = "Go to close parent" },

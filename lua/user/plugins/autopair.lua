@@ -1,7 +1,7 @@
 return {
   {
     "windwp/nvim-autopairs",
-    enabled = true,
+    enabled = false,
     event = "InsertEnter",
     -- opts = function ()
     --   local map_cr = true
@@ -139,11 +139,19 @@ return {
 
   {
     "jiangmiao/auto-pairs",
-    enabled = false,
+    enabled = true,
     event = "VeryLazy",
     config = function() end,
   },
-
+  {
+    "altermo/ultimate-autopair.nvim",
+    enabled = false,
+    event = { "InsertEnter", "CmdlineEnter" },
+    branch = "v0.6", --recommended as each new version will have breaking changes
+    opts = {
+      --Config goes here
+    },
+  },
   {
     "windwp/nvim-ts-autotag",
     enabled = true,
@@ -160,8 +168,6 @@ return {
         -- Empty by default, useful if one of the "opts" global settings
         -- doesn't work well in a specific filetype
       }
-
-
     end,
   },
 }

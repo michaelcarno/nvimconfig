@@ -41,7 +41,7 @@ end
 --- Toggle diagnostics
 ---@param silent? boolean if true then don't sent a notification
 function M.toggle_diagnostics(silent)
-  vim.g.diagnostics_mode = (vim.g.diagnostics_mode - 1) % 4
+  vim.g.diagnostics_mode = (vim.g.diagnostics_mode - 1) % 5
   vim.diagnostic.config(require("astronvim.utils.lsp").diagnostics[vim.g.diagnostics_mode])
   if vim.g.diagnostics_mode == 0 then
     ui_notify(silent, "diagnostics off")
@@ -49,6 +49,8 @@ function M.toggle_diagnostics(silent)
     ui_notify(silent, "only status diagnostics")
   elseif vim.g.diagnostics_mode == 2 then
     ui_notify(silent, "virtual text off")
+  elseif vim.g.diagnostics_mode == 3 then
+    ui_notify(silent, "only errors")
   else
     ui_notify(silent, "all diagnostics on")
   end
@@ -114,7 +116,7 @@ function M.toggle_buffer_inlay_hints(bufnr, silent)
   vim.b[bufnr].inlay_hints_enabled = not vim.b[bufnr].inlay_hints_enabled
   -- TODO: remove check after dropping support for Neovim v0.9
   if vim.lsp.inlay_hint then
-    vim.lsp.inlay_hint.enable(vim.b[bufnr].inlay_hints_enabled, {bufnr = bufnr})
+    vim.lsp.inlay_hint.enable(vim.b[bufnr].inlay_hints_enabled, { bufnr = bufnr })
     ui_notify(silent, string.format("Inlay hints %s", bool2str(vim.b[bufnr].inlay_hints_enabled)))
   end
 end

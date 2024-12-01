@@ -5,7 +5,9 @@ return {
     require("flash").setup {
       label = {
         style = "inline",
+        uppercase = false,
       },
+      -- keys = {},
       rainbow = {
         enabled = true,
         -- number between 1 and 9
@@ -13,6 +15,8 @@ return {
       },
       --
     }
+    vim.keymap.set("n", "f", "<nop>")
+    vim.keymap.set("n", "F", "<nop>")
   end,
   keys = {
     {

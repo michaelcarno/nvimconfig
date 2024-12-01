@@ -7,6 +7,18 @@
     "snippets": [
       {
         "language": [
+          "rust"
+        ],
+        "path": "./rust/rust.json"
+      },
+      {
+        "language": [
+          "rust"
+        ],
+        "path": "./rust/rust_big.json"
+      },
+      {
+        "language": [
           "css",
           "scss"
         ],

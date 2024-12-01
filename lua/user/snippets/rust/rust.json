@@ -1,0 +1,120 @@
+{
+    "Print to Console": {
+        "prefix": "println",
+        "body": [
+            "println!(\"$1\");"
+        ],
+        "description": "Print to console"
+    },
+    "Function": {
+        "prefix": "fn",
+        "body": [
+            "fn $1($2) -> $3 {",
+            "    $0",
+            "}"
+        ],
+        "description": "Define a function"
+    },
+    "Struct": {
+        "prefix": "struct",
+        "body": [
+            "struct $1 {",
+            "    $2: $3,",
+            "    $0",
+            "}"
+        ],
+        "description": "Define a struct"
+    },
+    "Enum": {
+        "prefix": "enum",
+        "body": [
+            "enum $1 {",
+            "    $2,",
+            "    $0",
+            "}"
+        ],
+        "description": "Define an enum"
+    },
+    "Match Statement": {
+        "prefix": "match",
+        "body": [
+            "match $1 {",
+            "    $2 => $3,",
+            "    _ => $0",
+            "}"
+        ],
+        "description": "Match statement"
+    },
+    "If Statement": {
+        "prefix": "if",
+        "body": [
+            "if $1 {",
+            "    $0",
+            "}"
+        ],
+        "description": "If statement"
+    },
+    "Loop": {
+        "prefix": "loop",
+        "body": [
+            "loop {",
+            "    $0",
+            "}"
+        ],
+        "description": "Infinite loop"
+    },
+    "For Loop": {
+        "prefix": "for",
+        "body": [
+            "for $1 in $2 {",
+            "    $0",
+            "}"
+        ],
+        "description": "For loop"
+    },
+    "While Loop": {
+        "prefix": "while",
+        "body": [
+            "while $1 {",
+            "    $0",
+            "}"
+        ],
+        "description": "While loop"
+    },
+    "Trait": {
+        "prefix": "trait",
+        "body": [
+            "trait $1 {",
+            "    fn $2();",
+            "    $0",
+            "}"
+        ],
+        "description": "Define a trait"
+    },
+    "Implement Trait": {
+        "prefix": "impl",
+        "body": [
+            "impl $1 for $2 {",
+            "    fn $3() {",
+            "        $0",
+            "    }",
+            "}"
+        ],
+        "description": "Implement a trait for a struct"
+    },
+    "Vector": {
+        "prefix": "vec",
+        "body": [
+            "let $1: Vec<$2> = vec![$3];"
+        ],
+        "description": "Create a new vector"
+    },
+    "HashMap": {
+        "prefix": "hashmap",
+        "body": [
+            "use std::collections::HashMap;",
+            "let mut $1: HashMap<$2, $3> = HashMap::new();"
+        ],
+        "description": "Create a new HashMap"
+    }
+}
