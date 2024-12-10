@@ -299,5 +299,4 @@ tnoremap <S-Space> <Space>
 tnoremap <C-Space> <Space>
 tnoremap <S-Backspace> <BackSpace>
 tnoremap <C-Backspace> <Backspace>
-
 autocmd BufEnter * let &titlestring = "nvim: " . expand("%:t")

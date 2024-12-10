@@ -2,7 +2,7 @@ return {
   "epwalsh/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
   -- lazy = true,
-  event="VeryLazy",
+  event = "VeryLazy",
   -- ft = "markdown",
   -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
   -- event = {
@@ -22,21 +22,21 @@ return {
     workspaces = {
       {
         name = "personal",
-        path = "~/vaults/personal",
+        path = "d:/vaults/personal",
       },
       {
         name = "work",
-        path = "~/vaults/work",
+        path = "d:/vaults/work",
       },
     },
   },
   keys = {
-    {"gOf","<cmd>ObsidianSearch<cr>",desc="Search in Obsidian"},
-    {"gOn","<cmd>ObsidianNew<cr>",desc="New note"},
-    {"gOt","<cmd>ObsidianTags<cr>",desc="Tags"},
-    {"gOd","<cmd>ObsidianDailies<cr>",desc="Dailies"},
-    {"gOw","<cmd>ObsidianWorkspace<cr>",desc="Workspace"},
-    {"gOr","<cmd>ObsidianRename<cr>",desc="Rename"},
-  }
+    { "gOf", "<cmd>ObsidianSearch<cr>", desc = "Search in Obsidian" },
+    { "gOn", "<cmd>ObsidianNew<cr>", desc = "New note" },
+    { "gOt", "<cmd>ObsidianTags<cr>", desc = "Tags" },
+    { "gOd", "<cmd>ObsidianDailies<cr>", desc = "Dailies" },
+    { "gOw", "<cmd>ObsidianWorkspace<cr>", desc = "Workspace" },
+    { "gOr", "<cmd>ObsidianRename<cr>", desc = "Rename" },
+  },
   -- see below for full list of options 👇
 }
