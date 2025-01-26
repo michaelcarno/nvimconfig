@@ -1,4 +1,8 @@
 -- if vim.loader and vim.fn.has "nvim-0.9.1" == 1 then vim.loader.enable() end
+--
+--
+-- BUG: remove this after 10.4
+vim.hl = vim.highlight
 
 for _, source in ipairs {
   "astronvim.bootstrap",
@@ -19,6 +23,5 @@ if astronvim.default_colorscheme then
     )
   end
 end
-
 
 require("astronvim.utils").conditional_func(astronvim.user_opts("polish", nil, false), true)

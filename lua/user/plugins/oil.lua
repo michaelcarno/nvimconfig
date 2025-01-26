@@ -1,11 +1,11 @@
 return {
-  'stevearc/oil.nvim',
+  "stevearc/oil.nvim",
   opts = {},
   lazy = false,
   -- Optional dependencies
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
-    require("oil").setup({
+    require("oil").setup {
       -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
       -- Set to false if you still want to use netrw.
       default_file_explorer = true,
@@ -38,7 +38,7 @@ return {
       -- Skip the confirmation popup for simple operations
       skip_confirm_for_simple_edits = true,
       -- Change this to customize the command used when deleting to trash
-      trash_command = "trash-put",
+      -- trash_command = "trash-put",
       -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
       prompt_save_on_select_new_entry = true,
       -- Oil will automatically delete hidden buffers after this delay
@@ -76,13 +76,9 @@ return {
         -- Show files and directories that start with "."
         show_hidden = true,
         -- This function defines what is considered a "hidden" file
-        is_hidden_file = function(name, bufnr)
-          return vim.startswith(name, ".")
-        end,
+        is_hidden_file = function(name, bufnr) return vim.startswith(name, ".") end,
         -- This function defines what will never be shown, even when `show_hidden` is set
-        is_always_hidden = function(name, bufnr)
-          return false
-        end,
+        is_always_hidden = function(name, bufnr) return false end,
         sort = {
           -- sort order can be "asc" or "desc"
           -- see :help oil-columns to see which columns are sortable
@@ -102,9 +98,7 @@ return {
         },
         -- This is the config that will be passed to nvim_open_win.
         -- Change values here to customize the layout
-        override = function(conf)
-          return conf
-        end,
+        override = function(conf) return conf end,
       },
       -- Configuration for the actions floating preview window
       preview = {
@@ -143,10 +137,10 @@ return {
           winblend = 0,
         },
       },
-    })
+    }
   end,
   keys = {
     -- { "<leader>o", function() require "oil".open() end, desc = "open oil" },
-    { "fs", function() require "oil".open() end, desc = "open oil" }
-  }
+    { "fs", function() require("oil").open() end, desc = "open oil" },
+  },
 }

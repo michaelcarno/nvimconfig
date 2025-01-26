@@ -313,6 +313,14 @@ return {
     --   vim.opt[option] = value
     -- end
     --
+    --
+
+    --
+    -- disable auto continue comment block
+    vim.cmd [[
+    autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
+    ]]
+
     vim.diagnostic.config {
       virtual_text = {
         prefix = "●",
@@ -412,7 +420,7 @@ return {
 
     parser_config.teraonline_definitions = {
       install_info = {
-        url = "D://pinki//backstep//treesitter-teradefinition", -- local path or git repo
+        url = "D://proxy//backstep//treesitter-teradefinition", -- local path or git repo
         files = { "src/parser.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
         -- optional entries:
         branch = "main", -- default branch in case of git repo if different from master

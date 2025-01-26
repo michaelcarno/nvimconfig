@@ -293,6 +293,7 @@ command! -nargs=1 GuiWindowOpacity call s:GuiWindowOpacityCommand("<args>")
 "
 " See issues:
 "  - https://github.com/neovim/neovim/issues/20325
+
 "  - https://github.com/neovim/neovim/issues/19265
 "  - https://github.com/equalsraf/neovim-qt/issues/999
 tnoremap <S-Space> <Space>
@@ -300,3 +301,4 @@ tnoremap <C-Space> <Space>
 tnoremap <S-Backspace> <BackSpace>
 tnoremap <C-Backspace> <Backspace>
 autocmd BufEnter * let &titlestring = "nvim: " . expand("%:t")
+
