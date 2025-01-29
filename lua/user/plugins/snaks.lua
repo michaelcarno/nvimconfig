@@ -1,6 +1,7 @@
 return {
   lazy = false,
-  -- lazy = "VeryLazy",
+  enabled = false,
+  event = "BufReadPre",
   "folke/snacks.nvim",
   ---@type snacks.Config
   opts = {

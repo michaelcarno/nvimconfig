@@ -315,6 +315,22 @@ return {
     --
     --
 
+    -- disable some features for big files
+    vim.api.nvim_create_autocmd("BufReadPre", {
+      callback = function(args)
+        if vim.b[args.buf].large_buf then
+          require("rainbow-delimiters").disable(args.buf)
+          -- require("ufo").disableFold(args.buf)
+          -- vim.lsp.stop_client(vim.lsp.get_clients())
+
+          -- vim.cmd "UfoDetach"
+          -- vim.cmd "Gitsigns detach"
+          vim.opt_local.foldmethod = "manual"
+          vim.opt_local.spell = false
+          -- vim.cmd "MatchParenDisable"
+        end
+      end,
+    })
     --
     -- disable auto continue comment block
     vim.cmd [[
