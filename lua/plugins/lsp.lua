@@ -17,7 +17,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    tag = "v1.5.0",
+    -- tag = "v1.5.0",
     dependencies = {
       {
         "folke/neoconf.nvim",

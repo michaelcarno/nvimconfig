@@ -2,7 +2,7 @@
 --
 --
 -- BUG: remove this after 10.4
-vim.hl = vim.highlight
+-- vim.hl = vim.highlight
 
 for _, source in ipairs {
   "astronvim.bootstrap",

@@ -1,5 +1,6 @@
 return {
   "joeveiga/ng.nvim",
+  enabled = false,
   event = "VeryLazy",
   config = function() end,
   keys = {

@@ -73,6 +73,12 @@
       },
       {
         "language": [
+          "dosbatch"
+        ],
+        "path": "dosbatch.json"
+      },
+      {
+        "language": [
           "python"
         ],
         "path": "./python/main.json"
