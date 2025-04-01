@@ -88,7 +88,7 @@ return {
           end,
         },
 
-        angular = {
+        htmlangular = {
           -- prettierd
           function()
             return {

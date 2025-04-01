@@ -77,10 +77,37 @@ return {
     ["<leader>gY"] = { "<cmd>Glance type_definitions<cr>", desc = "go to type definitions" },
     ["<leader>gM"] = { "<cmd>Glance implementations<cr>", desc = "go to implementations" },
     ["<C-q>"] = false,
-    ["<c-s>"] = { "<cmd>wa!<cr>", desc = "Save with format mode" },
+    -- ["<c-s>"] = { "<cmd>wa!<cr>", desc = "Save with format mode" },
+
+    ["<c-s>"] = {
+      function() vim.lsp.buf.signature_help { border = "rounded", silent = true } end,
+    },
     -- ["<c-s>"] = { "<cmd>FormatWrite<cr>", desc = "Save with format mode" },
     -- ["<C-c>"] = "<Esc><Esc>",
     ["W"] = { "b", desc = "back one word" },
+    ["fa"] = {
+      function()
+        local aerial_avail, _ = pcall(require, "aerial")
+        if aerial_avail then
+          require("telescope").extensions.aerial.aerial()
+        else
+          require("telescope.builtin").lsp_document_symbols()
+        end
+      end,
+      desc = "Outline",
+    },
+    ["<S-f9>"] = {
+      function()
+        vim.ui.input({ prompt = "Condition: " }, function(condition)
+          if condition then require("dap").set_breakpoint(condition) end
+        end)
+      end,
+      desc = "Conditional Breakpoint (S-F9)",
+    },
+    ["<M-f9>"] = {
+      function() require("dap").set_breakpoint(nil, nil, vim.fn.input "Log point message: ") end,
+      desc = "Log Point",
+    },
   },
   v = {
     ["<M-w>"] = { "%", desc = "Go to close parent" },
@@ -89,6 +116,7 @@ return {
     -- setting a mapping to false will disable it
     ["<Esc>"] = { "<Esc>" },
     ["<C-s>"] = { "<C-\\><C-n>", desc = "Normal mode" },
+    ["<C-h>"] = { "<BACKSPACE>" },
   },
   i = {
     -- ["<C-c>"] = "<Esc><Esc>",
@@ -97,7 +125,9 @@ return {
     --   select = true,
     -- },
 
-    -- ["<C-s>"] = { "<cmd>wa" },
+    ["<C-s>"] = {
+      function() vim.lsp.buf.signature_help { border = "rounded", silent = true } end,
+    },
     ["<C-l>"] = { function() require("luasnip").jump(1) end },
     ["<C-j>"] = { function() require("luasnip").jump(-1) end },
 

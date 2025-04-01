@@ -20,6 +20,7 @@ return {
     dependencies = {
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-path",
+      "hrsh7th/cmp-calc",
 
       -- "hrsh7th/cmp-buffer",
       -- "hrsh7th/cmp-nvim-lsp",
@@ -115,7 +116,7 @@ return {
           ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
           ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
           ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-          ["<C-s>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+          -- ["<M-s>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
           -- ["<C-'>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
           ["<C-y>"] = cmp.config.disable,
           ["<C-e>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
@@ -150,9 +151,13 @@ return {
           -- { name = "codeium", priority = 1200 },
           { name = "git", priority = 1200 },
           { name = "dap", priority = 1200 },
+          { name = "calc", priority = 1003 },
+          { name = "luasnip", priority = 1002 },
+          { name = "nvim_lsp", priority = 1001 },
+          { name = "yanky", priority = 999 },
           {
             name = "cmp_yanky",
-            priority = 1100,
+            priority = 900,
             option = {
               -- only suggest items which match the current filetype
               onlyCurrentFiletype = true,
@@ -160,9 +165,7 @@ return {
               minLength = 3,
             },
           },
-          { name = "nvim_lsp", priority = 1001 },
-          { name = "luasnip", priority = 1000 },
-          { name = "nvim_lua", priority = 1000 },
+          { name = "nvim_lua", priority = 999 },
           { name = "latex_symbols", priority = 900 },
           { name = "buffer", priority = 500 },
           { name = "path", priority = 250 },

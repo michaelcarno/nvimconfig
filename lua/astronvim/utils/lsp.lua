@@ -28,7 +28,6 @@ M.diagnostics = { [0] = {}, {}, {}, {} }
 
 M.setup_diagnostics = function(signs)
   local default_diagnostics = astronvim.user_opts("diagnostics", {
-    virtual_text = true,
     signs = {
       text = {
         [vim.diagnostic.severity.ERROR] = utils.get_icon "DiagnosticError",
@@ -54,22 +53,26 @@ M.setup_diagnostics = function(signs)
     -- diagnostics off
     [0] = extend_tbl(
       default_diagnostics,
-      { underline = false, virtual_text = false, signs = false, update_in_insert = false }
+      { underline = false, virtual_text = false, virtual_lines = false, signs = false, update_in_insert = false }
     ),
     -- status only
-    extend_tbl(default_diagnostics, { virtual_text = false, signs = false }),
+    extend_tbl(default_diagnostics, { virtual_text = false, virtual_lines = false, signs = false }),
     -- virtual text off, signs on
-    extend_tbl(default_diagnostics, { virtual_text = false }),
+    extend_tbl(default_diagnostics, { virtual_text = false, virtual_lines = false }),
     -- only errors
     extend_tbl(default_diagnostics, {
-      virtual_text = {
-        prefix = "●",
-        source = "if_many",
+      -- virtual_text = {
+      --   -- prefix = "●",
+      --   source = "all",
+      --   severity = vim.diagnostic.severity.ERROR,
+      --   virt_text_hide = true,
+      --   hl_mode = "replace",
+      -- },
+      virtual_text = false,
+      virtual_lines = {
+
         severity = vim.diagnostic.severity.ERROR,
-        -- virt_text_hide = true,
-        -- hl_mode = "replace",
       },
-      signs = true,
     }),
     -- all diagnostics on
     default_diagnostics,
@@ -109,7 +112,7 @@ end
 
 --- Helper function to check if any active LSP clients given a filter provide a specific capability
 ---@param capability string The server capability to check for (example: "documentFormattingProvider")
----@param filter vim.lsp.get_active_clients.filter|nil (table|nil) A table with
+---@param filter vim.lsp.get_clients.filter|nil (table|nil) A table with
 ---              key-value pairs used to filter the returned clients.
 ---              The available keys are:
 ---               - id (number): Only return clients with the given id
@@ -117,14 +120,14 @@ end
 ---               - name (string): Only return clients with the given name
 ---@return boolean # Whether or not any of the clients provide the capability
 function M.has_capability(capability, filter)
-  for _, client in ipairs(vim.lsp.get_active_clients(filter)) do
-    if client.supports_method(capability) then return true end
+  for _, client in ipairs(vim.lsp.get_clients(filter)) do
+    if client:supports_method(capability) then return true end
   end
   return false
 end
 
 local function add_buffer_autocmd(augroup, bufnr, autocmds)
-  if not vim.tbl_islist(autocmds) then autocmds = { autocmds } end
+  if not vim.islist(autocmds) then autocmds = { autocmds } end
   local cmds_found, cmds = pcall(vim.api.nvim_get_autocmds, { group = augroup, buffer = bufnr })
   if not cmds_found or vim.tbl_isempty(cmds) then
     vim.api.nvim_create_augroup(augroup, { clear = false })
@@ -167,7 +170,7 @@ M.on_attach = function(client, bufnr)
     lsp_mappings.n["<leader>lI"] = { "<cmd>NullLsInfo<cr>", desc = "Null-ls information" }
   end
 
-  if client.supports_method "textDocument/codeAction" then
+  if client:supports_method "textDocument/codeAction" then
     lsp_mappings.n["<leader>la"] = {
       function() vim.lsp.buf.code_action() end,
       desc = "LSP code action",
@@ -175,7 +178,7 @@ M.on_attach = function(client, bufnr)
     lsp_mappings.v["<leader>la"] = lsp_mappings.n["<leader>la"]
   end
 
-  if client.supports_method "textDocument/codeLens" then
+  if client:supports_method "textDocument/codeLens" then
     if vim.g.codelens_enabled then vim.lsp.codelens.refresh { bufnr = bufnr } end
     lsp_mappings.n["<leader>ll"] = {
       function() vim.lsp.codelens.refresh { bufnr = bufnr } end,
@@ -187,21 +190,21 @@ M.on_attach = function(client, bufnr)
     }
   end
 
-  if client.supports_method "textDocument/declaration" then
+  if client:supports_method "textDocument/declaration" then
     lsp_mappings.n["gD"] = {
       function() vim.lsp.buf.declaration() end,
       desc = "Declaration of current symbol",
     }
   end
 
-  if client.supports_method "textDocument/definition" then
+  if client:supports_method "textDocument/definition" then
     lsp_mappings.n["gd"] = {
       function() vim.lsp.buf.definition() end,
       desc = "Show the definition of current symbol",
     }
   end
 
-  if client.supports_method "textDocument/formatting" and not tbl_contains(M.formatting.disabled, client.name) then
+  if client:supports_method "textDocument/formatting" and not tbl_contains(M.formatting.disabled, client.name) then
     lsp_mappings.n["<leader>lf"] = {
       function() vim.lsp.buf.format(M.format_opts) end,
       desc = "Format buffer",
@@ -247,7 +250,7 @@ M.on_attach = function(client, bufnr)
     end
   end
 
-  if client.supports_method "textDocument/documentHighlight" then
+  if client:supports_method "textDocument/documentHighlight" then
     add_buffer_autocmd("lsp_document_highlight", bufnr, {
       {
         events = { "CursorHold", "CursorHoldI" },
@@ -268,24 +271,21 @@ M.on_attach = function(client, bufnr)
     })
   end
 
-  if client.supports_method "textDocument/hover" then
-    -- TODO: Remove mapping after dropping support for Neovim v0.9, it's automatic
-    if vim.fn.has "nvim-0.10" == 0 then
-      lsp_mappings.n["K"] = {
-        function() vim.lsp.buf.hover() end,
-        desc = "Hover symbol details",
-      }
-    end
+  if client:supports_method "textDocument/hover" then
+    lsp_mappings.n["K"] = {
+      function() vim.lsp.buf.hover { border = "rounded", silent = true } end,
+      desc = "Hover symbol details",
+    }
   end
 
-  if client.supports_method "textDocument/implementation" then
+  if client:supports_method "textDocument/implementation" then
     lsp_mappings.n["gI"] = {
       function() vim.lsp.buf.implementation() end,
       desc = "Implementation of current symbol",
     }
   end
 
-  if client.supports_method "textDocument/inlayHint" then
+  if client:supports_method "textDocument/inlayHint" then
     if vim.b.inlay_hints_enabled == nil then vim.b.inlay_hints_enabled = vim.g.inlay_hints_enabled end
     if vim.b.inlay_hints_enabled then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end
     lsp_mappings.n["<leader>uh"] = {
@@ -294,7 +294,7 @@ M.on_attach = function(client, bufnr)
     }
   end
 
-  if client.supports_method "textDocument/references" then
+  if client:supports_method "textDocument/references" then
     lsp_mappings.n["gr"] = {
       function() vim.lsp.buf.references() end,
       desc = "References of current symbol",
@@ -305,32 +305,32 @@ M.on_attach = function(client, bufnr)
     }
   end
 
-  if client.supports_method "textDocument/rename" then
+  if client:supports_method "textDocument/rename" then
     lsp_mappings.n["<leader>lr"] = {
       function() vim.lsp.buf.rename() end,
       desc = "Rename current symbol",
     }
   end
 
-  if client.supports_method "textDocument/signatureHelp" then
+  if client:supports_method "textDocument/signatureHelp" then
     lsp_mappings.n["<leader>lh"] = {
-      function() vim.lsp.buf.signature_help() end,
+      function() vim.lsp.buf.signature_help { border = "rounded", silent = true } end,
       desc = "Signature help",
     }
   end
 
-  if client.supports_method "textDocument/typeDefinition" then
+  if client:supports_method "textDocument/typeDefinition" then
     lsp_mappings.n["gy"] = {
       function() vim.lsp.buf.type_definition() end,
       desc = "Definition of current type",
     }
   end
 
-  if client.supports_method "workspace/symbol" then
+  if client:supports_method "workspace/symbol" then
     lsp_mappings.n["<leader>lG"] = { function() vim.lsp.buf.workspace_symbol() end, desc = "Search workspace symbols" }
   end
 
-  if client.supports_method "textDocument/semanticTokens/full" and vim.lsp.semantic_tokens then
+  if client:supports_method "textDocument/semanticTokens/full" and vim.lsp.semantic_tokens then
     if vim.g.semantic_tokens_enabled then
       vim.b[bufnr].semantic_tokens_enabled = true
       lsp_mappings.n["<leader>uY"] = {
@@ -376,7 +376,7 @@ M.on_attach = function(client, bufnr)
   utils.set_mappings(user_opts("lsp.mappings", lsp_mappings), { buffer = bufnr })
 
   for id, _ in pairs(astronvim.lsp.progress) do -- clear lingering progress messages
-    if not next(vim.lsp.get_active_clients { id = tonumber(id:match "^%d+") }) then astronvim.lsp.progress[id] = nil end
+    if not next(vim.lsp.get_clients { id = tonumber(id:match "^%d+") }) then astronvim.lsp.progress[id] = nil end
   end
 
   local on_attach_override = user_opts("lsp.on_attach", nil, false)

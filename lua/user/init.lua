@@ -21,7 +21,7 @@ return {
   -- colorscheme = "astrotheme",
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
-    virtual_text = true,
+    virtual_text = false,
     underline = true,
   },
   lsp = {
@@ -89,6 +89,7 @@ return {
               enumMemberValues = { enabled = true },
             },
           },
+          autoUseWorkspaceTsdk = { enabled = true },
         },
       },
       omnisharp = {
@@ -193,7 +194,7 @@ return {
         },
       },
       cssmodules_ls = {
-        filetypes = { "angular", "html" },
+        filetypes = { "angular", "htmlangular", "html", "css", "scss" },
       },
       ltex = {
         filetypes = {
@@ -214,10 +215,10 @@ return {
         },
       },
       tailwindcss = {
-        filetypes = { "angular", "html" },
+        filetypes = { "angular", "htmlangular", "html" },
       },
       angularls = {
-        filetypes = { "angular", "typescript", "html", "typescriptreact", "typescript.tsx" },
+        filetypes = { "angular", "htmlangular", "typescript", "html", "typescriptreact", "typescript.tsx" },
       },
 
       emmet_ls = {
@@ -245,6 +246,15 @@ return {
   -- Configure require("lazy").setup() options
   lazy = {
     defaults = { lazy = true },
+    -- concurrency = 1,
+    -- git = {
+    --   throttle = {
+    --     enabled = true, -- not enabled by default
+    --     -- max 2 ops every 5 seconds
+    --     rate = 2,
+    --     duration = 5 * 1000, -- in ms
+    --   },
+    -- },
     performance = {
       rtp = {
         -- customize default disabled vim plugins
@@ -279,26 +289,18 @@ return {
         },
       },
     },
-
-    -- "pmizio/typescript-tools.nvim", -- add lsp plugin
-    -- {
-    --   "williamboman/mason-lspconfig.nvim",
-    --   opts = {
-    --     ensure_installed = { "tsserver" }, -- automatically install lsp
-    --   },
-    -- },
-    --
-    -- cmp = function(opts)
-    --   local cmp = require "cmp"
-    --   -- modify the mapping part of the table
-    --   opts.mapping["<Tab>"] = cmp.mapping.confirm {
-    --     behavior = cmp.ConfirmBehavior.Insert,
-    --     select = true,
-    --   }
-    --   return opts
-    -- end
   },
   polish = function()
+    -- request neovim v0.10+ for vim.ui.input
+    -- and dressing.nvim for float window.
+
+    vim.keymap.set("i", "<M-.>", function()
+      vim.ui.input({ prompt = "Calc: " }, function(input)
+        local calc = load("return " .. (input or ""))()
+        if calc then vim.api.nvim_feedkeys(tostring(calc), "i", true) end
+      end)
+    end)
+
     -- USE POWER SHELL INSTEAD CMD
     -- local powershell_options = {
     --   shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
@@ -337,19 +339,19 @@ return {
     autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
     ]]
 
-    vim.diagnostic.config {
-      virtual_text = {
-        prefix = "●",
-        source = "if_many",
-        severity = vim.diagnostic.severity.ERROR,
-        -- virt_text_hide = true,
-        -- hl_mode = "replace",
-      },
-    }
+    -- vim.diagnostic.config {
+    --   virtual_text = {
+    --     prefix = "●",
+    --     source = "if_many",
+    --     severity = vim.diagnostic.severity.ERROR,
+    --     -- virt_text_hide = true,
+    --     -- hl_mode = "replace",
+    --   },
+    -- }
 
     vim.cmd [[
     let g:user_emmet_install_global = 0
-    autocmd FileType html,css,angular,typescript EmmetInstall
+    autocmd FileType html,css,angular,htmlangular,typescript EmmetInstall
     let g:user_emmet_leader_key='<M-,>'
     ]]
     vim.cmd [[let g:codeium_bin = "c:/nvim/soft/language_server_windows_x64.exe"]]
@@ -408,6 +410,10 @@ return {
     -- vim.opt.listchars:append "space:⋅"
     -- vim.opt.listchars:append "eol:↴"
 
+    vim.opt.title = true
+    vim.opt.titlelen = 20
+    vim.opt.titlestring = '%{expand("%:h")} - nvim'
+
     if next(vim.fn.argv()) == nil and not vim.g.started_by_firenvim then
       vim.api.nvim_create_autocmd("UIEnter", {
         callback = function()
@@ -446,9 +452,9 @@ return {
       filetype = "def", -- if filetype does not match the parser name
     }
 
-    vim.cmd [[
-    autocmd BufRead,BufEnter *.component.html set filetype=angular
-    ]]
+    -- vim.cmd [[
+    -- autocmd BufRead,BufEnter *.component.html set filetype=angular
+    -- ]]
     --
     -- также надо добавить filetype.vim с содержимым
     -- autocmd BufRead,BufEnter *.component.html set filetype=angular
@@ -498,12 +504,16 @@ return {
       minimum_width = 50,
       render = "default",
       stages = "static",
-      timeout = 2000,
-      top_down = true,
       max_width = 50,
       max_height = 5,
       on_open = nil,
       on_close = nil,
+      time_formats = {
+        notification = "%T",
+        notification_history = "%FT%T",
+      },
+      timeout = 2000,
+      top_down = true,
     }
     -- lsp_mappings.n["<leader>lG"][1] = function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end
     -- grep with args plugin
@@ -747,5 +757,40 @@ return {
     -- }
     -- command to build treesiter  (have to install LLVM)
     --cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build
+
+    -- local config = vim.tbl_deep_extend("force", default_config, require("vtsls_commands").setup or {})
+
+    -- Function to send commands to vtsls
+
+    -- local function send_to_vtsls(command, args)
+    --   vim.lsp.buf.execute_command {
+    --     command = command,
+    --     arguments = args,
+    --   }
+    -- end
+    --
+    -- -- local command = {
+    -- --   command = "typescript.selectTypeScriptVersion", -- Replace with actual command name supported by vtsls
+    -- --   arguments = { "5.2.2" }, -- Pass necessary arguments; here we pass the current file path
+    -- --   vim.lsp.buf.execute_command(command),
+    -- -- }
+    --
+    -- local command = {
+    --   command = "typescript.organizeImports",
+    --   arguments = { vim.api.nvim_buf_get_name(0) },
+    -- }
+    --
+    -- vim.keymap.set(
+    --   "n",
+    --   "lm",
+    --   function() send_to_vtsls("typescript.organizeImports", { vim.api.nvim_buf_get_name(0) }) end
+    -- )
+    -- vim.keymap.set("n", "lv", function() send_to_vtsls("typescript.selectTypeScriptVersion", {}) end)
+    -- --
+    -- -- vim.keymap.set(
+    -- --   "n",
+    -- --   "lu",
+    -- --   function() send_to_vtsls("typescript.removeUnusedImports", { vim.api.nvim_buf_get_name(0) }) end
+    -- -- )
   end,
 }

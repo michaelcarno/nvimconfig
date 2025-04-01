@@ -1,6 +1,6 @@
 return {
   "gbprod/yanky.nvim",
-  event = "VeryLazy",
+  event = "BufRead",
   enabled = true,
   dependencies = { { "kkharji/sqlite.lua" } },
   opts = function()
@@ -11,7 +11,7 @@ return {
       ring = {
         history_length = 20,
         storage = "memory",
-        storage_path = vim.fn.stdpath("data") .. "/databases/yanky.db", -- Only for sqlite storage
+        storage_path = vim.fn.stdpath "data" .. "/databases/yanky.db", -- Only for sqlite storage
         sync_with_numbered_registers = true,
         cancel_event = "update",
         ignore_registers = { "_" },
