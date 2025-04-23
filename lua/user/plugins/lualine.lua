@@ -335,6 +335,8 @@ return {
       spinner_symbols = { "⢎⡰", "⢎⡡", "⢎⡑", "⢎⠱", "⠎⡱", "⢊⡱", "⢌⡱", "⢆⡱" },
     }
 
+    config.winbar = {}
+    config.inactive_winbar = {}
     require("lualine").setup(config)
   end,
   keys = {

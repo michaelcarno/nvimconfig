@@ -294,6 +294,11 @@ return {
     -- request neovim v0.10+ for vim.ui.input
     -- and dressing.nvim for float window.
 
+    if vim.g.neovide then
+      vim.cmd [[ set guifont=JetBrainsMono\ NF:h15]]
+      vim.cmd [[ let g:neovide_opacity=0.7 ]]
+    end
+
     vim.keymap.set("i", "<M-.>", function()
       vim.ui.input({ prompt = "Calc: " }, function(input)
         local calc = load("return " .. (input or ""))()
@@ -354,7 +359,7 @@ return {
     autocmd FileType html,css,angular,htmlangular,typescript EmmetInstall
     let g:user_emmet_leader_key='<M-,>'
     ]]
-    vim.cmd [[let g:codeium_bin = "c:/nvim/soft/language_server_windows_x64.exe"]]
+    -- vim.cmd [[let g:codeium_bin = "c:/nvim/soft/language_server_windows_x64.exe"]]
     --     vim.cmd [[
     -- syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
     -- ]]
@@ -452,9 +457,9 @@ return {
       filetype = "def", -- if filetype does not match the parser name
     }
 
-    -- vim.cmd [[
-    -- autocmd BufRead,BufEnter *.component.html set filetype=angular
-    -- ]]
+    vim.cmd [[
+    autocmd BufRead,BufEnter *.component.html set filetype=htmlangular
+    ]]
     --
     -- также надо добавить filetype.vim с содержимым
     -- autocmd BufRead,BufEnter *.component.html set filetype=angular

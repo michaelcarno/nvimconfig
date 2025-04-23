@@ -37,7 +37,7 @@ M.setup_diagnostics = function(signs)
       },
       active = signs,
     },
-    update_in_insert = true,
+    update_in_insert = false,
     underline = true,
     severity_sort = true,
     float = {
@@ -61,18 +61,18 @@ M.setup_diagnostics = function(signs)
     extend_tbl(default_diagnostics, { virtual_text = false, virtual_lines = false }),
     -- only errors
     extend_tbl(default_diagnostics, {
-      -- virtual_text = {
-      --   -- prefix = "●",
-      --   source = "all",
-      --   severity = vim.diagnostic.severity.ERROR,
-      --   virt_text_hide = true,
-      --   hl_mode = "replace",
-      -- },
-      virtual_text = false,
-      virtual_lines = {
-
+      virtual_text = {
+        -- prefix = "●",
+        source = "all",
         severity = vim.diagnostic.severity.ERROR,
+        virt_text_hide = true,
+        hl_mode = "replace",
       },
+      -- virtual_text = false,
+      -- virtual_lines = {
+      --
+      --   severity = vim.diagnostic.severity.ERROR,
+      -- },
     }),
     -- all diagnostics on
     default_diagnostics,

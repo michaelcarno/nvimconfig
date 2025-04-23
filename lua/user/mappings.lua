@@ -108,6 +108,16 @@ return {
       function() require("dap").set_breakpoint(nil, nil, vim.fn.input "Log point message: ") end,
       desc = "Log Point",
     },
+    ["<leader>k"] = { function() vim.diagnostic.open_float() end, desc = "open diagnostic on current line" },
+
+    ["<c-'>"] = "<F7>", -- requires terminal that supports binding <C-'>
+    ["<leader>uf"] = {
+
+      function() require("astronvim.utils.ui").toggle_autoformat() end,
+      desc = "tooggle autoformat",
+    },
+    ["}"] = { "<cmd>tabnext<cr>" },
+    ["{"] = { "<cmd>tabprev<cr>" },
   },
   v = {
     ["<M-w>"] = { "%", desc = "Go to close parent" },

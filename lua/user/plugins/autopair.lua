@@ -139,13 +139,13 @@ return {
 
   {
     "jiangmiao/auto-pairs",
-    enabled = false,
+    enabled = true,
     event = "VeryLazy",
     config = function() end,
   },
   {
     "altermo/ultimate-autopair.nvim",
-    enabled = true,
+    enabled = false,
     event = { "InsertEnter", "CmdlineEnter" },
     -- branch = "v0.6", --recommended as each new version will have breaking changes
     -- config = function() require("altermo/ultimate-autopair.nvim").pair "{{'<','>'}}" end,
@@ -205,7 +205,7 @@ return {
         --use multiple configs (|ultimate-autopair-map-multi-config|)
       },
       space2 = { -- *ultimate-autopair-map-space2-config*
-        enable = true,
+        enable = false,
         match = [[\k]],
         --what character activate
         conf = {},

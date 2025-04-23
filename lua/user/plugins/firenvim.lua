@@ -13,9 +13,10 @@ return {
     "subnut/nvim-ghost.nvim",
     -- event = "VeryLazy",
     lazy = false,
+    enabled = false,
     config = function()
       vim.cmd [[
-     let g:nvim_ghost_server_port = 4003
+     let g:nvim_ghost_server_port = 4001
      let g:nvim_ghost_use_script = 1
       " let g:nvim_ghost_python_executable = 'C:/Users/michaelcarno/AppData/Local/Programs/Python/Python312'
       " Autocommand for a single website (i.e. stackoverflow.com)
