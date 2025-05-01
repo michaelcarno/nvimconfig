@@ -26,6 +26,7 @@ return {
       replaceBg = "#B60101",
       commandBg = "#990099",
       modified = "#FFff00",
+      magenta = "#c678dd",
       -- nottoched = "#33aa88",
       nottoched = "#98c379",
       -- nottoched = "#b8cc52",
@@ -46,6 +47,7 @@ return {
           }
         end,
 
+        x = { fg = colors.magenta },
         -- x = { fg = colors. },
         -- c = { fg = colors.white, gui = "bold" },
         y = { fg = colors.white, bg = colors.normalBf, gui = "bold" },
@@ -61,6 +63,7 @@ return {
           }
         end,
 
+        x = { fg = colors.magenta },
         y = { fg = colors.white, bg = colors.insertBg, gui = "bold" },
         z = { bg = colors.insertBg, fg = colors.white, gui = "bold" },
       },
@@ -73,6 +76,8 @@ return {
             bg = colors.transparent,
           }
         end,
+
+        x = { fg = colors.magenta },
         y = { bg = colors.visualBg, fg = colors.black, gui = "bold" },
         z = { bg = colors.visualBg, fg = colors.black, gui = "bold" },
       },
@@ -85,6 +90,8 @@ return {
             bg = colors.transparent,
           }
         end,
+
+        x = { fg = colors.magenta },
         y = { fg = colors.black, gui = "bold" },
         z = { bg = colors.replaceBg, fg = colors.white, gui = "bold" },
       },
@@ -97,12 +104,14 @@ return {
             bg = colors.transparent,
           }
         end,
+        x = { fg = colors.magenta },
         y = { bg = colors.commandBg, fg = colors.white, gui = "bold" },
         z = { bg = colors.commandBg, fg = colors.white, gui = "bold" },
       },
       inactive = {
         a = { fg = colors.black, gui = "bold" },
         b = branch,
+        x = { fg = colors.magenta },
         y = { fg = colors.black, gui = "bold" },
         c = function(section)
           return {
@@ -162,6 +171,23 @@ return {
           "searchcount",
         },
         lualine_x = {
+          {
+            "lsp_status",
+            -- icon = "", -- f013
+            icon = "", -- f013
+            symbols = {
+              -- Standard unicode symbols to cycle through for LSP progress:
+              spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
+              -- Standard unicode symbol for when LSP is done:
+              done = "✓",
+              -- Delimiter inserted between LSP names:
+              separator = " ",
+            },
+            -- List of LSP names to ignore (e.g., `null-ls`):
+            ignore_lsp = { "null-ls" },
+          },
+        },
+        lualine_y = {
           "encoding",
           {
             "fileformat",
@@ -176,8 +202,7 @@ return {
             },
           },
         },
-        lualine_y = { "progress" },
-        lualine_z = { "location" },
+        lualine_z = { "progress", "location" },
       },
       inactive_sections = {
         lualine_a = {},
@@ -284,59 +309,59 @@ return {
     local function ins_left(component) table.insert(config.sections.lualine_c, component) end
 
     -- Inserts a component in lualine_x ot right section
-    local function ins_right(component) table.insert(config.sections.lualine_x, 1, component) end
+    -- local function ins_right(component) table.insert(config.sections.lualine_x, 1, component) end
 
     local function ins_rightWinbar(component) table.insert(config.winbar.lualine_x, 0, component) end
 
-    ins_right {
-      "lsp_progress",
-      -- display_components = { "lsp_client_name", { "title", "percentage", "message" } },
-      -- With spinner
-      -- display_components = { 'lsp_client_name', 'spinner', { 'title', 'percentage', 'message' }},
-      colors = {
-        percentage = colors.cyan,
-        title = colors.cyan,
-        message = colors.cyan,
-        spinner = colors.white,
-        lsp_client_name = colors.magenta,
-        use = true,
-      },
-      separators = {
-        component = " ",
-        progress = " | ",
-        percentage = { pre = "", post = "%% " },
-        title = { pre = "", post = ": " },
-        lsp_client_name = {
-          pre = "",
-          post = "",
-        },
-        spinner = { pre = "", post = "" },
-        message = {
-          pre = "(",
-          post = ")",
-          commenced = "",
-          completed = "Done",
-        },
-      },
-      display_components = {
-        "lsp_client_name",
-        -- "spinner",
-        {
-          "percentage",
-          -- "title",
-          -- "message",
-        },
-      },
-      -- lsp_client_name_enddelay = (-1 = show always)
-      timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 1000 },
-      -- { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
-      -- { "▁", "▃", "▄", "▅", "▆", "▇", "█" },
-      -- { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
-      spinner_symbols = { "⢎⡰", "⢎⡡", "⢎⡑", "⢎⠱", "⠎⡱", "⢊⡱", "⢌⡱", "⢆⡱" },
-    }
+    -- ins_right {
+    --   "lsp_progress",
+    --   -- display_components = { "lsp_client_name", { "title", "percentage", "message" } },
+    --   -- With spinner
+    --   -- display_components = { "lsp_client_name", "spinner", { "title", "percentage", "message" } },
+    --   colors = {
+    --     percentage = colors.cyan,
+    --     title = colors.cyan,
+    --     message = colors.cyan,
+    --     spinner = colors.white,
+    --     lsp_client_name = colors.magenta,
+    --     use = true,
+    --   },
+    --   separators = {
+    --     component = " ",
+    --     progress = " | ",
+    --     percentage = { pre = "", post = "%% " },
+    --     title = { pre = "", post = ": " },
+    --     lsp_client_name = {
+    --       pre = "",
+    --       post = "",
+    --     },
+    --     spinner = { pre = "", post = "" },
+    --     message = {
+    --       pre = "(",
+    --       post = ")",
+    --       commenced = "",
+    --       completed = "Done",
+    --     },
+    --   },
+    --   display_components = {
+    --     "lsp_client_name",
+    --     "spinner",
+    --     {
+    --       "percentage",
+    --       -- "title",
+    --       "message",
+    --     },
+    --   },
+    --   lsp_client_name_enddelay = -1, --(-1 = show always)
+    --   timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 1000 },
+    --   -- { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
+    --   -- { "▁", "▃", "▄", "▅", "▆", "▇", "█" },
+    --   -- { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
+    --   spinner_symbols = { "⢎⡰", "⢎⡡", "⢎⡑", "⢎⠱", "⠎⡱", "⢊⡱", "⢌⡱", "⢆⡱" },
+    -- }
 
-    config.winbar = {}
-    config.inactive_winbar = {}
+    -- config.winbar = {}
+    -- config.inactive_winbar = {}
     require("lualine").setup(config)
   end,
   keys = {

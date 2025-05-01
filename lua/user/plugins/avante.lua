@@ -6,12 +6,13 @@ return {
   -- lazy = false,
   version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
   opts = {
-    provider = "ollama",
-    auto_suggestions_provider = "ollama",
+    provider = "myollama",
+    auto_suggestions_provider = "myollama",
 
     vendors = {
-      ollama = {
+      myollama = {
         api_key_name = "",
+        disable_tools = true,
         model = "deepseek-r1:8b",
         __inherited_from = "openai",
         endpoint = "http://127.0.0.1:11434/v1",
