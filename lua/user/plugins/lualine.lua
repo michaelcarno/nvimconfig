@@ -184,8 +184,50 @@ return {
               separator = " ",
             },
             -- List of LSP names to ignore (e.g., `null-ls`):
+
             ignore_lsp = { "null-ls" },
           },
+
+          --   {
+          --     "lsp_progress",
+          --     -- display_components = { "lsp_client_name", { "title", "percentage", "message" } },
+          --     -- With spinner
+          --     -- display_components = { "lsp_client_name", "spinner", { "title", "percentage", "message" } },
+          --     colors = {
+          --       percentage = colors.cyan,
+          --       title = colors.cyan,
+          --       message = colors.cyan,
+          --       spinner = colors.white,
+          --       lsp_client_name = colors.magenta,
+          --       use = true,
+          --     },
+          --     separators = {
+          --       component = " ",
+          --       progress = " | ",
+          --       percentage = { pre = "", post = "%% " },
+          --       title = { pre = "", post = ": " },
+          --       lsp_client_name = {
+          --         pre = "",
+          --         post = "",
+          --       },
+          --       spinner = { pre = "", post = "" },
+          --       message = {
+          --         pre = "(",
+          --         post = ")",
+          --         commenced = "",
+          --         completed = "Done",
+          --       },
+          --     },
+          --     display_components = {
+          --       "lsp_client_name",
+          --       "spinner",
+          --       {
+          --         "percentage",
+          --         -- "title",
+          --         "message",
+          --       },
+          --     },
+          --   },
         },
         lualine_y = {
           "encoding",

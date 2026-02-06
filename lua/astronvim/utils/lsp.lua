@@ -21,7 +21,10 @@ local extend_tbl = utils.extend_tbl
 
 local server_config = "lsp.config."
 local setup_handlers = user_opts("lsp.setup_handlers", {
-  function(server, opts) require("lspconfig")[server].setup(opts) end,
+  function(server, opts)
+    vim.lsp.config(server, opts)
+    vim.lsp.enable(server)
+  end,
 })
 
 M.diagnostics = { [0] = {}, {}, {}, {} }
@@ -62,7 +65,7 @@ M.setup_diagnostics = function(signs)
     -- only errors
     extend_tbl(default_diagnostics, {
       virtual_text = {
-        -- prefix = "●",
+        prefix = "●",
         source = "all",
         severity = vim.diagnostic.severity.ERROR,
         virt_text_hide = true,
@@ -403,7 +406,11 @@ M.flags = user_opts "lsp.flags"
 ---@param server_name string The name of the server
 ---@return table # The table of LSP options used when setting up the given language server
 function M.config(server_name)
-  local server = require("lspconfig")[server_name]
+  local server = vim.lsp.config[server_name]
+
+  if server == nil then server = { default_config = require("lspconfig.configs." .. server_name).default_config } end
+  -- if server_name == "angularls" then vim.print(require("lspconfig.configs.angularls").default_config) end
+
   local lsp_opts = extend_tbl(server, { capabilities = M.capabilities, flags = M.flags })
   if server_name == "jsonls" then -- by default add json schemas
     local schemastore_avail, schemastore = pcall(require, "schemastore")

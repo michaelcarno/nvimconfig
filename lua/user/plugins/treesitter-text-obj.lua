@@ -2,10 +2,10 @@ return {
   "nvim-treesitter/nvim-treesitter-textobjects",
   after = "nvim-treesitter",
   requires = "nvim-treesitter/nvim-treesitter",
-  enabled=true,
-  event = "BufRead",
+  enabled = true,
+  -- event = "VeryLazy",
   config = function()
-    require 'nvim-treesitter.configs'.setup {
+    require("nvim-treesitter.configs").setup {
       textobjects = {
         select = {
           enable = true,
@@ -32,9 +32,9 @@ return {
           -- and should return the mode ('v', 'V', or '<c-v>') or a table
           -- mapping query_strings to modes.
           selection_modes = {
-            ['@parameter.outer'] = 'v', -- charwise
-            ['@function.outer'] = 'V',  -- linewise
-            ['@class.outer'] = '<c-v>', -- blockwise
+            ["@parameter.outer"] = "v", -- charwise
+            ["@function.outer"] = "V", -- linewise
+            ["@class.outer"] = "<c-v>", -- blockwise
           },
           -- If you set this to `true` (default is `false`) then any textobject is
           -- extended to include preceding or succeeding whitespace. Succeeding
@@ -100,9 +100,8 @@ return {
           },
           goto_previous = {
             ["[c"] = "@conditional.outer",
-          }
+          },
         },
-
       },
     }
     -- require 'nvim-treesitter.configs'.setup {
@@ -122,5 +121,5 @@ return {
     -- { "<leader>;lo", "<cmd>TSTextobjectSelect @_loop.outer<cr>",   desc = "loop outer" },
     -- { "<leader>;bi", "<cmd>TSTextobjectSelect @_block.innter<cr>", desc = "block inner" },
     -- { "<leader>;bo", "<cmd>TSTextobjectSelect @_block.outer<cr>",  desc = "block outer" },
-  }
+  },
 }

@@ -1,0 +1,24 @@
+{
+  "launch.json": {
+    "prefix": "launch",
+    "body": [
+      "\"version\": \"0.2.0\", ",
+      "\"configurations\": [",
+      "{",
+      "\"type\": \"chrome\",",
+      "\"request\": \"launch\",",
+      "\"name\": \"Launch chrome\",",
+      "\"url\": \"http://192.168.88.3:4200\",",
+      "\"webRoot\": \"${workspaceFolder}\"",
+      "}",
+      "{",
+      "\"type\": \"firefox\",",
+      "\"request\": \"launch\",",
+      " \"name\": \"Launch firefox\",",
+      " \"url\": \"http://192.168.88.3:4200\",",
+      " \"webRoot\": \"${workspaceFolder}\",",
+      "}",
+      "]"
+    ]
+  }
+}

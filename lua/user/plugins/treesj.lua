@@ -3,6 +3,8 @@ return {
   enabled = true,
   event = "VeryLazy",
   config = function()
+    -- local utils = require "treesj.langs.utils"
+    -- local html = require "treesj.langs.html"
     require("treesj").setup {
       ---@type boolean Use default keymaps (<space>m - toggle, <space>j - join, <space>s - split)
       use_default_keymaps = false,
@@ -24,7 +26,9 @@ return {
       ---@type nil|function Callback for treesj error handler. func (err_text, level, ...other_text)
       on_error = nil,
       ---@type table Presets for languages
-      -- langs = {}, -- See the default presets in lua/treesj/langs
+      -- langs = {
+      --   angular = utils.merge_preset(html, {}),
+      -- }, -- See the default presets in lua/treesj/langs
     }
   end,
   keys = {

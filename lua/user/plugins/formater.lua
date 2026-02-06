@@ -150,16 +150,17 @@ return {
           -- You can customize some of the format options for the filetype (:help conform.format)
           rust = { "rustfmt", lsp_format = "fallback" },
           -- Conform will run the first available formatter
+          json = { "fixjson", stop_after_first = true },
           javascript = { "prettierd", "prettier", stop_after_first = true },
-          typescript = { "prettierd", "prettier", stop_after_first = true },
-          htmlangular = { "prettierd", "prettier", stop_after_first = true },
+          typescript = { "prettierd", "prettier", stop_after_first = true, timeout_ms = 2000 },
+          htmlangular = { "prettierd", stop_after_first = true, timeout_ms = 5000 },
           html = { "prettierd", "prettier", stop_after_first = true },
           css = { "prettierd", "prettier", stop_after_first = true },
           scss = { "prettierd", "prettier", stop_after_first = true },
         },
         -- format_on_save = {
         --   -- These options will be passed to conform.format()
-        --   timeout_ms = 500,
+        --   timeout_ms = 5000,
         --   lsp_format = "fallback",
         -- },
       }

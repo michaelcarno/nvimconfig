@@ -26,21 +26,20 @@ return {
   {
     "smartpde/telescope-recent-files",
     event = "VeryLazy",
-    config = function()
-      require("telescope").load_extension("recent_files")
-    end,
+    -- config = function() require("telescope").load_extension "recent_files" end,
     keys = {
-      { "<leader>fo", function() require('telescope').extensions.recent_files.pick() end, desc = "Open recent files" }
-    }
+      { "<leader>fo", function() require("telescope").extensions.recent_files.pick() end, desc = "Open recent files" },
+    },
   },
   {
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    tag = "v1.0.0",
     "chip/telescope-software-licenses.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("telescope").load_extension("software-licenses")
-    end,
+    -- event = "VeryLazy",
+    -- lazy = false,
+    -- config = function() require("telescope").load_extension "software-licenses" end,
     keys = {
       { "<leader>fll", "<cmd>Telescope software-licenses find<CR>", desc = "Find software license text" },
-    }
-  }
+    },
+  },
 }

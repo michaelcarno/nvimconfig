@@ -21,7 +21,7 @@ return {
   -- colorscheme = "astrotheme",
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
-    virtual_text = false,
+    virtual_text = true,
     underline = true,
   },
   lsp = {
@@ -51,11 +51,11 @@ return {
         },
       },
       disabled = { -- disable formatting capabilities for the listed language servers
-        "html", -- eslint do it better that html-lsp (it doesnt read editorconfig)
+        -- "html", -- eslint do it better that html-lsp (it doesnt read editorconfig)
         -- "tsserver"
         -- "sumneko_lua",
       },
-      timeout_ms = 3000, -- default format timeout
+      timeout_ms = 15000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
       --   return true
       -- end
@@ -187,9 +187,25 @@ return {
       lua_ls = {
         settings = {
           Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+              version = "LuaJIT",
+            },
             hint = {
               enable = true, -- necessary
             },
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = { "vim" },
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+          -- Do not send telemetry data containing a randomized but unique identifier
+          telemetry = {
+            enable = false,
           },
         },
       },
@@ -219,6 +235,13 @@ return {
       },
       angularls = {
         filetypes = { "angular", "htmlangular", "typescript", "html", "typescriptreact", "typescript.tsx" },
+      },
+      jsonls = {
+        filetype = "json",
+      },
+
+      cssls = {
+        filetype = { "htmlangular", "html", "angular", "typescript" },
       },
 
       emmet_ls = {
@@ -294,9 +317,13 @@ return {
     -- request neovim v0.10+ for vim.ui.input
     -- and dressing.nvim for float window.
 
+    -- local dap = require "dap"
+    -- dap.adapters["node"].host = "127.0.0.1"
+    vim.o.winborder = "rounded"
+
     if vim.g.neovide then
       vim.cmd [[ set guifont=JetBrainsMono\ NF:h15]]
-      vim.cmd [[ let g:neovide_opacity=0.7 ]]
+      vim.cmd [[ let g:ovide_opacity=0.7 ]]
     end
 
     vim.keymap.set("i", "<M-.>", function()
@@ -305,6 +332,40 @@ return {
         if calc then vim.api.nvim_feedkeys(tostring(calc), "i", true) end
       end)
     end)
+
+    -- Enable builtin auto completion
+    -- vim.api.nvim_create_autocmd("LspAttach", {
+    --   callback = function(ev)
+    --     local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    --     if client:supports_method "textDocument/completion" then
+    --       -- Default triggerCharacters is dot only { "." }
+    --       -- Trigger autocompletion on EVERY letter. May be slow!
+    --       -- client.server_capabilities.completionProvider.triggerCharacters =
+    --       --   vim.split(".abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", "", true)
+    --
+    --       vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+    --     end
+    --   end,
+    -- })
+
+    -- vim.keymap.set("i", "<Tab>", function()
+    --   return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+    -- end, { expr = true })
+    --
+    -- vim.keymap.set("i", "<S-Tab>", function()
+    --   return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+    -- end, { expr = true })
+    --
+    -- vim.keymap.set("i", "<CR>", function()
+    --   return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+    -- end, { expr = true })
+    --
+    --
+
+    --macro
+
+    local esc = vim.api.nvim_replace_termcodes("<Esc>", true, true, true)
+    vim.fn.setreg("l", "yiwoconsole.log(" .. esc .. "p")
 
     -- USE POWER SHELL INSTEAD CMD
     -- local powershell_options = {
@@ -353,6 +414,10 @@ return {
     --     -- hl_mode = "replace",
     --   },
     -- }
+
+    -- vim.cmd [[
+    -- AvanteSwitchProvider openai
+    -- ]]
 
     vim.cmd [[
     let g:user_emmet_install_global = 0
@@ -443,39 +508,40 @@ return {
     --     end)
     --   end,
     -- })
-    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
-    parser_config.teraonline_definitions = {
-      install_info = {
-        url = "D://proxy//backstep//treesitter-teradefinition", -- local path or git repo
-        files = { "src/parser.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
-        -- optional entries:
-        branch = "main", -- default branch in case of git repo if different from master
-        generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-        requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-      },
-      filetype = "def", -- if filetype does not match the parser name
-    }
+    -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
-    vim.cmd [[
-    autocmd BufRead,BufEnter *.component.html set filetype=htmlangular
-    ]]
+    -- parser_config.teraonline_definitions = {
+    --   install_info = {
+    --     url = "D://proxy//backstep//treesitter-teradefinition", -- local path or git repo
+    --     files = { "src/parser.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+    --     -- optional entries:
+    --     branch = "main", -- default branch in case of git repo if different from master
+    --     generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+    --     requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+    --   },
+    --   filetype = "def", -- if filetype does not match the parser name
+    -- }
+
+    -- vim.cmd [[
+    -- autocmd BufRead,BufEnter *.component.html set filetype=htmlangular
+    -- ]]
     --
     -- также надо добавить filetype.vim с содержимым
     -- autocmd BufRead,BufEnter *.component.html set filetype=angular
     -- C:\Users\michaelcarno\AppData\Local\nvim-data\lazy\nvim-treesitter-angular\ftdetect
     --
 
-    parser_config.angular_beta = {
-      install_info = {
-        url = "D:\\angular17tree\\tree-sitter-angular", -- local path or git repo
-        files = { "src/parser.c", "src/scanner.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
-        -- optional entries:
-        branch = "main", -- default branch in case of git repo if different from master
-        generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-        requires_generate_from_grammar = true, -- if folder contains pre-generated src/parser.c
-      },
-    }
+    -- parser_config.angular_beta = {
+    --   install_info = {
+    --     url = "D:\\angular17tree\\tree-sitter-angular", -- local path or git repo
+    --     files = { "src/parser.c", "src/scanner.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+    --     -- optional entries:
+    --     branch = "main", -- default branch in case of git repo if different from master
+    --     generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+    --     requires_generate_from_grammar = true, -- if folder contains pre-generated src/parser.c
+    --   },
+    -- }
     --
     -- чтобы поменять стандартный репозиторий на свой но надо править lockfile
     --
@@ -605,11 +671,12 @@ return {
     --     'typescript.tsx',
     --   },
     -- }
-    -- fixing clangd bug with notification spam
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.offsetEncoding = { "utf-16" }
 
-    require("lspconfig").clangd.setup { capabilities = capabilities }
+    -- fixing clangd bug with notification spam
+    -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+    -- capabilities.offsetEncoding = { "utf-16" }
+
+    -- require("lspconfig").clangd.setup { capabilities = capabilities }
     require("notify").setup {
       stages = "static",
     }

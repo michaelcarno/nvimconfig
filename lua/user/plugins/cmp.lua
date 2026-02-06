@@ -165,6 +165,8 @@ return {
               minLength = 3,
             },
           },
+
+          { name = "cmp_zotcite", priority = 999 },
           { name = "nvim_lua", priority = 999 },
           { name = "latex_symbols", priority = 900 },
           { name = "buffer", priority = 500 },

@@ -29,7 +29,7 @@ return {
   event = "VeryLazy",
   config = function()
     require("octo").setup {
-      picker = "telescope", 
+      picker = "telescope",
       picker_config = {
         use_emojis = false,
         mappings = {
@@ -47,7 +47,7 @@ return {
       outdated_icon = "󰅒 ",
       resolved_icon = " ",
       timeline_marker = " ",
-      timeline_indent = "2",
+      timeline_indent = 2,
       right_bubble_delimiter = "",
       left_bubble_delimiter = "",
       github_hostname = "",

@@ -134,6 +134,7 @@ return {
     --   behavior = cmp.ConfirmBehavior.Insert,
     --   select = true,
     -- },
+    ["<F24>"] = { "<Esc>" },
 
     ["<C-s>"] = {
       function() vim.lsp.buf.signature_help { border = "rounded", silent = true } end,

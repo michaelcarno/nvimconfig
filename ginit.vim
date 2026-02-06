@@ -302,3 +302,6 @@ tnoremap <S-Backspace> <BackSpace>
 tnoremap <C-Backspace> <Backspace>
 " autocmd BufEnter * let &titlestring = "nvim: " . expand("%:t")
 
+ " let g:vimtex_compiler_latexmk = { 'out_dir' : 'build', } 
+" let g:OmniSharp_server_stdio = 0
+" let g:OmniSharp_server_path = "C:\Users\michaelcarno\AppData\Local\nvim-data\mason\packages\omnisharp\OmniSharp.exe"

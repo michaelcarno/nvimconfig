@@ -85,9 +85,15 @@
       },
       {
         "language": [
+          "json"
+        ],
+        "path": "./python/main.json"
+      },
+      {
+        "language": [
           "python"
         ],
-        "path": "./python/pyqt.json"
+        "path": "./json.json"
       },
       {
         "language": [
