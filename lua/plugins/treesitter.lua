@@ -1,134 +1,160 @@
 return {
-  "nvim-treesitter/nvim-treesitter",
-  event = "VeryLazy",
-  -- lazy = false,
-  tag = "v0.10.0",
-  -- branch = "master",
-  lazy = vim.fn.argc(-1) == 0,
-  dependencies = {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    {
-      "windwp/nvim-ts-autotag",
-      opts = {
-        enable = true,
-        enable_close_on_slash = true,
-        enable_close = true,
-        enable_rename = true,
-        filetype = { "html", "xml", "angular" },
-      },
-    },
-  },
-  -- event = "User AstroFile",
-  -- event = "VeryLazy",
-  cmd = {
-    "TSBufDisable",
-    "TSBufEnable",
-    "TSBufToggle",
-    "TSDisable",
-    "TSEnable",
-    "TSToggle",
-    "TSInstall",
-    "TSInstallInfo",
-    "TSInstallSync",
-    "TSModuleInfo",
-    "TSUninstall",
-    "TSUpdate",
-    "TSUpdateSync",
-  },
-  build = ":TSUpdate",
-  init = function(plugin)
-    -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
-    -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
-    -- no longer trigger the **nvim-treeitter** module to be loaded in time.
-    -- Luckily, the only thins that those plugins need are the custom queries, which we make available
-    -- during startup.
-    -- CODE FROM LazyVim (thanks folke!) https://github.com/LazyVim/LazyVim/commit/1e1b68d633d4bd4faa912ba5f49ab6b8601dc0c9
-    require("lazy.core.loader").add_to_rtp(plugin)
-    pcall(require, "nvim-treesitter.query_predicat")
-  end,
-  opts = function()
-    return {
-      -- autotag = { enable = true },
-      ts_context_commentstring = { enable = true, enable_autocmd = false },
-      -- HACK: force install of shipped neovim parsers since TSUpdate doesn't correctly update them
+
+  -- Treesitter is a new parser generator tool that we can
+  -- use in Neovim to power faster and more accurate
+  -- syntax highlighting.
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    commit = vim.fn.has "nvim-0.12" == 0 and "7caec274fd19c12b55902a5b795100d21531391f" or nil,
+    version = false, -- last release is way too old and doesn't work on Windows
+    build = function()
+      local TS = require "nvim-treesitter"
+      if not TS.get_installed then
+        LazyVim.error "Please restart Neovim and run `:TSUpdate` to use the `nvim-treesitter` **main** branch."
+        return
+      end
+      -- make sure we're using the latest treesitter util
+      -- package.loaded["lazyvim.util.treesitter"] = nil
+      -- LazyVim.treesitter.build(function() TS.update(nil, { summary = true }) end)
+    end,
+    event = { "VeryLazy" },
+    cmd = { "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
+    opts_extend = { "ensure_installed" },
+    ---@alias lazyvim.TSFeat { enable?: boolean, disable?: string[] }
+    ---@class lazyvim.TSConfig: TSConfig
+    opts = {
+      -- LazyVim config for treesitter
+      indent = { enable = true }, ---@type lazyvim.TSFeat
+      highlight = { enable = true }, ---@type lazyvim.TSFeat
+      folds = { enable = true }, ---@type lazyvim.TSFeat
       ensure_installed = {
         "bash",
         "c",
+        "diff",
+        "html",
+        "javascript",
+        "jsdoc",
+        "json",
         "lua",
+        "luadoc",
+        "luap",
         "markdown",
         "markdown_inline",
+        "printf",
         "python",
         "query",
+        "regex",
+        "toml",
+        "tsx",
+        "typescript",
         "vim",
         "vimdoc",
+        "xml",
+        "yaml",
       },
-      highlight = {
-        enable = true,
-        -- disable = function(_, bufnr) return vim.b[bufnr].large_buf end,
-      },
-      incremental_selection = { enable = true },
-      indent = { enable = true },
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true,
-          keymaps = {
-            ["ak"] = { query = "@block.outer", desc = "around block" },
-            ["ik"] = { query = "@block.inner", desc = "inside block" },
-            ["ac"] = { query = "@class.outer", desc = "around class" },
-            ["ic"] = { query = "@class.inner", desc = "inside class" },
-            ["a?"] = { query = "@conditional.outer", desc = "around conditional" },
-            ["i?"] = { query = "@conditional.inner", desc = "inside conditional" },
-            ["af"] = { query = "@function.outer", desc = "around function " },
-            ["if"] = { query = "@function.inner", desc = "inside function " },
-            ["al"] = { query = "@loop.outer", desc = "around loop" },
-            ["il"] = { query = "@loop.inner", desc = "inside loop" },
-            ["aa"] = { query = "@parameter.outer", desc = "around argument" },
-            ["ia"] = { query = "@parameter.inner", desc = "inside argument" },
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true,
-          goto_next_start = {
-            ["]k"] = { query = "@block.outer", desc = "Next block start" },
-            ["]f"] = { query = "@function.outer", desc = "Next function start" },
-            ["]a"] = { query = "@parameter.inner", desc = "Next argument start" },
-          },
-          goto_next_end = {
-            ["]K"] = { query = "@block.outer", desc = "Next block end" },
-            ["]F"] = { query = "@function.outer", desc = "Next function end" },
-            ["]A"] = { query = "@parameter.inner", desc = "Next argument end" },
-          },
-          goto_previous_start = {
-            ["[k"] = { query = "@block.outer", desc = "Previous block start" },
-            ["[f"] = { query = "@function.outer", desc = "Previous function start" },
-            ["[a"] = { query = "@parameter.inner", desc = "Previous argument start" },
-          },
-          goto_previous_end = {
-            ["[K"] = { query = "@block.outer", desc = "Previous block end" },
-            ["[F"] = { query = "@function.outer", desc = "Previous function end" },
-            ["[A"] = { query = "@parameter.inner", desc = "Previous argument end" },
-          },
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            [">K"] = { query = "@block.outer", desc = "Swap next block" },
-            [">F"] = { query = "@function.outer", desc = "Swap next function" },
-            [">a"] = { query = "@parameter.inner", desc = "Swap next argument" },
-          },
-          swap_previous = {
-            ["<K"] = { query = "@block.outer", desc = "Swap previous block" },
-            ["<F"] = { query = "@function.outer", desc = "Swap previous function" },
-            ["<a"] = { query = "@parameter.inner", desc = "Swap previous argument" },
-          },
-        },
-      },
-    }
-  end,
+    },
+    ---@param opts lazyvim.TSConfig
+    config = function(_, opts)
+      local TS = require "nvim-treesitter"
 
-  config = require "plugins.configs.nvim-treesitter",
-  -- config = function(...) require "astronvim.plugins.configs.nvim-treesitter"(...) end,
+      -- some quick sanity checks
+      TS.setup(opts)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("lazyvim_treesitter", { clear = true }),
+        callback = function(ev)
+          local ft, lang = ev.match, vim.treesitter.language.get_lang(ev.match)
+          -- if not LazyVim.treesitter.have(ft) then return end
+
+          ---@param feat string
+          ---@param query string
+          local function enabled(feat, query)
+            local f = opts[feat] or {} ---@type lazyvim.TSFeat
+            return f.enable ~= false and not (type(f.disable) == "table" and vim.tbl_contains(f.disable, lang))
+            -- and LazyVim.treesitter.have(ft, query)
+          end
+
+          -- highlighting
+          if enabled("highlight", "highlights") then pcall(vim.treesitter.start, ev.buf) end
+
+          if opts.indent.enable then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
+          if opts.folds and opts.folds.enable then
+            vim.wo.foldmethod = "expr"
+            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          end
+        end,
+      })
+    end,
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    event = "VeryLazy",
+    opts = {
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+        -- LazyVim extention to create buffer-local keymaps
+        keys = {
+          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
+        },
+      },
+    },
+    config = function(_, opts)
+      local TS = require "nvim-treesitter-textobjects"
+      if not TS.setup then
+        LazyVim.error "Please use `:Lazy` and update `nvim-treesitter`"
+        return
+      end
+      TS.setup(opts)
+
+      local function attach(buf)
+        local ft = vim.bo[buf].filetype
+        if not (vim.tbl_get(opts, "move", "enable") and LazyVim.treesitter.have(ft, "textobjects")) then return end
+        ---@type table<string, table<string, string>>
+        local moves = vim.tbl_get(opts, "move", "keys") or {}
+
+        for method, keymaps in pairs(moves) do
+          for key, query in pairs(keymaps) do
+            local queries = type(query) == "table" and query or { query }
+            local parts = {}
+            for _, q in ipairs(queries) do
+              local part = q:gsub("@", ""):gsub("%..*", "")
+              part = part:sub(1, 1):upper() .. part:sub(2)
+              table.insert(parts, part)
+            end
+            local desc = table.concat(parts, " or ")
+            desc = (key:sub(1, 1) == "[" and "Prev " or "Next ") .. desc
+            desc = desc .. (key:sub(2, 2) == key:sub(2, 2):upper() and " End" or " Start")
+            vim.keymap.set({ "n", "x", "o" }, key, function()
+              if vim.wo.diff and key:find "[cC]" then return vim.cmd("normal! " .. key) end
+              require("nvim-treesitter-textobjects.move")[method](query, "textobjects")
+            end, {
+              buffer = buf,
+              desc = desc,
+              silent = true,
+            })
+          end
+        end
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("lazyvim_treesitter_textobjects", { clear = true }),
+        callback = function(ev) attach(ev.buf) end,
+      })
+      vim.tbl_map(attach, vim.api.nvim_list_bufs())
+    end,
+  },
+
+  -- Automatically add closing tags for HTML and JSX
+  {
+    "windwp/nvim-ts-autotag",
+    event = "VeryLazy",
+    opts = {},
+  },
 }
