@@ -268,7 +268,7 @@ return {
     end,
     keys = {
 
-      -- { "fs", function() require("fyler").open() end, desc = "open oil" },
+      { "<leader>o", function() require("fyler").open() end, desc = "open fyler" },
       -- { "", function() end, desc ="" },
     },
   },

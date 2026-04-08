@@ -6,6 +6,20 @@ return {
   },
 
   {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    event = "VeryLazy",
+    -- branch = "main",
+    enabled = false,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      vim.g.skip_ts_context_commentstring_module = true
+      require("ts_context_commentstring").setup {}
+    end,
+  },
+
+  {
     "jbyuki/venn.nvim",
     event = "VeryLazy",
     config = function()

@@ -26,7 +26,7 @@ return {
   {
     "smartpde/telescope-recent-files",
     event = "VeryLazy",
-    -- config = function() require("telescope").load_extension "recent_files" end,
+    config = function() require("telescope").load_extension "recent_files" end,
     keys = {
       { "<leader>fo", function() require("telescope").extensions.recent_files.pick() end, desc = "Open recent files" },
     },
@@ -37,7 +37,7 @@ return {
     "chip/telescope-software-licenses.nvim",
     -- event = "VeryLazy",
     -- lazy = false,
-    -- config = function() require("telescope").load_extension "software-licenses" end,
+    config = function() require("telescope").load_extension "software-licenses" end,
     keys = {
       { "<leader>fll", "<cmd>Telescope software-licenses find<CR>", desc = "Find software license text" },
     },

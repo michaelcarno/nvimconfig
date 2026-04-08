@@ -510,7 +510,7 @@ return {
     -- })
 
     -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-
+    --
     -- parser_config.teraonline_definitions = {
     --   install_info = {
     --     url = "D://proxy//backstep//treesitter-teradefinition", -- local path or git repo
@@ -523,9 +523,7 @@ return {
     --   filetype = "def", -- if filetype does not match the parser name
     -- }
 
-    -- vim.cmd [[
-    -- autocmd BufRead,BufEnter *.component.html set filetype=htmlangular
-    -- ]]
+    vim.cmd [[ autocmd BufRead,BufEnter *.component.html set filetype=htmlangular ]]
     --
     -- также надо добавить filetype.vim с содержимым
     -- autocmd BufRead,BufEnter *.component.html set filetype=angular
@@ -560,6 +558,9 @@ return {
     --                                           end
     --
     --
+
+    -- vim.keymap.set("n", ">a", function() require("nvim-treesitter-textobjects.swap").swap_next "@parameter.inner" end)
+    -- vim.keymap.set("n", "<a", function() require("nvim-treesitter-textobjects.swap").swap_next "@parameter.outer" end)
 
     require("notify").setup {
       background_colour = "NotifyBackground",
