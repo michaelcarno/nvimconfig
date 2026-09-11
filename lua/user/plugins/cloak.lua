@@ -1,7 +1,7 @@
 return {
   "laytan/cloak.nvim",
   event = "VeryLazy",
-  enabled = true,
+  enabled = false,
   config = function()
     local cfg = {
       enabled = true,

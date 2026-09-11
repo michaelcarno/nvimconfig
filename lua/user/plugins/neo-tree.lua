@@ -218,18 +218,18 @@ return {
         },
 
         -- Key mappings
-        mappings = {
-          ["q"] = "CloseView",
-          ["<CR>"] = "Select",
-          ["<C-t>"] = "SelectTab",
-          ["|"] = "SelectVSplit",
-          ["-"] = "SelectSplit",
-          ["^"] = "GotoParent",
-          ["="] = "GotoCwd",
-          ["."] = "GotoNode",
-          ["#"] = "CollapseAll",
-          ["<BS>"] = "CollapseNode",
-        },
+        -- mappings = {
+        --   ["q"] = "CloseView",
+        --   ["<CR>"] = "Select",
+        --   ["<C-t>"] = "SelectTab",
+        --   ["|"] = "SelectVSplit",
+        --   ["-"] = "SelectSplit",
+        --   ["^"] = "GotoParent",
+        --   ["="] = "GotoCwd",
+        --   ["."] = "GotoNode",
+        --   ["#"] = "CollapseAll",
+        --   ["<BS>"] = "CollapseNode",
+        -- },
 
         popups = {
           permission = {

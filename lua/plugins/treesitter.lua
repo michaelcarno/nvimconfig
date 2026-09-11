@@ -78,11 +78,11 @@ return {
           -- highlighting
           if enabled("highlight", "highlights") then pcall(vim.treesitter.start, ev.buf) end
 
-          if opts.indent.enable then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
-          if opts.folds and opts.folds.enable then
-            vim.wo.foldmethod = "expr"
-            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-          end
+          -- if opts.indent.enable then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
+          -- if opts.folds and opts.folds.enable then
+          --   vim.wo.foldmethod = "expr"
+          --   vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          -- end
         end,
       })
     end,
